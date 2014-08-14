@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load staticfiles %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>主页</title>
+  <link href="{% static 'css/style.css'%}" rel="stylesheet" charset="utf-8" />
+</head>
+<body>
+  <div class="header">
+    <div class="wrap">
+      <div class="topbar">
+        <span class="left">
+          欢迎来到至诚迅达网！[
+          <a href="login.html" >登录</a>
+          |
+          <a href="reg.html" >注册</a>
+          ]
+        </span>
+        <span class="right">客服热线 010-83790418</span>
+      </div>
+      <div class="logo left">
+        <img src="{% static 'images/logo.png'%}"></div>
+      <ul class="navbar right">
+        <li>
+          <a href="/t/index" >首页</a>
+        </li>
+        <li>
+          <a href="/t/download" >下载</a>
+        </li>
+        <li>
+          <a href="/t/individual" >个人中心</a>
+        </li>
+        <li>
+          <a href="/t/about" >关于我们</a>
+        </li>
+        <li>
+          <a href="/t/question" >常见问题</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+	{% block body_block %}
+	{% endblock %}
+
+  <div class="footer">
+    <p class="link">
+      <a href="javascript:;">常见问题</a>
+      |
+      <a href="javascript:;">下载中心</a>
+      |
+      <a href="javascript:;">联系方式</a>
+      |
+      <a href="javascript:;">关于我们</a>
+    </p>
+    <p>
+      Copyright © 2014 北京至诚迅达物流有限公司 All Rights Reserved.  京ICP备14016441号
+    </p>
+    <p>地址：北京市大兴区西芦物流园9号 Email：master@thunder56.com</p>
+  </div>
+  <script type="text/javascript" src="{% static 'js/jquery-1.7.min.js'%}"></script>
+  <script type="text/javascript" src="{% static 'js/script.js'%}"></script>
+</body>
+</html>
+

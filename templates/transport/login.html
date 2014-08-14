@@ -1,0 +1,29 @@
+{% extends "transport/base.html" %}
+{% load staticfiles %}
+{% block body_block %}
+	<div class="wrap ">
+		<div class="content-login">
+			<div class="right login">
+				<div class="title">
+					<span>用户登录</span>
+					<p>本帐号提供发布需求订单的功能等服务</p>
+				</div>
+				<div class="login-data">
+					<input type="text" class="login-input user" value="请输入您的用户名" >
+					<input type="text" class="login-input pwd" value="请输入您的密码" >
+					<div class="remember">
+						<input type="checkbox" class="login-checkbox left">
+						记住我
+						<a href="javascript:;" class="right">忘记密码？</a>
+					</div>
+					<button type="button" class="btn login-btn">登录</button>
+					<div class="link">
+						没有帐号？
+						<a href="reg.html">免费注册</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+{% endblock %}
