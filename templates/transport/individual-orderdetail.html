@@ -1,6 +1,6 @@
 {% extends "transport/base.html" %}
 {% load staticfiles %}
-{% block title %}订单详情{% endblock %}
+{% block title %}个人中心{% endblock %}
 {% block body_block %}
   <div class="wrap content-Inc">
     <div class="side-nav left">
@@ -36,70 +36,119 @@
     <div class="main-content left">
       <div class="order-head">
         <span>订单号：1310011919661</span>
-        <div class="order-head-right">
+        <div class="head-right">
           订单状态：
           <span>进行中</span>
         </div>
       </div>
-        <div class="order-tab">
-          <ul class="tabmenu">
-            <li class="">
-              <a href="javascript:;">物流信息</a>
-            </li>
-            <li class="hover">
-              <a href="javascript:;">位置跟踪</a>
-            </li>
-          </ul>
-          <div class="tabitem logi">
-            <div class="logi-row">
-              <span class="time">2014-06-18 23:14:17</span>
-              <span class="desc">您提交了订单</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-06-18 23:32:53</span>
-              <span class="desc">哈尔滨市 30公里</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-06-27 00:00:43</span>
-              <span class="desc">京哈高速公路 209.5公里</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-06-27 13:10:10</span>
-              <span class="desc">长春绕城高速公路 19.1公里</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-07-04 19:41:35</span>
-              <span class="desc">珲乌高速公路 419.5公里 图们/G302 出口离开</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-07-05 11:31:30</span>
-              <span class="desc">延边朝鲜族自治州 20.5公里</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-06-18 23:32:53</span>
-              <span class="desc">哈尔滨市 30公里</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-06-27 00:00:43</span>
-              <span class="desc">京哈高速公路 209.5公里</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-06-27 13:10:10</span>
-              <span class="desc">长春绕城高速公路 19.1公里</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-07-04 19:41:35</span>
-              <span class="desc">珲乌高速公路 419.5公里 图们/G302 出口离开</span>
-            </div>
-            <div class="logi-row">
-              <span class="time">2014-07-05 11:31:30</span>
-              <span class="desc">延边朝鲜族自治州 20.5公里</span>
-            </div>
-          </div>
-          <div class="tabitem posi" style="display: none;"></div>
+      <div class="order-tab">
+        <ul class="tabmenu">
+          <li class="hover">
+            <a href="javascript:;">物流信息</a>
+          </li>
+          <li class="">
+            <a href="javascript:;">位置跟踪</a>
+          </li>
+        </ul>
+        <div class="tabitem">
+          <dl class="l-horizontal">
+            <dt>2014-06-18 23:14:17</dt>
+            <dd >您提交了订单</dd>
+            <dt>2014-06-18 23:32:53</dt>
+            <dd >哈尔滨市 30公里</dd>
+            <dt>2014-06-27 00:00:43</dt>
+            <dd>京哈高速公路 209.5公里</dd>
+            <dt>2014-06-27 13:10:10</dt>
+            <dd>长春绕城高速公路 19.1公里</dd>
+            <dt>2014-07-04 19:41:35</dt>
+            <dd>珲乌高速公路 419.5公里 图们/G302 出口离开</dd>
+            <dt>2014-07-05 11:31:30</dt>
+            <dd>延边朝鲜族自治州 20.5公里</dd>
+            <dt>2014-06-18 23:32:53</dt>
+            <dd>哈尔滨市 30公里</dd>
+            <dt>2014-06-27 00:00:43</dt>
+            <dd>京哈高速公路 209.5公里</dd>
+            <dt>2014-06-27 13:10:10</dt>
+            <dd>长春绕城高速公路 19.1公里</dd>
+            <dt>2014-07-04 19:41:35</dt>
+            <dd>珲乌高速公路 419.5公里 图们/G302 出口离开</dd>
+            <dt>2014-07-05 11:31:30</dt>
+            <dd>延边朝鲜族自治州 20.5公里</dd>
+          </dl>
         </div>
+        <div class="tabitem posi" style="display: none;"></div>
       </div>
+      <div class="sub-head">
+        <span>货物信息</span>
+      </div>
+      <div class="subitem">
+        <dl class="c-horizontal">
+          <dt>货物装车地点：</dt>
+          <dd>哈尔滨市海州区西山路1号</dd>
+          <dt>货物卸车地点：</dt>
+          <dd>镇中市黄山街与三纬路交汇处北侧</dd>
+          <dt>提货时间：</dt>
+          <dd>2014年8月15日 14时30分</dd>
+          <dt>计划到达目的地的时间：</dt>
+          <dd>2014年8月10日</dd>
+          <dt>您要运输的货品名称：</dt>
+          <dd>塔吊</dd>
+          <dt>被运输货品的总价值：</dt>
+          <dd>1,200,000.00元</dd>
+          <dt>有多少货板（托盘/卡板）：</dt>
+          <dd>10</dd>
+          <dt>有多少数量：</dt>
+          <dd>2</dd>
+          <dt>总重为多少：</dt>
+          <dd>6吨</dd>
+          <dt>总尺寸为多少：</dt>
+          <dd>长 10米 / 宽 3米 / 高 2米</dd>
+          <dt>总体积为多少：</dt>
+          <dd>120方</dd>
+          <dt>您需要哪种货车：</dt>
+          <dd>平板车</dd>
+          <dt>您需要的车辆长度：</dt>
+          <dd>7米</dd>
+          <dt>您的货物中是否包含危险品吗：</dt>
+          <dd>否</dd>
+          <dt>货物可堆放吗：</dt>
+          <dd>是</dd>
+          <dt>是底板载荷吗：</dt>
+          <dd>是</dd>
+          <dt>是否需要司机协助装卸工作：</dt>
+          <dd>无</dd>
+          <dt>是否需要购买货物保险：</dt>
+          <dd>否</dd>
+          <dt>请对您的货物及货运要求作出简单说明：</dt>
+          <dd>货物6吨，恭城县到广西来宾象州县货源，有货找车</dd>
+        </dl>
+      </div>
+      <div class="sub-head">
+        <span>发货信息</span>
+      </div>
+      <div class="subitem">
+        <dl class="c-horizontal">
+          <dt>称呼：</dt>
+          <dd>张师傅</dd>
+          <dt>报价：</dt>
+          <dd>3,800.00元</dd>
+          <dt>身份证：</dt>
+          <dd>23030619831215****</dd>
+          <dt>手机号：</dt>
+          <dd>13399125376</dd>
+          <dt>车牌号码：</dt>
+          <dd>黑A35B08-01</dd>
+          <dt>挂车号码：</dt>
+          <dd>挂4WEI</dd>
+          <dt>车辆类型：</dt>
+          <dd>中型半挂货车</dd>
+          <dt>车辆长度：</dt>
+          <dd>6.5 米</dd>
+          <dt>最大载重：</dt>
+          <dd>21.5 吨</dd>
+        </dl>
+      </div>
+    </div>
     <div class="clearfix"></div>
   </div>
-  <div class="clearfix"></div>
-{% endblock %}
+  {% endblock %}

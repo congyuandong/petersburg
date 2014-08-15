@@ -31,10 +31,10 @@ body{
   font-weight: bold;
   outline: none;
 }
-.btn:hover{
+.btn:hover, .btn.hover{
 background-color: #ff6000;
 }
-.btn:active{
+.btn:active, .btn.active{
 background-color: #ff1000;
 }
 select{
@@ -253,7 +253,7 @@ outline: none;
   display: inline-block;
 }
 .header .navbar li a:hover,
-.header .navbar li a.hover{
+.header .navbar li.active a{
   color: #fff;
   background-color: #ff5000;
   border-radius: 25px;
@@ -584,6 +584,8 @@ outline: none;
   width: 710px;
   padding-left: 30px;
   padding-right: 30px;
+  padding-bottom: 20px;
+  min-height: 300px;
 }
 .content-Inc .main-content .order-head{
   padding-top: 14px;
@@ -631,14 +633,14 @@ outline: none;
 .content-Inc .main-content .order-head .order-list a.active{
   color: #ff5000;
 }
-.content-Inc .main-content .order-head-right{
+.content-Inc .main-content .head-right{
   float: right;
   font-size: 12px;
   font-weight: bold;
   line-height: 24px;
   color: #666;
 }
-.content-Inc .main-content .order-head-right span{
+.content-Inc .main-content .head-right span{
   font-size: 12px;
   color: #3ed12b;
 }
@@ -661,6 +663,14 @@ outline: none;
   line-height: 24px;
   padding-left: 7px;
   padding-right: 6px;
+}
+.content-Inc .main-content .main-order .hint .refresh-btn:hover,
+.content-Inc .main-content .main-order .hint .refresh-btn:focus{
+  background-color: #fafafa;
+}
+.content-Inc .main-content .main-order .hint .refresh-btn:active, 
+.content-Inc .main-content .main-order .hint .refresh-btn.active {
+  background-color: #fafafa; 
 }
 .content-Inc .main-content .main-order .hint .refresh-btn span{
   color: #666;
@@ -704,6 +714,13 @@ outline: none;
   width: 403px;
   padding: 14px; 
   line-height: 22px;
+}
+.order-box .order-row p{
+  white-space: nowrap;
+  width: 100%;                   /* IE6 needs any width */
+  overflow: hidden;              /* "overflow" value must be different from "visible" */ 
+  -o-text-overflow: ellipsis;    /* Opera 9-10 */
+  text-overflow:    ellipsis;    /* IE, WebKit (Safari, Chrome), Firefox 7, Opera 11 */
 }
 .order-box .order-row .order-info p:first-child{
   color: #ff5000;
@@ -809,17 +826,116 @@ outline: none;
   border-left: 1px solid #dfdfdf;
   border-bottom: 1px solid #dfdfdf;
 }
-.content-Inc .main-content .order-tab .logi .logi-row{
-  height: 26px;
+
+.content-Inc .main-content .sub-head{
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+.content-Inc .main-content .sub-head span{
+  font-family:'Microsoft YaHei'; 
+  font-size: 18px;
+  color: #111;
+}
+.content-Inc .main-content .subitem{
+  border: 1px solid #dfdfdf;
+  margin-bottom: 10px;
+  padding-top: 13px;
+  padding-bottom: 15px;
+}
+.l-horizontal dt {
+  float: left;
+  width: 176px;
+  overflow: hidden;
+  clear: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: 26px;
   color: #333;
 }
-.content-Inc .main-content .order-tab .logi .logi-row .time{
-  padding-right:48px; 
+.l-horizontal dd {
+  margin-left: 176px;
+  line-height: 26px;
+  color: #333;
+}
+.l-horizontal dd:before, .l-horizontal dd:after{
+display: table;
+content: " ";
+}
+.l-horizontal dd:after{
+clear: both;
+}
+.c-horizontal dt {
+  float: left;
+  width: 250px;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 30px;
+  color: #333;
+}
+.c-horizontal dd {
+  margin-left: 258px;
+  line-height: 30px;
+  color: #333;
+}
+.c-horizontal dd:before, .c-horizontal dd:after{
+display: table;
+content: " ";
+}
+.c-horizontal dd:after{
+clear: both;
+}
+
+.content-Inc .main-content .order-pub{
+  padding-top: 22px;
+}
+
+.content-Inc .main-content .order-pub .item-row .key{
+  width: 186px;
+  text-align: right;
+  padding-top: 12px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  float: left;
+}
+.content-Inc .main-content .order-pub .item-row .val{
+  width: 508px;
+  margin-left: 10px;
+  float: left;
+}
+.content-Inc .main-content .order-pub .item-row .val span{
+  float: left;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #333;
+  margin-left: 12px;
+}
+
+.content-Inc .main-content .order-pub .item-row .val .input-pub{
+  float: left;
+  width: 280px;
+  display: block;
+  padding: 0 20px;
+}
+.content-Inc .main-content .order-pub .item-row .val textarea{
+  width: 95%;
+  height: 160px;
+  background-color: #fff;
+  border:1px solid #ccc; 
+  color: #999;
+  padding: 10px;
+  line-height: 24px;
+}
+.content-Inc .main-content .order-pub .item-row .val textarea:focus{
+  border-color: #ff5000;
+  outline: none;
 }
 .content-Inc .main-content .pag-navbar{
   clear: both;
-  margin: 20px auto;
+  margin-top: 20px;
   text-align: center;
 }
 .content-Inc .main-content .pag-navbar .pag-nav{
@@ -953,48 +1069,49 @@ outline: none;
 .content-reg .regitem{
   padding-top: 34px;
 }
-.content-reg .regitem .item{
+.item-row{
   padding-bottom: 18px;
   display:block;
   clear: both;
+  overflow: hidden;
 }
-.content-reg .regitem .item:before, 
-.content-reg .regitem .item:after {
+.item-row:before, 
+.item-row:after {
   display: table;
   line-height: 0;
   content: "";
 }
-.content-reg .regitem .item .itemkey{
+.item-row .key{
   width: 30%;
   text-align: right;
   padding-top: 12px;
   font-size: 14px;
   font-weight: bold;
   color: #111;
-
+  float: left;
 }
-.content-reg .regitem .item .itemval{
+.item-row .val{
   width: 68%;
   margin-left: 20px;
+  float: left;
 }
 
-.content-reg .regitem .item .itemval .input-reg{
+.content-reg .regitem .item-row .val .input-reg{
   width: 50%;
   display: block;
   padding: 0 20px;
 }
-
-.itemval .regcb{
+.content-reg .regitem .item-row .val .regcb{
   margin-top: 12px;
   margin-left: -20px;
 }
-.itemval a{
+.item-row .val a{
   color: #ff5000;
   font-weight: bold;
   line-height: 36px;
   cursor: pointer;
 }
-.itemval .btn{
+.item-row .val .btn{
   width: 200px; 
   margin-bottom: 20px;  
 }
@@ -1013,40 +1130,34 @@ outline: none;
 .dialog { 
   background-color:#fff; 
   border:1px solid rgba(0,0,0, 0.4); 
-  height:800px; 
+  height:600px; 
   /*position:fixed !important;  浮动对话框 */ 
   position:absolute; 
   margin:-200px 0 0 -200px; 
-  padding:1px; 
+  padding:20px; 
   top:50%; 
-  width:800px; 
+  width:600px; 
   z-index:5; 
   border-radius:5px; 
   display:none; 
 } 
-.dialog p { 
-  margin:0 0 12px; 
-  height:24px; 
-  line-height:24px; 
-  background:#CCCCCC; 
-} 
-.dialog p.close { 
-  text-align:right; 
-  padding-right:10px; 
-} 
-.dialog p.close a { 
-  color:#fff; 
-  text-decoration:none; 
-  line-height: 24px;
-} 
-.dialog .diacontent title{
+
+.dialog  .title{
   text-align: center;
-  font-size: 18px;
+  font-family: 'Microsoft YaHei';
+  font-size: 20px;
   font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 0;
 }
 .dialog .diacontent{
+  font-size: 14px;
   text-indent:30px;
-  line-height: 20px;
+  line-height: 24px;
+}
+.dialog .diacontent .btnarea{
+  text-align: center;
+  padding-top: 20px;
 }
 
 
