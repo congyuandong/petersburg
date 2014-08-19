@@ -1,10 +1,17 @@
 // JavaScript Document
 $(document).ready(function(){
+
+  //首页选项卡切换
+  $('.navbar').find('li').mouseenter(function(){
+    $(this).addClass('active').siblings().removeClass('active');
+  })
+  
+
 	var selects=$('select');//获取select
-for(var i=0;i<selects.length;i++){
-  createSelect(selects[i],i);
-}
-function createSelect(select_container,index){
+  for(var i=0;i<selects.length;i++){
+    createSelect(selects[i],i);
+  }
+  function createSelect(select_container,index){
   //创建select容器，class为select_box，插入到select标签前
   var tag_select=$('<div></div>');//div相当于select标签
   tag_select.attr('class','select_box');

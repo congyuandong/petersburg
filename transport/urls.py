@@ -10,4 +10,6 @@ urlpatterns = patterns('',
 	url(r'^login', views.login, name='login'),
 	url(r'^question', views.question, name='question'),
 	url(r'^reg', views.reg, name='reg'),
+	url(r'^action_reg',views.action_reg,name='action_reg'),
+	url(r'^driver_reg',views.driver_reg,name='driver_reg'),
 	)

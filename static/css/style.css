@@ -1101,6 +1101,13 @@ clear: both;
   display: block;
   padding: 0 20px;
 }
+
+.content-reg .regitem .item-row .val input{
+  width: 50%;
+  display: block;
+  padding: 0 20px;
+}
+
 .content-reg .regitem .item-row .val .regcb{
   margin-top: 12px;
   margin-left: -20px;
