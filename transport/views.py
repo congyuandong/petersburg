@@ -54,8 +54,9 @@ def driver_reg(request):
 
 	if request.method == 'POST':
 
-		driverForm = DriverForm(data=request.POST)
 		print request.POST
+		driverForm = DriverForm(data=request.POST)
+
 
 		if driverForm.is_valid():
 			print 'YES!'
