@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from transport.forms import DriverForm
 
@@ -46,6 +47,8 @@ def action_reg(request):
         context_dict,
         context)
 
+
+@csrf_exempt 
 def driver_reg(request):
 	context = RequestContext(request)
 	context_dict = {}
