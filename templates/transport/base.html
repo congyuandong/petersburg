@@ -13,9 +13,15 @@
       <div class="topbar">
         <span class="left">
           欢迎来到至诚迅达网！[
-          <a href="/t/login" >登录</a>
+          {% if not request.session.username %}
+          <a href="/t/login">登录</a>
           |
-          <a href="/t/reg" >注册</a>
+          <a href="/t/reg">注册</a>
+          {% else %}
+          <a href="/t/individual" >{{request.session.username}}</a>
+          |
+          <a href="/t/logout" >注销</a>
+          {% endif %}
           ]
         </span>
         <span class="right">客服热线 010-83790418</span>

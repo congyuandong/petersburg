@@ -1,38 +1,7 @@
-{% extends "transport/base.html" %}
+{% extends "transport/base-individual.html" %}
 {% load staticfiles %}
 {% block title %}个人中心{% endblock %}
-{% block body_block %}
-  <div class="wrap content-Inc">
-    <div class="side-nav left">
-      <dl class="nav-list">
-        <dt>
-          <span>我的订单</span>
-        </dt>
-        <dd>
-          <ul>
-            <li>
-              <a href="individual-orderlist.html">订单管理</a>
-            </li>
-            <li class="active">
-              <a href="individual-orderpublish.html">订单发布</a>
-            </li>
-          </ul>
-        </dd>
-        <dt>
-          <span>账号管理</span>
-        </dt>
-        <dd>
-          <ul>
-            <li>
-              <a href="">个人资料</a>
-            </li>
-            <li>
-              <a href="">修改密码</a>
-            </li>
-          </ul>
-        </dd>
-      </dl>
-    </div>
+{% block left_block %}
     <div class="main-content left">
       <div class="order-head">
         <span>订单发布</span>
@@ -177,5 +146,4 @@
       </div>
     </div>
     <div class="clearfix"></div>
-  </div>
   {% endblock %}

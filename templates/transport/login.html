@@ -10,14 +10,16 @@
 					<p>本帐号提供发布需求订单的功能等服务</p>
 				</div>
 				<div class="login-data">
-					<input type="text" class="login-input user" value="请输入您的用户名" >
-					<input type="text" class="login-input pwd" value="请输入您的密码" >
+					<form action="/t/login" id="login" method="post" enctype="multipart/form-data">
+					<input type="text" class="login-input user" name="name" value="请输入您的用户名" >
+					<input type="text" class="login-input pwd" name="pwd" value="请输入您的密码" >
 					<div class="remember">
 						<input type="checkbox" class="login-checkbox left">
 						记住我
 						<a href="javascript:;" class="right">忘记密码？</a>
 					</div>
-					<button type="button" class="btn login-btn">登录</button>
+					<button type="submit" class="btn login-btn">登录</button>
+					</form>
 					<div class="link">
 						没有帐号？
 						<a href="/t/reg">免费注册</a>

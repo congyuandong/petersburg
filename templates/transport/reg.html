@@ -5,50 +5,54 @@
 	<div class="wrap content-reg">
 		<div class="title">
 			<span>注册帐号</span>
+			{% if registered %}
+				<p>注册成功，点此<a href="/t/login/">登录</a></p>
+        	{% else %}
 			<p>
 				本帐号提供发布需求订单的功能等服务。如果您已拥有账号，则可
 				<a href="/t/login">点此登陆</a>
 			</p>
+			{% endif %}
 		</div>
-		<form id="client_form" method="post" action="/t/action_reg/"
+		<form id="client_form" method="post" action="/t/reg/"
               enctype="multipart/form-data">
-        {% csrf_token %}
 		<div class="regitem">
 			<div class="item-row">
 				<div class="key">电邮地址：</div>
 				<div class="val">
-					<input id='mail' type="text" class="input-reg" ></div>
+					<input id="clt_mail" name="clt_mail" type="text" class="input-reg" />
+				</div>
 			</div>
 			<div class="item-row">
 				<div class="key">设置密码：</div>
 				<div class="val">
-					<input id='pwd' type="password" class="input-reg" ></div>
+					<input id='clt_pwd' name="clt_pwd" type="password" class="input-reg" /></div>
 			</div>
 			<div class="item-row">
 				<div class="key">确认密码：</div>
 				<div class="val">
-					<input id='pwd_a' type="password" class="input-reg" ></div>
+					<input id='clt_pwd_a' name="clt_pwd_a" type="password" class="input-reg" /></div>
 			</div>
 			<div class="item-row">
 				<div class="key">如何称呼您：</div>
 				<div class="val">
-					<input id='name' type="text" class="input-reg" ></div>
+					<input id='clt_name' name="clt_name" type="text" class="input-reg" /></div>
 			</div>
 			<div class="item-row">
 				<div class="key">联系电话：</div>
 				<div class="val">
-					<input id='tel' type="text" class="input-reg" ></div>
+					<input id='clt_tel' name="clt_tel" type="text" class="input-reg" /></div>
 			</div>
 			<div class="item-row">
 				<div class="key">公司名称：</div>
 				<div class="val">
-					<input id='company' type="text" class="input-reg" ></div>
+					<input id='clt_company' name="clt_company" type="text" class="input-reg" /></div>
 			</div>
 			<div class="item-row">
 				<div class="key">职位：</div>
 				<div class="val">
-					<select name="position" id="position">
-						<option value="选" selected="selected">以下哪个职位与您最相符</option>
+					<select name="clt_position" id="clt_position">
+						<option value="选择风格" selected="selected">以下哪个职位与您最相符</option>
 						<option value="">董事长</option>
 						<option value="">总经理</option>
 						<option value="">副总经理</option>
@@ -61,7 +65,7 @@
 			<div class="item-row">
 				<div class="key">行业：</div>
 				<div class="val">
-					<select name="industry" id="industry">
+					<select name="clt_industry" id="clt_industry">
 						<option value="选择风格" selected="selected">请选择您的行业</option>
 						<option value="">IT</option>
 						<option value="">IT</option>
@@ -75,7 +79,7 @@
 			<div class="item-row">
 				<div class="key">访问途径：</div>
 				<div class="val">
-					<select name="from" id="from">
+					<select name="clt_from" id="clt_from">
 						<option value="选择风格" selected="selected">您是如何找到我们的网站</option>
 						<option value="">董事长</option>
 						<option value="">总经理</option>
@@ -124,7 +128,7 @@
 			<div class="item-row">
 				<div class="key"></div>
 				<div class="val">
-					<button type="submit" name="submit" value="Register" class="btn">下一步</button>
+					<button type="submit" name="submit" class="btn">下一步</button>
 				</div>
 			</div>
 		</div>
