@@ -52,6 +52,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.request',
+)
+
 ROOT_URLCONF = 'logistics.urls'
 
 WSGI_APPLICATION = 'logistics.wsgi.application'
