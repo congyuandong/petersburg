@@ -13,6 +13,8 @@ urlpatterns = patterns('',
 	url(r'^login', views.login, name='login'),
 	url(r'^question', views.question, name='question'),
 	url(r'^reg', views.reg, name='reg'),
-	url(r'^driver_reg',views.driver_reg,name='driver_reg'),
 	url(r'^logout',views.logout,name='logout'),
+
+	url(r'^app/reg',views.driver_reg,name='driver_reg'),
+	url(r'^app/login',views.driver_login,name='driver_login'),
 	)

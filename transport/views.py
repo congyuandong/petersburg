@@ -4,9 +4,12 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core import serializers
 
 from transport.forms import DriverForm,ClientForm
-from transport.models import client
+from transport.models import client,driver
+
+import simplejson as json
 
 def index(request):
 	context = RequestContext(request)
@@ -107,7 +110,7 @@ def logout(request):
 	else:
 		return HttpResponse('请先登录')
 
-#火车死机注册
+#货车司机注册
 @csrf_exempt 
 def driver_reg(request):
 	context = RequestContext(request)
@@ -135,3 +138,24 @@ def driver_reg(request):
 	context_dict['registered'] = registered
 
 	return	render_to_response('transport/driver_reg.html',context_dict,context)
+
+#货车司机登录
+@csrf_exempt
+def driver_login(request):
+	context = RequestContext(request)
+	context_dict = {}
+
+	if request.method == 'POST':
+		telphone = request.POST.get('dr_tel')
+		password = request.POST.get('dr_pwd')
+		#print	telphone,password
+		driver_obj = driver.objects.filter(dr_tel__exact = telphone,dr_pwd__exact = password)
+		if driver_obj:
+			print	'司机登录成功'
+			context_dict['status']='1'
+			context_dict['data']=json.loads(serializers.serialize("json", driver_obj))[0]['fields']
+		else:
+			print	'司机登录失败'
+			context_dict['status']='0'
+	print context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")		
