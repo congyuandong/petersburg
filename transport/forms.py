@@ -1,6 +1,6 @@
 #coding:utf8
 from django import forms
-from transport.models import client,driver
+from transport.models import client,driver,order
 
 class ClientForm(forms.ModelForm):
 
@@ -15,7 +15,7 @@ class ClientForm(forms.ModelForm):
 
 	class Meta:
 		model = client
-		fiedls = ['clt_name','clt_pwd','clt_mail','clt_tel','clt_company','clt_position','clt_industry','clt_from']
+		fields = ['clt_name','clt_pwd','clt_mail','clt_tel','clt_company','clt_position','clt_industry','clt_from']
 
 class DriverForm(forms.ModelForm):
 	dr_name = forms.CharField(label='姓名：')
@@ -30,4 +30,9 @@ class DriverForm(forms.ModelForm):
 
 	class Meta:
 		model = driver
-		fiedls = ['dr_name','dr_iden','dr_tel','dr_number','dr_hand','dr_type','dr_length','dr_weight','dr_pwd']
+		fields = ['dr_name','dr_iden','dr_tel','dr_number','dr_hand','dr_type','dr_length','dr_weight','dr_pwd']
+
+class OrderForm(forms.ModelForm):
+
+	class Meta:
+		model = order

@@ -13,8 +13,13 @@ urlpatterns = patterns('',
 	url(r'^login', views.login, name='login'),
 	url(r'^question', views.question, name='question'),
 	url(r'^reg', views.reg, name='reg'),
+	url(r'^dreg',views.dreg,name='dreg'),
 	url(r'^logout',views.logout,name='logout'),
 
 	url(r'^app/reg',views.driver_reg,name='driver_reg'),
 	url(r'^app/login',views.driver_login,name='driver_login'),
+	url(r'^app/order',views.get_order,name='get_order'),
+	url(r'^app/detail',views.get_order_detail,name='get_order_detail'),
+	url(r'^app/pwd',views.driver_pwd,name='driver_pwd'),
+	url(r'^app/update',views.driver_update,name='driver_update'),
 	)
