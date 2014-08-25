@@ -32,6 +32,8 @@ def ind_select(request,status):
 	context = RequestContext(request)
 	context_dict = {}
 	
+	offer_objs = []
+
 	session = request.session.get('username',False)
 	if not session:
 		return render_to_response('transport/login.html',context_dict,context)
@@ -39,7 +41,18 @@ def ind_select(request,status):
 		order_objs = order.objects.filter(or_status__exact = status)
 	else:
 		order_objs = order.objects.all()
+
+	for order_obj in order_objs:
+		offer_objs_nums = offer.objects.filter(of_order__exact = order_obj).count()
+		offer_obj = {}
+		offer_obj['or_id'] = order_obj.or_id
+		offer_obj['offer_nums'] = offer_objs_nums
+		offer_objs.append(offer_obj)
+		
 	context_dict['orders'] = order_objs
+	context_dict['offers'] = offer_objs
+
+	print context_dict
 	return render_to_response('transport/individual.html',context_dict,context)
 
 def individual(request):
@@ -65,7 +78,7 @@ def orderlist(request):
 def orderdetail(request):
 	context = RequestContext(request)
 	context_dict = {}	
-	return render_to_response('transport/individual-detail.html',context_dict,context)
+	return render_to_response('transport/individual-orderdetail.html',context_dict,context)
 
 #订单发布
 def	orderpublish(request):
@@ -76,6 +89,14 @@ def	orderpublish(request):
 		print request.POST
 
 	return render_to_response('transport/individual-orderpublish.html',context_dict,context)
+
+def orderreceive(request,or_id):
+	context = RequestContext(request)
+	context_dict = {}
+
+	print or_id
+
+	return render_to_response('transport/individual-orderreceive.html',context_dict,context)
 
 def question(request):
 	context = ''
@@ -94,7 +115,7 @@ def login(request):
 			request.session['username'] = client_obj.clt_name
 			request.session['user_id'] = client_obj.id
 			print '用户登录成功'
-			return HttpResponseRedirect('/t/individual/')
+			return HttpResponseRedirect('/t/i/psall')
 		else:
 			print '用户登录失败'
 			return HttpResponseRedirect('/t/login/')
