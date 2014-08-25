@@ -15,8 +15,8 @@ class DriverAdmin(admin.ModelAdmin):
 	search_fields = ['dr_name']
 
 class OrderAdmin(admin.ModelAdmin):
-	fields = ['or_client','or_id','or_update','or_start','or_end','or_startTime','or_endTime','or_name','or_price','or_board','or_number','or_weight','or_volume','or_truck','or_length','or_isDanger','or_isHeap','or_isHand','or_isAssist','or_isInsurance','or_request','or_status','or_longitude','or_latitude','or_view']
-	list_display = ['or_client','or_id','or_update','or_start','or_end','or_startTime','or_endTime','or_name','or_price','or_board','or_number','or_weight','or_volume','or_truck','or_length','or_isDanger','or_isHeap','or_isHand','or_isAssist','or_isInsurance','or_request','or_status','or_longitude','or_latitude','or_view']
+	fields = ['or_client','or_id','or_update','or_title','or_start','or_end','or_startTime','or_endTime','or_name','or_price','or_board','or_number','or_weight','or_volume','or_truck','or_length','or_isDanger','or_isHeap','or_isHand','or_isAssist','or_isInsurance','or_request','or_status','or_longitude','or_latitude','or_view']
+	list_display = ['or_client','or_id','or_update','or_title','or_start','or_end','or_startTime','or_endTime','or_name','or_price','or_board','or_number','or_weight','or_volume','or_truck','or_length','or_isDanger','or_isHeap','or_isHand','or_isAssist','or_isInsurance','or_request','or_status','or_longitude','or_latitude','or_view']
 	search_fields = ['or_name']
 	
 class OfferAdmin(admin.ModelAdmin):

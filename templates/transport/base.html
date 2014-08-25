@@ -28,22 +28,13 @@
       </div>
       <div class="logo left">
         <img src="{% static 'images/logo.png'%}"></div>
+      {% load mainTags %} 
       <ul class="navbar right">
-        <li>
-          <a href="/t/index" >首页</a>
-        </li>
-        <li>
-          <a href="/t/download" >下载</a>
-        </li>
-        <li>
-          <a href="/t/individual" >个人中心</a>
-        </li>
-        <li>
-          <a href="/t/about" >关于我们</a>
-        </li>
-        <li>
-          <a href="/t/question" >常见问题</a>
-        </li>
+        {% navtagitem /t/index "首页" %} 
+        {% navtagitem /t/download "下载" %} 
+        {% navtagitem /t/individual "个人中心" %} 
+        {% navtagitem /t/about "关于我们" %} 
+        {% navtagitem /t/question "常见问题" %}  
       </ul>
     </div>
   </div>

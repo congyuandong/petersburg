@@ -60,6 +60,7 @@ class order(models.Model):
 	or_end = models.CharField(max_length=500,verbose_name='卸车地点')
 	or_startTime = models.DateTimeField(verbose_name='提货时间')
 	or_endTime = models.DateTimeField(verbose_name='计划到达时间')
+	or_title = models.CharField(max_length=200,verbose_name='标题')
 	or_name = models.CharField(max_length=200,verbose_name='货品名称')
 	or_price = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='总价值')
 	or_board = models.IntegerField(verbose_name='货板数量',default=0)
@@ -75,13 +76,14 @@ class order(models.Model):
 	or_isAssist = models.IntegerField(verbose_name='是否需要司机协助装卸工作',default=0)
 	or_isInsurance = models.IntegerField(verbose_name='是否购买货物保险',default=0)
 	or_request = models.CharField(max_length=500,verbose_name='其他说明')
+	#0 显示中的订单 1 进行中的订单 2 已完成的订单 3 关闭的订单
 	or_status = models.IntegerField(verbose_name='订单状态',default=0)
 	or_longitude = models.DecimalField(max_digits=15,decimal_places=8,verbose_name='经度')
 	or_latitude = models.DecimalField(max_digits=15,decimal_places=8,verbose_name='纬度')
 	or_view = models.IntegerField(verbose_name='浏览次数',default=0)
 
 	def __unicode__(self):
-		return self.or_name
+		return self.or_title
 
 	class Meta:
 		verbose_name = '订单'

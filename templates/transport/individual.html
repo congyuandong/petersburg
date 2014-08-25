@@ -7,15 +7,16 @@
       <div class="order-head">
         <span>订单列表</span>
         <div class="order-list right">
-          <a href="" class="active">全部订单</a>
+          {% load indTopTags %}
+          {% navtagitem /t/i/psall "全部订单" %} 
           |
-          <a href="">显示中的订单</a>
+          {% navtagitem /t/i/ps0 "显示中的订单" %}
           |
-          <a href="">进行中的订单</a>
+          {% navtagitem /t/i/ps1 "进行中的订单" %}
           |
-          <a href="">已完成的订单</a>
+          {% navtagitem /t/i/ps2 "已完成的订单" %}
           |
-          <a href="">关闭的订单</a>
+          {% navtagitem /t/i/ps3 "关闭的订单" %}
         </div>
       </div>
       <div class="main-order">

@@ -253,7 +253,7 @@ outline: none;
   display: inline-block;
 }
 .header .navbar li a:hover,
-.header .navbar li.active a{
+.header .navbar li a.active{
   color: #fff;
   background-color: #ff5000;
   border-radius: 25px;

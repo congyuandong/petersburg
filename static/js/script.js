@@ -2,9 +2,9 @@
 $(document).ready(function(){
 
   //首页选项卡切换
-  $('.navbar').find('li').mouseenter(function(){
-    $(this).addClass('active').siblings().removeClass('active');
-  })
+  //$('.navbar').find('li').mouseenter(function(){
+  //  $(this).addClass('active').siblings().removeClass('active');
+  //})
   
 
 	var selects=$('select');//获取select

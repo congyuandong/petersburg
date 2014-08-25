@@ -2,12 +2,13 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
+from django.db.models import Q
 
 from transport.forms import DriverForm,ClientForm
-from transport.models import client,driver,order
+from transport.models import client,driver,order,offer
 
 import simplejson as json
 
@@ -27,28 +28,44 @@ def about(request):
 	return render_to_response('transport/about.html',context_dict,context)
 
 #个人中心
+def ind_select(request,status):
+	context = RequestContext(request)
+	context_dict = {}
+	
+	session = request.session.get('username',False)
+	if not session:
+		return render_to_response('transport/login.html',context_dict,context)
+	if status != 'all':
+		order_objs = order.objects.filter(or_status__exact = status)
+	else:
+		order_objs = order.objects.all()
+	context_dict['orders'] = order_objs
+	return render_to_response('transport/individual.html',context_dict,context)
+
 def individual(request):
 	context = RequestContext(request)
 	context_dict = {}
+
 	session = request.session.get('username',False)
 	if not session:
 		return render_to_response('transport/login.html',context_dict,context)
 	order_objs = order.objects.all()
+	
 	context_dict['orders'] = order_objs
-	print context_dict
 	return render_to_response('transport/individual.html',context_dict,context)
+
 
 #订单列表
 def orderlist(request):
 	context = RequestContext(request)
 	context_dict = {}	
-	return render_to_response('transport/individual.html',context_dict,context)
+	return HttpResponseRedirect('/t/i/psall')
 
 #订单详情
 def orderdetail(request):
 	context = RequestContext(request)
 	context_dict = {}	
-	return render_to_response('transport/individual-orderdetail.html',context_dict,context)
+	return render_to_response('transport/individual-detail.html',context_dict,context)
 
 #订单发布
 def	orderpublish(request):
@@ -77,7 +94,7 @@ def login(request):
 			request.session['username'] = client_obj.clt_name
 			request.session['user_id'] = client_obj.id
 			print '用户登录成功'
-			return render_to_response('transport/individual.html',context_dict,context)
+			return HttpResponseRedirect('/t/individual')
 		else:
 			print '用户登录失败'
 			return render_to_response('transport/login.html',context_dict,context)
@@ -121,22 +138,70 @@ def logout(request):
 #司机获取固定范围内订单信息，包括车辆的经度维度,货物名称，装车地点，卸车地点
 def get_order(request):
 	context_list = []
+
 	longitude = request.GET.get('longitude','')
 	latitude = request.GET.get('latitude','')
 	print longitude,latitude
 	order_objs = order.objects.all()[:100]
-	print order_objs
+	#print order_objs
 	for order_obj in order_objs:
 		context = {}
 		context['or_id'] = order_obj.or_id
-		context['or_name'] = order_obj.or_name
+		context['or_title'] = order_obj.or_title
 		context['or_longitude'] = order_obj.or_longitude
 		context['or_latitude'] = order_obj.or_latitude
 		context['or_start'] = order_obj.or_start
 		context['or_end'] = order_obj.or_end
 		context_list.append(context)
-	print context_list
+	#print context_list
+	print '司机获取范围内车辆坐标'
 	return HttpResponse(json.dumps(context_list),content_type="application/json")
+
+#司机通过查询获取固定范围内订单信息
+def	get_order_search(request):
+	context_list = []
+
+	longitude = request.GET.get('longitude','')
+	latitude = request.GET.get('latitude','')
+	or_start = request.GET.get('or_start','')
+	or_end = request.GET.get('or_end','')
+	print longitude,latitude,or_start,or_end
+
+	order_objs = order.objects.filter(Q(or_start__icontains=or_start)|Q(or_end__icontains=or_end))
+	#print order_objs
+	for order_obj in order_objs:
+		context = {}
+		context['or_id'] = order_obj.or_id
+		context['or_title'] = order_obj.or_title
+		context['or_longitude'] = order_obj.or_longitude
+		context['or_latitude'] = order_obj.or_latitude
+		context['or_start'] = order_obj.or_start
+		context['or_end'] = order_obj.or_end
+		context_list.append(context)
+	#print context_list
+	print '司机查询范围内信息'
+	return HttpResponse(json.dumps(context_list),content_type="application/json")
+
+#司机获取与他报价的订单信息
+def get_order_offer(request):
+	context_list = []
+	dr_tel = request.GET.get('dr_tel','')
+	#driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
+	offer_objs = offer.objects.filter(of_driver__dr_tel__exact = dr_tel)
+	print offer_objs
+	for offer_obj in offer_objs:
+		order_obj = order.objects.get(or_id__exact = offer_obj.of_order.or_id)
+		context = {}
+		context['or_id'] = order_obj.or_id
+		context['or_title'] = order_obj.or_title
+		context['or_start'] = order_obj.or_start
+		context['or_end'] = order_obj.or_end
+		context['or_status'] = order_obj.or_status
+		context_list.append(context)
+	print '司机获取报价过的订单'
+	#print context_list
+	return HttpResponse(json.dumps(context_list),content_type="application/json")
+
 
 #获取订单详细信息
 def get_order_detail(request):
@@ -148,7 +213,8 @@ def get_order_detail(request):
 		order_obj = order.objects.get(or_id__exact = or_id)
 		order_obj.or_view = order_obj.or_view+1
 		order_obj.save()
-	print context
+	#print context
+	print '获取订单详细信息'
 	return HttpResponse(json.dumps(context),content_type="application/json")
 
 #货车司机注册
@@ -269,6 +335,37 @@ def driver_update(request):
 		else:
 			context_dict['status']='0'
 			print '车辆信息修改失败'
+
+	print context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
+#货车司机报价
+@csrf_exempt
+def driver_offer(request):
+	context_dict = {}
+	if request.method == 'POST':
+		dr_tel = request.POST.get('dr_tel')
+		or_id = request.POST.get('or_id')
+		or_price = request.POST.get('or_price')
+		print dr_tel,or_id,or_price
+		driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
+		order_obj = order.objects.get(or_id__exact = or_id)
+		if driver_obj and order_obj:
+			offer_obj = offer.objects.filter(of_order__exact = order_obj, of_driver__exact = driver_obj)
+			if offer_obj:
+				offer_obj = offer.objects.get(of_order__exact = order_obj, of_driver__exact = driver_obj)
+				offer_obj.of_price = or_price
+				offer_obj.save()
+				context_dict['status']='2'
+				print '报价修改成功'
+			else:
+				offer_obj_new = offer(of_order = order_obj, of_driver = driver_obj,of_price = or_price)
+				offer_obj_new.save()
+				context_dict['status']='1'
+				print '报价成功'
+		else:
+			context_dict['status']='0'
+			print '报价失败'
 
 	print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
