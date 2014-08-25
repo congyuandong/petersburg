@@ -94,10 +94,10 @@ def login(request):
 			request.session['username'] = client_obj.clt_name
 			request.session['user_id'] = client_obj.id
 			print '用户登录成功'
-			return HttpResponseRedirect('/t/individual')
+			return HttpResponseRedirect('/t/individual/')
 		else:
 			print '用户登录失败'
-			return render_to_response('transport/login.html',context_dict,context)
+			return HttpResponseRedirect('/t/login/')
 	return render_to_response('transport/login.html',context_dict,context)
 
 @csrf_exempt 
