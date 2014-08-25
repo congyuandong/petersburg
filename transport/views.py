@@ -107,8 +107,8 @@ def reg(request):
 	registered = False
 
 	if request.method == 'POST':
-		print request.POST
-		print request.POST.get('clt_industry')
+		#print request.POST
+		#print request.POST.get('clt_industry')
 
 		clientForm = ClientForm(data=request.POST)
 
