@@ -52,7 +52,7 @@ def ind_select(request,status):
 	context_dict['orders'] = order_objs
 	context_dict['offers'] = offer_objs
 
-	print context_dict
+	#print context_dict
 	return render_to_response('transport/individual.html',context_dict,context)
 
 def individual(request):
@@ -90,19 +90,26 @@ def	orderpublish(request):
 
 	return render_to_response('transport/individual-orderpublish.html',context_dict,context)
 
-def orderreceive(request,or_id):
+def orderreceive(request,or_id,sort):
 	context = RequestContext(request)
 	context_dict = {}
+	print	or_id,sort
 	order_obj = order.objects.get(or_id__exact = or_id)
 
-	offer_objs = offer.objects.filter(of_order__exact = order_obj)
-
-
+	if sort == '1':
+		offer_objs = offer.objects.filter(of_order__exact = order_obj).order_by('of_price')
+	elif sort == '2':
+		offer_objs = offer.objects.filter(of_order__exact = order_obj).order_by('of_distance')
+	elif sort == '3':
+		offer_objs = offer.objects.filter(of_order__exact = order_obj).order_by('of_update')
+	else:
+		offer_objs = offer.objects.filter(of_order__exact = order_obj)
 
 	context_dict['offer_objs_nums'] = offer_objs.count()
 	context_dict['offer_objs'] = offer_objs
+	context_dict['or_id'] = or_id
 	
-	print context_dict
+	#print context_dict
 	return render_to_response('transport/individual-orderreceive.html',context_dict,context)
 
 def question(request):

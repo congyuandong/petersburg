@@ -10,11 +10,17 @@
             )</i> 
         </span>
         <div class="order-list sort right">
-          <a href="" class="active">按价格排序</a>
+          {% load recTopTags %}
+          {% navtagitem s1 "按价格排序" %} 
           |
-          <a href="">按距离排序</a>
+          {% navtagitem s2 "按距离排序" %}
           |
-          <a href="">按时间排序</a>
+          {% navtagitem s3 "按时间排序" %}
+          <!--a href="id{{or_id}}s1">按价格排序</a>
+          |
+          <a href="id{{or_id}}s2">按距离排序</a>
+          |
+          <a href="id{{or_id}}s3">按时间排序</a-->
         </div>
       </div>
       <div class="main-order">
@@ -51,7 +57,7 @@
             <div class="order-truckinfo">
               <p>车辆长度：{{offer_obj.of_driver.dr_length}} 米</p>
               <p>最大载重：{{offer_obj.of_driver.dr_weight}} 吨</p>
-              <p>发货距离：{{offer_obj.of_driver.of_distance}} 公里</p>
+              <p>发货距离：{{offer_obj.of_distance | floatformat:"2"}} 公里</p>
             </div>
             <div class="order-status dcjy">达成交易</div>
           </div>

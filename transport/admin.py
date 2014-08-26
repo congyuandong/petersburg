@@ -20,8 +20,8 @@ class OrderAdmin(admin.ModelAdmin):
 	search_fields = ['or_name']
 	
 class OfferAdmin(admin.ModelAdmin):
-	fields = ['of_order','of_driver','of_price']
-	list_display = ['of_order','of_driver','of_price']
+	fields = ['of_order','of_driver','of_price','of_distance','of_update']
+	list_display = ['of_order','of_driver','of_price','of_distance','of_update']
 	search_fields = ['of_order']
 
 admin.site.register(client,ClientAdmin)
