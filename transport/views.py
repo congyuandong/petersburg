@@ -93,9 +93,16 @@ def	orderpublish(request):
 def orderreceive(request,or_id):
 	context = RequestContext(request)
 	context_dict = {}
+	order_obj = order.objects.get(or_id__exact = or_id)
 
-	print or_id
+	offer_objs = offer.objects.filter(of_order__exact = order_obj)
 
+
+
+	context_dict['offer_objs_nums'] = offer_objs.count()
+	context_dict['offer_objs'] = offer_objs
+	
+	print context_dict
 	return render_to_response('transport/individual-orderreceive.html',context_dict,context)
 
 def question(request):
@@ -110,10 +117,10 @@ def login(request):
 		mail = request.POST.get('name')
 		password = request.POST.get('pwd')
 
-		client_obj = client.objects.get(clt_mail__exact = mail,clt_pwd__exact = password)
+		client_obj = client.objects.filter(clt_mail__exact = mail,clt_pwd__exact = password)
 		if client_obj:
-			request.session['username'] = client_obj.clt_name
-			request.session['user_id'] = client_obj.id
+			request.session['username'] = client_obj[0].clt_name
+			request.session['user_id'] = client_obj[0].id
 			print '用户登录成功'
 			return HttpResponseRedirect('/t/i/psall')
 		else:

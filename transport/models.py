@@ -96,6 +96,8 @@ class offer(models.Model):
 	of_order = models.ForeignKey(order,verbose_name="订单")
 	of_driver = models.ForeignKey(driver,verbose_name="司机")
 	of_price = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='价格')
+	of_distance = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='距离')
+	of_update = models.DateTimeField(verbose_name='更新时间')
 
 	def __unicode__(self):
 		return self.of_order.or_name

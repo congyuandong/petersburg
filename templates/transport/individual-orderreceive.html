@@ -1,11 +1,12 @@
 {% extends "transport/base-individual.html" %}
 {% load staticfiles %}
-{% block title %}个人中心{% endblock %}
+{% load pagination_tags %}
+{% block title %}接单列表{% endblock %}
 {% block left_block %}
     <div class="main-content left">
       <div class="order-head">
         <span>
-          接单列表 <i>( <em>共有3条接单信息</em>
+          接单列表 <i>( <em>共有{{offer_objs_nums}}条接单信息</em>
             )</i> 
         </span>
         <div class="order-list sort right">
@@ -24,111 +25,42 @@
             <span>(29秒)</span>
           </a>
         </div>
+        {% autopaginate offer_objs 4 %}
+        {% for offer_obj in offer_objs%}
         <div class="order-box">
           <div class="order-title">
-            <div id="updatetime">更新时间：2014-07-25 13:25</div>
-            <div id="number">编号：100566618</div>
-            <div id="scantimes">浏览 29 次</div>
+            <div id="updatetime">更新时间：{{offer_obj.of_update | date:"Y-m-d H:i:s"}}</div>
+            <div id="number">编号：{{offer_obj.of_order.or_id}}</div>
+            <div id="scantimes">浏览 {{offer_obj.of_order.or_view}} 次</div>
           </div>
           <div class="order-row">
             <div class="order-driver">
               <p>
-                <span>张师傅</span>
-                （ <em>¥ 3,800.00</em>
+                <span>{{offer_obj.of_driver.dr_name}}</span>
+                （ <em>¥ {{offer_obj.of_price | floatformat:"2"}}</em>
                 ）
               </p>
-              <p>身份证：23030619831215****</p>
-              <p>手机号：13399125376</p>
+              <p>身份证：{{offer_obj.of_driver.dr_iden}}</p>
+              <p>手机号：{{offer_obj.of_driver.dr_tel}}</p>
             </div>
             <div class="order-truckinfo">
-              <p>车牌号码：黑A35B08-01</p>
-              <p>挂车号码：挂4WEI</p>
-              <p>车辆类型：中型半挂货车</p>
+              <p>车牌号码：{{offer_obj.of_driver.dr_number}}</p>
+              <p>挂车号码：{{offer_obj.of_driver.dr_hand}}</p>
+              <p>车辆类型：{{offer_obj.of_driver.dr_type}}</p>
             </div>
             <div class="order-truckinfo">
-              <p>车辆长度：6.5 米</p>
-              <p>最大载重：21.5 吨</p>
-              <p>发货距离：23.5 公里</p>
+              <p>车辆长度：{{offer_obj.of_driver.dr_length}} 米</p>
+              <p>最大载重：{{offer_obj.of_driver.dr_weight}} 吨</p>
+              <p>发货距离：{{offer_obj.of_driver.of_distance}} 公里</p>
             </div>
             <div class="order-status dcjy">达成交易</div>
           </div>
         </div>
-        <div class="order-box">
-          <div class="order-title">
-            <div id="updatetime">更新时间：2014-07-25 13:25</div>
-            <div id="number">编号：100566618</div>
-            <div id="scantimes">浏览 29 次</div>
-          </div>
-          <div class="order-row">
-            <div class="order-driver">
-              <p>
-                <span>张师傅</span>
-                （
-                <em>¥ 3,800.00</em>
-                ）
-              </p>
-              <p>身份证：23030619831215****</p>
-              <p>手机号：13399125376</p>
-            </div>
-            <div class="order-truckinfo">
-              <p>车牌号码：黑A35B08-01</p>
-              <p>挂车号码：挂4WEI</p>
-              <p>车辆类型：中型半挂货车</p>
-            </div>
-            <div class="order-truckinfo">
-              <p>车辆长度：6.5 米</p>
-              <p>最大载重：21.5 吨</p>
-              <p>发货距离：23.5 公里</p>
-            </div>
-            <div class="order-status dcjy">达成交易</div>
-          </div>
-        </div>
-        <div class="order-box">
-          <div class="order-title">
-            <div id="updatetime">更新时间：2014-07-25 13:25</div>
-            <div id="number">编号：100566618</div>
-            <div id="scantimes">浏览 29 次</div>
-          </div>
-          <div class="order-row">
-            <div class="order-driver">
-              <p>
-                <span>张师傅</span>
-                （
-                <em>¥ 3,800.00</em>
-                ）
-              </p>
-              <p>身份证：23030619831215****</p>
-              <p>手机号：13399125376</p>
-            </div>
-            <div class="order-truckinfo">
-              <p>车牌号码：黑A35B08-01</p>
-              <p>挂车号码：挂4WEI</p>
-              <p>车辆类型：中型半挂货车</p>
-            </div>
-            <div class="order-truckinfo">
-              <p>车辆长度：6.5 米</p>
-              <p>最大载重：21.5 吨</p>
-              <p>发货距离：23.5 公里</p>
-            </div>
-            <div class="order-status dcjy">达成交易</div>
-          </div>
-        </div>
-
+        {% endfor %}
       </div>
       <div class="pag-navbar">
         <ul class="pag-nav">
-          <li class="last">
-            <a href="">上一页</a>
-          </li>
-          <li>
-            <a href="" class="hover">1</a>
-          </li>
-          <li>
-            <a href="">2</a>
-          </li>
-          <li class="next">
-            <a href="" >下一页</a>
-          </li>
+          {% paginate %}
         </ul>
       </div>
     </div>
