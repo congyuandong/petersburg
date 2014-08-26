@@ -75,9 +75,14 @@ def orderlist(request):
 	return HttpResponseRedirect('/t/i/psall')
 
 #订单详情
-def orderdetail(request):
+def orderdetail(request,or_id):
 	context = RequestContext(request)
-	context_dict = {}	
+	context_dict = {}
+	print or_id
+	order_obj = order.objects.get(or_id__exact = or_id)
+
+	context_dict['order'] = order_obj
+	print context_dict
 	return render_to_response('transport/individual-orderdetail.html',context_dict,context)
 
 #订单发布
@@ -90,6 +95,7 @@ def	orderpublish(request):
 
 	return render_to_response('transport/individual-orderpublish.html',context_dict,context)
 
+#展示报价列表
 def orderreceive(request,or_id,sort):
 	context = RequestContext(request)
 	context_dict = {}
@@ -111,6 +117,19 @@ def orderreceive(request,or_id,sort):
 	
 	#print context_dict
 	return render_to_response('transport/individual-orderreceive.html',context_dict,context)
+
+#确认报价
+def offer_confirm(request,of_id):
+	context = RequestContext(request)
+	context_dict = {}
+	print of_id
+	offer_obj = offer.objects.get(id__exact = of_id)
+	offer_obj.of_order.or_status = 1
+	offer_obj.of_order.save()
+	offer_obj.of_confirm = 1
+	offer_obj.save()
+	return HttpResponseRedirect('/t/i/ps1/')
+	
 
 def question(request):
 	context = ''

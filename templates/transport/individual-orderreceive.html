@@ -59,7 +59,7 @@
               <p>最大载重：{{offer_obj.of_driver.dr_weight}} 吨</p>
               <p>发货距离：{{offer_obj.of_distance | floatformat:"2"}} 公里</p>
             </div>
-            <div class="order-status dcjy">达成交易</div>
+            <div class="order-status dcjy"><a href="/t/i/confirm/id{{offer_obj.id}}">达成交易</a></div>
           </div>
         </div>
         {% endfor %}

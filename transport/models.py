@@ -98,6 +98,7 @@ class offer(models.Model):
 	of_price = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='价格')
 	of_distance = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='距离')
 	of_update = models.DateTimeField(verbose_name='更新时间')
+	of_confirm = models.IntegerField(verbose_name='是否确认',default=0)
 
 	def __unicode__(self):
 		return self.of_order.or_name
@@ -105,3 +106,17 @@ class offer(models.Model):
 	class Meta:
 		verbose_name = '订单报价'
 		verbose_name_plural = '订单报价'
+
+'''
+订单位置信息
+'''
+class location(models.Model):
+	lo_order = models.ForeignKey(order,verbose_name='订单')
+	lo_driver = models.ForeignKey(driver,verbose_name="司机")
+	lo_longitude = models.DecimalField(max_digits=15,decimal_places=8,verbose_name='经度')
+	lo_latitude = models.DecimalField(max_digits=15,decimal_places=8,verbose_name='纬度')
+	lo_location = models.CharField(max_length=500,verbose_name='地址')
+
+	class Meta:
+		verbose_name = '位置信息'
+		verbose_name_plural = '位置信息'

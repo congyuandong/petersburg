@@ -45,7 +45,7 @@
                   ({% for offer in offers%}{% if offer.or_id == order.or_id%}{{offer.offer_nums}}{% endif%}{% endfor %})
                 </span></a>
               {% else %}
-                <a href="/t/i/detail/">查看详情</a>
+                <a href="/t/i/detail/id{{order.or_id}}">查看详情</a>
               {% endif %}
             </div>
             {% if order.or_status == 0 %}
