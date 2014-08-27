@@ -8,9 +8,10 @@ from django.core import serializers
 from django.db.models import Q
 
 from transport.forms import DriverForm,ClientForm
-from transport.models import client,driver,order,offer
+from transport.models import client,driver,order,offer,location
 
 import simplejson as json
+from datetime import datetime
 
 def index(request):
 	context = RequestContext(request)
@@ -81,7 +82,13 @@ def orderdetail(request,or_id):
 	print or_id
 	order_obj = order.objects.get(or_id__exact = or_id)
 
+	location_objs = location.objects.filter(lo_order__exact = order_obj).order_by('lo_update')
+
+	offer_obj = offer.objects.get(of_order__exact = order_obj,of_confirm__exact = 1)
+
 	context_dict['order'] = order_obj
+	context_dict['locations'] = location_objs
+	context_dict['offer_obj'] = offer_obj
 	print context_dict
 	return render_to_response('transport/individual-orderdetail.html',context_dict,context)
 
@@ -401,7 +408,12 @@ def driver_offer(request):
 		dr_tel = request.POST.get('dr_tel')
 		or_id = request.POST.get('or_id')
 		or_price = request.POST.get('or_price')
-		print dr_tel,or_id,or_price
+		latitude = request.POST.get('latitude','')
+		longitude = request.POST.get('longitude','')
+		print dr_tel,or_id,or_price,latitude,longitude
+
+		distance = 0
+
 		driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
 		order_obj = order.objects.get(or_id__exact = or_id)
 		if driver_obj and order_obj:
@@ -409,17 +421,70 @@ def driver_offer(request):
 			if offer_obj:
 				offer_obj = offer.objects.get(of_order__exact = order_obj, of_driver__exact = driver_obj)
 				offer_obj.of_price = or_price
+				offer_obj.of_update = datetime.now()
 				offer_obj.save()
 				context_dict['status']='2'
 				print '报价修改成功'
 			else:
-				offer_obj_new = offer(of_order = order_obj, of_driver = driver_obj,of_price = or_price)
+				offer_obj_new = offer(of_order = order_obj, of_driver = driver_obj,of_price = or_price,of_distance = distance,of_update = datetime.now(),of_confirm = 0)
 				offer_obj_new.save()
 				context_dict['status']='1'
 				print '报价成功'
 		else:
 			context_dict['status']='0'
 			print '报价失败'
+
+	print context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
+#获取订单的位置信息
+def set_location(request):
+	context_dict = {}
+
+	if request.method == 'POST':
+		or_id = request.POST.get('or_id','')
+		dr_tel = request.POST.get('dr_tel','')
+		latitude = request.POST.get('latitude','')
+		longitude = request.POST.get('longitude','')
+		address = request.POST.get('address','')
+
+		print or_id,dr_tel,longitude,latitude,address
+		order_obj = order.objects.get(or_id__exact = or_id)
+		driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
+		if order_obj and driver_obj:
+			location_obj = location(lo_order = order_obj,lo_driver = driver_obj,lo_longitude=longitude,lo_latitude=latitude,lo_location=address,lo_update = datetime.now())
+			location_obj.save()
+			context_dict['status']='1'
+			print '插入位置信息成功'
+		else:
+			context_dict['status']='0'
+			print '插入位置信息失败'
+
+	print context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
+#设置订单完成，订单进入完成状态
+def set_order_finish(request):
+	context_dict = {}
+
+	if request.method == 'POST':
+		or_id = request.POST.get('or_id','')
+		print or_id
+		order_obj = order.objects.get(or_id__exact = or_id)
+
+		if order_obj:
+			if order_obj.or_status == 1:
+				order_obj.or_status = 2
+				order_obj.save()
+				context_dict['status']='1'
+				print '设置订单完成成功'
+			else:
+				context_dict['status']='2'
+				print '设置订单完成失败,订单不是进行状态'
+
+		else:
+			context_dict['status']='0'
+			print '设置订单完成失败,订单不存在'
 
 	print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")

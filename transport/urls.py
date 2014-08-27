@@ -28,4 +28,6 @@ urlpatterns = patterns('',
 	url(r'^app/update/$',views.driver_update,name='driver_update'),
 	url(r'^app/offer/$',views.driver_offer,name='driver_offer'),
 	url(r'^app/order_list/$',views.get_order_offer,name='get_order_offer'),
+	url(r'^app/location/$',views.set_location,name='set_location'),
+	url(r'^app/order_finish/$',views.set_order_finish,name='set_order_finish'),
 	)

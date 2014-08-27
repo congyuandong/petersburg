@@ -640,9 +640,17 @@ outline: none;
   line-height: 24px;
   color: #666;
 }
-.content-Inc .main-content .head-right span{
+.content-Inc .main-content .head-right .yxz{
   font-size: 12px;
   color: #3ed12b;
+}
+.content-Inc .main-content .head-right .ywc{
+  font-size: 12px;
+  color: #ff9000;
+}
+.content-Inc .main-content .head-right .ygb{
+  font-size: 12px;
+  color: #bbbbbb;
 }
 .content-Inc .main-content .main-order{
   padding-top: 22px;
@@ -768,6 +776,12 @@ outline: none;
   width: 99px;
   color: #fff;
   border-left: 1px solid #dfdfdf;
+}
+.order-box .order-row .order-status a{
+  line-height: 94px;
+  height: 94px;
+  width: 99px;
+  color: #fff;
   font-weight: bold;
 }
 .order-box .xsz{

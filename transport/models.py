@@ -116,6 +116,7 @@ class location(models.Model):
 	lo_longitude = models.DecimalField(max_digits=15,decimal_places=8,verbose_name='经度')
 	lo_latitude = models.DecimalField(max_digits=15,decimal_places=8,verbose_name='纬度')
 	lo_location = models.CharField(max_length=500,verbose_name='地址')
+	lo_update = models.DateTimeField(verbose_name='更新时间')
 
 	class Meta:
 		verbose_name = '位置信息'
