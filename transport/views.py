@@ -86,6 +86,10 @@ def orderdetail(request,or_id):
 
 	offer_obj = offer.objects.get(of_order__exact = order_obj,of_confirm__exact = 1)
 
+	address_objs = location.objects.filter(lo_order__exact = order_obj).order_by('-lo_update')
+	if address_objs:
+		context_dict['address'] = address_objs[0]
+		
 	context_dict['order'] = order_obj
 	context_dict['locations'] = location_objs
 	context_dict['offer_obj'] = offer_obj

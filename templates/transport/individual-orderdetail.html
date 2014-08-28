@@ -18,22 +18,42 @@
       </div>
       <div class="order-tab">
         <ul class="tabmenu">
-          <li class="hover">
+          <li data="msg" class="hover">
             <a href="javascript:;">物流信息</a>
           </li>
-          <li class="">
+          {% if address%}
+            <li data="posi" class="">
+          {% else%}
+            <li data="posi" class="">
+          {% endif %}
             <a href="javascript:;">位置跟踪</a>
           </li>
         </ul>
-        <div class="tabitem">
+        <div class="tabitem msg">
           <dl class="l-horizontal">
-            {% for location in locations%}
-              <dt>{{location.lo_update | date:"Y-m-d H:i:s"}}</dt>
-              <dd>{{location.lo_location}}</dd>
-            {% endfor %}
+            {% if locations%}
+              {% for location in locations%}
+                <dt>{{location.lo_update | date:"Y-m-d H:i:s"}}</dt>
+                <dd>{{location.lo_location}}</dd>
+              {% endfor %}
+            {% else %}
+              暂时没有物流信息
+            {% endif %}
           </dl>
         </div>
-        <div class="tabitem posi" style="display: none;"></div>
+        <div class="tabitem posi" style="display:none">
+          {% if address%}
+          <div id="allmap"></div>
+          <div style="display:none">
+            <input type="text" id="longitude" value="{{address.lo_longitude}}"/>
+            <input type="text" id="latitude" value="{{address.lo_latitude}}"/>
+            <input type="text" id="location" value="{{address.lo_location}}"/>
+            <input type="text" id="update" value="{{address.lo_update | date:"Y-m-d H:i:s"}}"/>
+          </div>
+          {% else%}
+            暂时没有位置信息
+          {% endif %}
+        </div>
       </div>
       <div class="sub-head">
         <span>货物信息</span>
