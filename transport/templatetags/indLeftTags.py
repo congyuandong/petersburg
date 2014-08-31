@@ -12,19 +12,19 @@ class NavTagItem(template.Node):
         cur_path = context['request'].path 
         #context['request']是views传入模板中的request对像，可以通过这种方法从上 
         #文对象context中取得 
-        #print cur_path,self.path
+        print cur_path,self.path
         current = False 
         if self.path == '/': 
             current = cur_path == '/' 
         else: 
-            current = cur_path.startswith(self.path) 
-        if self.path.startswith('/t/i/') and cur_path.startswith('/t/i/'):
+            current = cur_path.startswith(self.path)
+        if self.path.startswith('/t/i/psall') and cur_path.startswith('/t/i/ps'):
             current = True
         cur_id = '' 
         if current: 
             cur_id = ' class="active" ' 
              
-        return '<li><a %s href="%s">%s</a></li>' % (cur_id, self.path, self.text) 
+        return '<li %s><a href="%s">%s</a></li>' % (cur_id, self.path, self.text) 
 
 #注册tag，函数基本就是这个样子，不怎么会有变化     
 @register.tag 

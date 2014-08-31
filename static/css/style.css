@@ -1198,6 +1198,7 @@ clear: both;
   color: #bbb;
 }
 .footer .link,
+.footer p a,
 .footer .link a{
   color: #bbb;
 }
