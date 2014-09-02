@@ -44,7 +44,8 @@ select{
 a{text-decoration:none;}
 .select_box{
   color: #999;
-  width: 300px;
+  width: 362px;
+
   line-height: 36px;
 }
 .select_box ul{
@@ -63,7 +64,7 @@ a{text-decoration:none;}
   border-top: none;
   display: none;
   position: absolute;
-  width: 298px;
+  width: 362px;
   z-index: 1;
 }
 .select_option li{
@@ -1019,6 +1020,12 @@ clear: both;
   padding-left: 46px;
   padding-right: 10px;
 }
+
+form p.error{
+  padding-bottom: 12px;
+  color: Red
+}
+
 .user{
   background: url(../images/user.png) left no-repeat;
 }
@@ -1105,25 +1112,30 @@ clear: both;
   float: left;
 }
 .item-row .val{
-  width: 68%;
+  width: 38%;
   margin-left: 20px;
   float: left;
 }
 
+.item-row .error{
+  width: 20%;
+  float: left;
+}
+
 .content-reg .regitem .item-row .val .input-reg[type="text"]{
-  width: 50%;
+  width: 320px;
   display: block;
   padding: 0 20px;
 }
 
 .content-reg .regitem .item-row .val .input-reg[type="password"]{
-  width: 50%;
+  width: 320px;
   display: block;
   padding: 0 20px;
 }
 
 .content-reg .regitem .item-row .val input[type="text"]{
-  width: 50%;
+  width: 320px;
   display: block;
   padding: 0 20px;
 }

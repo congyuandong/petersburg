@@ -18,6 +18,7 @@ urlpatterns = patterns('',
 	url(r'^login/$', views.login, name='login'),
 	url(r'^question/$', views.question, name='question'),
 	url(r'^reg/$', views.reg, name='reg'),
+	url(r'^reg_validator/$', views.reg_validator, name='reg_validator'),
 	url(r'^dreg/$',views.dreg,name='dreg'),
 	url(r'^logout/$',views.logout,name='logout'),
 

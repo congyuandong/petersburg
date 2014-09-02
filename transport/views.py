@@ -12,6 +12,7 @@ from transport.models import client,driver,order,offer,location
 
 import simplejson as json
 from datetime import datetime
+from validator import *
 
 def index(request):
 	context = RequestContext(request)
@@ -167,6 +168,12 @@ def login(request):
 	if request.method == 'POST':
 		mail = request.POST.get('name')
 		password = request.POST.get('pwd')
+		if not mail or not password:
+			context_dict['error'] = '用户名或者密码不能为空'
+			return render_to_response('transport/login.html',context_dict,context)
+		if ProcessMail(mail) == False:
+			context_dict['error'] = '邮箱格式不正确'
+			return render_to_response('transport/login.html',context_dict,context)
 
 		client_obj = client.objects.filter(clt_mail__exact = mail,clt_pwd__exact = password)
 		if client_obj:
@@ -176,7 +183,8 @@ def login(request):
 			return HttpResponseRedirect('/t/i/psall')
 		else:
 			print '用户登录失败'
-			return HttpResponseRedirect('/t/login/')
+			context_dict['error'] = '用户名或者密码错误'
+			return render_to_response('transport/login.html',context_dict,context)
 	return render_to_response('transport/login.html',context_dict,context)
 
 @csrf_exempt 
@@ -201,6 +209,17 @@ def reg(request):
 		
 	context_dict['registered'] = registered
 	return render_to_response('transport/reg.html',context_dict,context)
+
+#注册校验
+def reg_validator(request):
+	context_dict = {}
+	clt_mail =  request.GET.get('clt_mail','null');
+	client_objs = client.objects.filter(clt_mail__exact = clt_mail)
+	if client_objs:
+		context_dict['msg'] = 'no';
+	else:
+		context_dict['msg'] = 'yes';
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 def logout(request):
 	context = RequestContext(request)

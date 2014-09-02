@@ -5,18 +5,18 @@
 {% block left_block %}
     <div class="main-content left">
       <div class="order-head">
-        <span>订单列表</span>
+        <span>需求列表</span>
         <div class="order-list right">
           {% load indTopTags %}
-          {% navtagitem /t/i/psall "全部订单" %} 
+          {% navtagitem /t/i/psall "全部需求" %} 
           |
-          {% navtagitem /t/i/ps0 "显示中的订单" %}
+          {% navtagitem /t/i/ps0 "显示中的需求" %}
           |
-          {% navtagitem /t/i/ps1 "进行中的订单" %}
+          {% navtagitem /t/i/ps1 "进行中的需求" %}
           |
-          {% navtagitem /t/i/ps2 "已完成的订单" %}
+          {% navtagitem /t/i/ps2 "已完成的需求" %}
           |
-          {% navtagitem /t/i/ps3 "关闭的订单" %}
+          {% navtagitem /t/i/ps3 "关闭的需求" %}
         </div>
       </div>
       <div class="main-order">
@@ -41,7 +41,7 @@
             </div>
             <div class="order-detail">
               {% if order.or_status == 0 %}
-                <a href="/t/i/receive/id{{order.or_id}}s1">接单数量<span>
+                <a href="/t/i/receive/id{{order.or_id}}s1">报价数量<span>
                   ({% for offer in offers%}{% if offer.or_id == order.or_id%}{{offer.offer_nums}}{% endif%}{% endfor %})
                 </span></a>
               {% else %}

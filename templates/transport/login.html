@@ -11,6 +11,9 @@
 				</div>
 				<div class="login-data">
 					<form action="/t/login/" id="login" method="post" enctype="multipart/form-data">
+					{% if error %}
+					<p class="error">{{error}}</p>
+					{% endif %}
 					<input type="text" class="login-input user" name="name" placeholder="请输入您的邮箱" >
 					<input type="password" class="login-input pwd" name="pwd" placeholder="请输入您的密码" >
 					<div class="remember">

@@ -22,78 +22,100 @@
 				<div class="val">
 					<input id="clt_mail" name="clt_mail" type="text" class="input-reg" />
 				</div>
+				<div class="error" id="clt_mailTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key">设置密码：</div>
 				<div class="val">
 					<input id='clt_pwd' name="clt_pwd" type="password" class="input-reg" /></div>
+				<div class="error" id="clt_pwdTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key">确认密码：</div>
 				<div class="val">
 					<input id='clt_pwd_a' name="clt_pwd_a" type="password" class="input-reg" /></div>
+				<div class="error" id="clt_pwd_aTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key">如何称呼您：</div>
 				<div class="val">
 					<input id='clt_name' name="clt_name" type="text" class="input-reg" /></div>
+				<div class="error" id="clt_nameTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key">联系电话：</div>
 				<div class="val">
 					<input id='clt_tel' name="clt_tel" type="text" class="input-reg" /></div>
+				<div class="error" id="clt_telTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key">公司名称：</div>
 				<div class="val">
 					<input id='clt_company' name="clt_company" type="text" class="input-reg" /></div>
+				<div class="error" id="clt_companyTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key">职位：</div>
 				<div class="val">
 					<select name="clt_position" id="clt_position">
-						<option value="选择风格" selected="selected">以下哪个职位与您最相符</option>
-						<option value="">董事长</option>
-						<option value="">总经理</option>
-						<option value="">副总经理</option>
-						<option value="">小组长</option>
-						<option value="">小组员</option>
-						<option value="">汽车司机</option>
+						<option value="未选择" selected="selected">以下哪个职位与您最相符</option>
+						<option value="所有者">所有者</option>
+						<option value="首席执行官">首席执行官</option>
+						<option value="副总裁">副总裁</option>
+						<option value="董事/总经理">董事/总经理</option>
+						<option value="高级经理">高级经理</option>
+						<option value="经理">经理</option>
+						<option value="主管">主管</option>
+						<option value="销售代表">销售代表</option>
+						<option value="客户经理">客户经理</option>
+						<option value="分析师/研究员">分析师/研究员</option>
+						<option value="顾问">顾问</option>
+						<option value="业务操作/专家">业务操作/专家</option>
 					</select>
 				</div>
+				<div class="error" id="clt_positionTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key">行业：</div>
 				<div class="val">
 					<select name="clt_industry" id="clt_industry">
-						<option value="选择风格" selected="selected">请选择您的行业</option>
-						<option value="">IT</option>
-						<option value="">IT</option>
-						<option value="">IT</option>
-						<option value="">...</option>
-						<option value="">EEE</option>
-						<option value="">ABC</option>
+						<option value="未选择" selected="selected">请选择您的行业</option>
+						<option value="农业">农业</option>
+						<option value="汽车制造业">汽车制造业</option>
+						<option value="化学品和塑料工业">化学品和塑料工业</option>
+						<option value="快速消费品">快速消费品</option>
+						<option value="电子工业">电子工业</option>
+						<option value="餐饮业">餐饮业</option>
+						<option value="医疗保健">医疗保健</option>
+						<option value="制造业">制造业</option>
+						<option value="造纸业">造纸业</option>
+						<option value="零售/批发业">零售/批发业</option>
+						<option value="钢铁/金属业">钢铁/金属业</option>
+						<option value="纺织品">纺织品</option>
+						<option value="运输/物流">运输/物流</option>
+						<option value="电商">电商</option>
 					</select>
 				</div>
+				<div class="error" id="clt_industryTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key">访问途径：</div>
 				<div class="val">
 					<select name="clt_from" id="clt_from">
-						<option value="选择风格" selected="selected">您是如何找到我们的网站</option>
-						<option value="">董事长</option>
-						<option value="">总经理</option>
-						<option value="">副总经理</option>
-						<option value="">小组长</option>
-						<option value="">小组员</option>
-						<option value="">汽车司机</option>
+						<option value="未选择" selected="selected">您是如何找到我们的网站</option>
+						<option value="电邮广告">电邮广告</option>
+						<option value="百度搜索引擎">百度搜索引擎</option>
+						<option value="推荐">推荐</option>
+						<option value="新闻/媒体">新闻/媒体</option>
+						<option value="报纸">报纸</option>
 					</select>
 				</div>
+				<div class="error" id="clt_fromTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key"></div>
 				<div class="val">
-					<input type="checkbox" class="regcb left">
+					<input type="checkbox" checked="true" class="regcb left" id="confirm" name="confirm">
 					<a href="javascript:showBg();">我已阅读并同意 《你我贷用户协议》</a>
 					<div class="fullbg"></div>
 					<div class="dialog">
@@ -124,15 +146,17 @@
 						</div>
 					</div>
 				</div>
+				<div class="error" id="confirmTip"></div>
 			</div>
 			<div class="item-row">
 				<div class="key"></div>
 				<div class="val">
-					<button type="submit" name="submit" class="btn">下一步</button>
+					<button type="submit" name="submit" id="submit" class="btn">下一步</button>
 				</div>
 			</div>
 		</div>
-		</form>	
+		</form>
+		<script type="text/javascript" src='{% static 'js/formValidator-reg.js'%}'></script>
 	</div>
 	<div class="clearfix"></div>
   {% endblock %}
