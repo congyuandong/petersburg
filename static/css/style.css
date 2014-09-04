@@ -923,6 +923,14 @@ clear: both;
   margin-left: 10px;
   float: left;
 }
+.content-Inc .main-content .order-pub .item-row .find img{
+  margin-left: 5px;
+  width: 38px;
+  height: 38px;
+}
+.content-Inc .main-content .order-pub .item-row .val.small{
+  width: 317px;
+}
 .content-Inc .main-content .order-pub .item-row .val span{
   float: left;
   margin-top: 12px;
@@ -937,6 +945,11 @@ clear: both;
   display: block;
   padding: 0 20px;
 }
+
+.content-Inc .main-content .order-pub .item-row .val.small .input-pub{
+  width: 275px;
+}
+
 .content-Inc .main-content .order-pub .item-row .val textarea{
   width: 340px;
   height: 120px;
