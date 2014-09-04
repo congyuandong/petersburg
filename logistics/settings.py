@@ -129,3 +129,9 @@ STATICFILES_FINDERS = (
 )
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+
+EMAIL_HOST='smtp.163.com'
+EMAIL_HOST_USER='zhichengxunda@163.com'
+EMAIL_HOST_PASSWORD='qwer4321'
+EMAIL_USE_TLS = True

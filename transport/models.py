@@ -15,6 +15,7 @@ class client(models.Model):
 	clt_position = models.CharField(max_length=30,verbose_name='职位')
 	clt_industry = models.CharField(max_length=30,verbose_name='行业')
 	clt_from = models.CharField(max_length=30,verbose_name='获知本网站途径')
+	clt_conf_mail =models.IntegerField(verbose_name='邮箱确认',default=0,null=True)
 
 	def __unicode__(self):
 		return self.clt_name
@@ -70,11 +71,11 @@ class order(models.Model):
 	or_volume = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='总体积')
 	or_truck = models.CharField(max_length=50,verbose_name='货车类型')
 	or_length = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='车辆长度')
-	or_isDanger = models.IntegerField(verbose_name='是否包含危险品',default=0)
-	or_isHeap = models.IntegerField(verbose_name='是否可堆放',default=0)
-	or_isHand = models.IntegerField(verbose_name='是否底板载荷',default=0)
-	or_isAssist = models.IntegerField(verbose_name='是否需要司机协助装卸工作',default=0)
-	or_isInsurance = models.IntegerField(verbose_name='是否购买货物保险',default=0)
+	or_isDanger = models.CharField(max_length=50,verbose_name='是否包含危险品',default=0)
+	or_isHeap = models.CharField(max_length=50,verbose_name='是否可堆放',default=0)
+	or_isHand = models.CharField(max_length=50,verbose_name='是否底板载荷',default=0)
+	or_isAssist = models.CharField(max_length=50,verbose_name='是否需要司机协助装卸工作',default=0)
+	or_isInsurance = models.CharField(max_length=50,verbose_name='是否购买货物保险',default=0)
 	or_request = models.CharField(max_length=500,verbose_name='其他说明')
 	#0 显示中的订单 1 进行中的订单 2 已完成的订单 3 关闭的订单
 	or_status = models.IntegerField(verbose_name='订单状态',default=0)
@@ -86,8 +87,8 @@ class order(models.Model):
 		return self.or_title
 
 	class Meta:
-		verbose_name = '订单'
-		verbose_name_plural = '订单'
+		verbose_name = '订单管理'
+		verbose_name_plural = '订单管理'
 
 '''
 订单报价

@@ -27,11 +27,13 @@
             <div id="updatetime">更新时间：{{order.or_update|date:"Y-m-d H:i:s"}}</div>
             <div id="number">编号：{{order.or_id}}</div>
             <div id="scantimes">浏览 {{order.or_view}} 次</div>
+            {% if order.or_status == 0 %}
             <div class="operation">
               <a href="">修改</a>
               |
               <a href="">删除</a>
             </div>
+            {% endif %}
           </div>
           <div class="order-row">
             <div class="order-info">

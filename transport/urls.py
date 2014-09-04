@@ -19,6 +19,8 @@ urlpatterns = patterns('',
 	url(r'^question/$', views.question, name='question'),
 	url(r'^reg/$', views.reg, name='reg'),
 	url(r'^reg_validator/$', views.reg_validator, name='reg_validator'),
+	url(r'^conf_mail/$', views.conf_mail, name='conf_mail'),
+	url(r'^sendMail/$', views.send_mail, name='send_mail'),
 	url(r'^dreg/$',views.dreg,name='dreg'),
 	url(r'^logout/$',views.logout,name='logout'),
 

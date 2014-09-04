@@ -26,9 +26,8 @@
       <div class="main-order">
         <div class="hint">
           提示：请记录司机的姓氏、身份证和车辆基本信息作为当面检验时的重要依据
-          <a href="" class="right refresh-btn">
-            点击刷新
-            <span>(29秒)</span>
+          <a href="javascript:;" class="right refresh-btn">
+            <span id="span_refresh" onclick="refresh({{or_id}});">点击刷新</span>
           </a>
         </div>
         {% autopaginate offer_objs 4 %}
@@ -71,4 +70,5 @@
       </div>
     </div>
     <div class="clearfix"></div>
+    <script type="text/javascript" src="{% static 'js/refresh-receive.js'%}"></script>
   {% endblock %}

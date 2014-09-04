@@ -13,6 +13,7 @@ from transport.models import client,driver,order,offer,location
 import simplejson as json
 from datetime import datetime
 from validator import *
+from tools import *
 
 def index(request):
 	context = RequestContext(request)
@@ -177,14 +178,29 @@ def login(request):
 
 		client_obj = client.objects.filter(clt_mail__exact = mail,clt_pwd__exact = password)
 		if client_obj:
-			request.session['username'] = client_obj[0].clt_name
-			request.session['user_id'] = client_obj[0].id
-			print '用户登录成功'
-			return HttpResponseRedirect('/t/i/psall')
+			if client_obj[0].clt_conf_mail == 1:
+				request.session['username'] = client_obj[0].clt_name
+				request.session['user_id'] = client_obj[0].id
+				print '用户登录成功'
+				return HttpResponseRedirect('/t/i/psall')
+			else:
+				print '用户邮箱未验证'
+				context_dict['error'] = '邮箱未验证'
+				context_dict['mail'] = client_obj[0].clt_mail
+				return render_to_response('transport/login.html',context_dict,context)
 		else:
 			print '用户登录失败'
 			context_dict['error'] = '用户名或者密码错误'
 			return render_to_response('transport/login.html',context_dict,context)
+	return render_to_response('transport/login.html',context_dict,context)
+
+#再次发送验证邮箱
+def send_mail(request):
+	context = RequestContext(request)
+	context_dict = {}
+	mail = request.GET.get('mail')
+	SendMailConfirm(mail)
+	context_dict['error'] = '已发送确认邮件，请确认后再登录'
 	return render_to_response('transport/login.html',context_dict,context)
 
 @csrf_exempt 
@@ -194,8 +210,8 @@ def reg(request):
 	registered = False
 
 	if request.method == 'POST':
-		#print request.POST
-		#print request.POST.get('clt_industry')
+		print request.POST
+		mail = request.POST.get('clt_mail')
 
 		clientForm = ClientForm(data=request.POST)
 
@@ -203,6 +219,9 @@ def reg(request):
 			print '注册成功'
 			registered = True
 			clientForm.save()
+			#调用发送邮件接口，进行邮箱确认
+			SendMailConfirm(mail)
+			context_dict['error'] = '已发送确认邮件，请确认后再登录'
 			return render_to_response('transport/login.html',context_dict,context)
 		else:
 			print clientForm.errors
@@ -220,6 +239,22 @@ def reg_validator(request):
 	else:
 		context_dict['msg'] = 'yes';
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
+#确认邮箱
+def conf_mail(request):
+	context = RequestContext(request)
+	context_dict = {}
+	print request.GET
+	
+	mail = request.GET.get('mail','')
+	client_obj = client.objects.get(clt_mail__exact = mail)
+	if client_obj:
+		client_obj.clt_conf_mail = 1
+		client_obj.save();
+		context_dict['error'] = '邮箱已确认，请登录'
+	else:
+		context_dict['error'] = '请先注册再登录'
+	return render_to_response('transport/login.html',context_dict,context)
 
 def logout(request):
 	context = RequestContext(request)

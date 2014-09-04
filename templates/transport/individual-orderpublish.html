@@ -1,17 +1,41 @@
 {% extends "transport/base-individual.html" %}
 {% load staticfiles %}
-{% block title %}订单发布{% endblock %}
+{% block title %}需求发布{% endblock %}
 {% block left_block %}
+
+    <!-- 起始地点模态框 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">请输入装车地址</h4>
+          </div>
+          <div class="modal-body">
+            <div id="allmap"></div>
+            <div id="r-result" style="font-size:14px">装车地址:<input type="text" class="suggest" id="suggestId"  onfocus="this.value='';" onblur="if(this.value==''){this.value='请输入装车地址并从下拉框选择准确位置'}"/></div>
+            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btbtn btbtn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btbtn btbtn-primary">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="main-content left">
       <div class="order-head">
-        <span>订单发布</span>
+        <span>需求发布</span>
       </div>
       <form action="/t/i/publish/" id="publish" method="post" enctype="multipart/form-data">
       <div class="order-pub">
         <div class="item-row">
           <div class="key">货物装车地点：</div>
           <div class="val">
-            <input type="text" class="input-pub" name="or_start"></div>
+            <input type="text" class="input-pub" name="or_start" ></div>
+        </div>
+        <div class="btbtn btbtn-primary btbtn-lg" id="showMap">
+            Launch demo modal
         </div>
         <div class="item-row">
           <div class="key">货物卸车地点：</div>
@@ -91,8 +115,8 @@
           <div class="key">是否包含危险品：</div>
           <div class="val">
             <select id="or_isDanger" name="or_isDanger">
-              <option value="0" selected="selected">否</option>
-              <option value="1">是</option>
+              <option value="否" selected="selected">否</option>
+              <option value="是">是</option>
             </select>
           </div>
         </div>
@@ -100,8 +124,8 @@
           <div class="key">货物可堆放吗：</div>
           <div class="val">
             <select id="or_isHeap" name="or_isHeap">
-              <option value="0" selected="selected">否</option>
-              <option value="1">是</option>
+              <option value="否" selected="selected">否</option>
+              <option value="是">是</option>
             </select>
           </div>
         </div>
@@ -109,8 +133,8 @@
           <div class="key">是底板载荷吗：</div>
           <div class="val">
             <select id="or_isHand" name="or_isHand">
-              <option value="0" selected="selected">否</option>
-              <option value="1">是</option>
+              <option value="否" selected="selected">否</option>
+              <option value="是">是</option>
             </select>
           </div>
         </div>
@@ -118,8 +142,10 @@
           <div class="key">是否需要司机协助装卸工作：</div>
           <div class="val">
             <select id="or_isAssist" name="or_isAssist">
-              <option value="" selected="selected">否</option>
-              <option value="">是</option>
+              <option value="装卸都需要" selected="selected">装卸都需要</option>
+              <option value="仅装车服务">仅装车服务</option>
+              <option value="仅卸车服务">仅卸车服务</option>
+              <option value="无">无</option>
             </select>
           </div>
         </div>
@@ -127,8 +153,8 @@
           <div class="key">是否需要购买货物保险：</div>
           <div class="val">
             <select id="or_isInsurance" name="or_isInsurance">
-              <option value="0" selected="selected">否</option>
-              <option value="1">是</option>
+              <option value="否" selected="selected">否</option>
+              <option value="是">是</option>
             </select>
           </div>
         </div>
@@ -148,4 +174,5 @@
     </form>
     </div>
     <div class="clearfix"></div>
+    <script type="text/javascript" src="{% static 'js/findLocation.js'%}"></script>
   {% endblock %}

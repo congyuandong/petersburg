@@ -12,7 +12,11 @@
 				<div class="login-data">
 					<form action="/t/login/" id="login" method="post" enctype="multipart/form-data">
 					{% if error %}
-					<p class="error">{{error}}</p>
+						{% if not mail%}
+							<p class="error">{{error}}</p>
+						{% else %}
+							<p class="error">您的邮箱还未验证，您可以<a href="/t/sendMail/?mail={{mail}}">再次发送</a>验证邮件</p>
+						{% endif %}
 					{% endif %}
 					<input type="text" class="login-input user" name="name" placeholder="请输入您的邮箱" >
 					<input type="password" class="login-input pwd" name="pwd" placeholder="请输入您的密码" >

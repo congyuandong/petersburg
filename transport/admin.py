@@ -5,8 +5,8 @@ from transport.models import client,driver,order,offer,location
 # Register your models here.
 
 class ClientAdmin(admin.ModelAdmin):
-	fields = ['clt_name','clt_pwd','clt_mail','clt_tel','clt_company','clt_position','clt_industry','clt_from']
-	list_display = ['clt_name','clt_pwd','clt_mail','clt_tel','clt_company','clt_position','clt_industry','clt_from']
+	fields = ['clt_name','clt_pwd','clt_mail','clt_tel','clt_company','clt_position','clt_industry','clt_from','clt_conf_mail']
+	list_display = ['clt_name','clt_pwd','clt_mail','clt_tel','clt_company','clt_position','clt_industry','clt_from','clt_conf_mail']
 	search_fields = ['clt_name']
 
 class DriverAdmin(admin.ModelAdmin):
