@@ -43,7 +43,7 @@ select{
 }
 a{text-decoration:none;}
 .select_box{
-  color: #999;
+  
   width: 362px;
 
   line-height: 36px;
@@ -110,7 +110,6 @@ input[type="color"]{
   height: 36px;
   background-color: #fff;
   border:1px solid #ccc; 
-  color: #999;
 }
 
 
@@ -929,7 +928,7 @@ clear: both;
   height: 38px;
 }
 .content-Inc .main-content .order-pub .item-row .val.small{
-  width: 317px;
+  width: 319px;
 }
 .content-Inc .main-content .order-pub .item-row .val span{
   float: left;
@@ -947,7 +946,7 @@ clear: both;
 }
 
 .content-Inc .main-content .order-pub .item-row .val.small .input-pub{
-  width: 275px;
+  width: 277px;
 }
 
 .content-Inc .main-content .order-pub .item-row .val textarea{

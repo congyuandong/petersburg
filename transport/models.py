@@ -9,7 +9,7 @@ import simplejson as json
 class client(models.Model):
 	clt_mail = models.EmailField(verbose_name='Email',unique=True)
 	clt_pwd = models.CharField(max_length=20,verbose_name='密码')
-	clt_name = models.CharField(max_length=50,verbose_name='用户名')
+	clt_name = models.CharField(max_length=50,verbose_name='称呼')
 	clt_tel = models.CharField(max_length=30,verbose_name='联系电话')
 	clt_company = models.CharField(max_length=50,verbose_name='公司名称')
 	clt_position = models.CharField(max_length=30,verbose_name='职位')
@@ -67,7 +67,10 @@ class order(models.Model):
 	or_board = models.IntegerField(verbose_name='货板数量',default=0)
 	or_number = models.IntegerField(verbose_name='数量',default=0)
 	or_weight = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='总重')
-	or_size = models.CharField(max_length=200,verbose_name='尺寸')
+	#or_size = models.CharField(max_length=200,verbose_name='尺寸')
+	or_size_l = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='尺寸:长')
+	or_size_w = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='尺寸:宽')
+	or_size_h = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='尺寸:高')
 	or_volume = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='总体积')
 	or_truck = models.CharField(max_length=50,verbose_name='货车类型')
 	or_length = models.DecimalField(max_digits=15,decimal_places=5,verbose_name='车辆长度')
@@ -76,7 +79,7 @@ class order(models.Model):
 	or_isHand = models.CharField(max_length=50,verbose_name='是否底板载荷',default=0)
 	or_isAssist = models.CharField(max_length=50,verbose_name='是否需要司机协助装卸工作',default=0)
 	or_isInsurance = models.CharField(max_length=50,verbose_name='是否购买货物保险',default=0)
-	or_request = models.CharField(max_length=500,verbose_name='其他说明')
+	or_request = models.CharField(max_length=500,verbose_name='其他说明',null=True)
 	#0 显示中的订单 1 进行中的订单 2 已完成的订单 3 关闭的订单
 	or_status = models.IntegerField(verbose_name='订单状态',default=0)
 	or_longitude = models.DecimalField(max_digits=15,decimal_places=8,verbose_name='经度')
@@ -119,6 +122,23 @@ class location(models.Model):
 	lo_location = models.CharField(max_length=500,verbose_name='地址')
 	lo_update = models.DateTimeField(verbose_name='更新时间')
 
+	def __unicode__(self):
+		return self.lo_order.or_title
+
 	class Meta:
 		verbose_name = '位置信息'
 		verbose_name_plural = '位置信息'
+
+'''
+货车类型管理
+'''
+class truck(models.Model):
+	tr_type = models.CharField(max_length=100,verbose_name='货车类型')
+	tr_sort = models.IntegerField(default=0,verbose_name='排序')
+
+	def __unicode__(self):
+		return self.tr_type
+
+	class Meta:
+		verbose_name = '货车类型管理'
+		verbose_name_plural = '货车类型管理'

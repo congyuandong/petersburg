@@ -71,21 +71,21 @@
           <dt>您要运输的货品名称：</dt>
           <dd>{{order.or_name}}</dd>
           <dt>被运输货品的总价值：</dt>
-          <dd>{{order.or_price | floatformat:"2"}}元</dd>
+          <dd>{{order.or_price | floatformat:"2"}} 元</dd>
           <dt>有多少货板（托盘/卡板）：</dt>
           <dd>{{order.or_board}}</dd>
           <dt>有多少数量：</dt>
           <dd>{{order.or_number}}</dd>
           <dt>总重为多少：</dt>
-          <dd>{{order.or_weight}}千克</dd>
+          <dd>{{order.or_weight| floatformat:"2"}} 千克</dd>
           <dt>总尺寸为多少：</dt>
-          <dd>{{order.or_size}}</dd>
+          <dd>长{{order.or_size_l| floatformat:"2"}}米 / 宽{{order.or_size_w| floatformat:"2"}}米 / 高{{order.or_size_h| floatformat:"2"}}米</dd>
           <dt>总体积为多少：</dt>
-          <dd>{{order.or_volume}}方</dd>
+          <dd>{{order.or_volume| floatformat:"2"}} 方</dd>
           <dt>您需要哪种货车：</dt>
           <dd>{{order.or_truck}}</dd>
           <dt>您需要的车辆长度：</dt>
-          <dd>{{order.or_length}}米</dd>
+          <dd>{{order.or_length| floatformat:"2"}} 米</dd>
           <dt>您的货物中是否包含危险品吗：</dt>
           <dd>{{order.or_isDanger}}</dd>
           <dt>货物可堆放吗：</dt>

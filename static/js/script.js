@@ -61,11 +61,15 @@ $(document).ready(function(){
   }
   function createOptions(index,ul_list){
     //获取被选中的元素并将其值赋值到显示框中
-    var options=selects.eq(index).find('option'),
-    selected_option=options.filter(':selected'),
-    selected_index=selected_option.index(),
+    var options=selects.eq(index).find('option');
+    //alert(selects.eq(index).attr("default"));
+    selected_option=options.filter(':selected');
+    selected_index=selected_option.index();
     showbox=ul_list.prev();
-    showbox.text(selected_option.text());
+    if(typeof(selects.eq(index).attr("default"))=='undefined')
+      showbox.text(selected_option.text());
+    else
+      showbox.text(selects.eq(index).attr("default"));
     //为每个option建立个li并赋值
     for(var n=0;n<options.length;n++){
       var tag_option=$('<li></li>'),//li相当于option
@@ -76,6 +80,9 @@ $(document).ready(function(){
         tag_option.attr('class','selected');
       }
     }
+    //showbox.text(selects.eq(index).text());
+    //alert(selects.eq(index).attr("value"))
+
   }
 
 	

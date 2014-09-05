@@ -12,7 +12,7 @@ class NavTagItem(template.Node):
         cur_path = context['request'].path 
         #context['request']是views传入模板中的request对像，可以通过这种方法从上 
         #文对象context中取得 
-        print cur_path,self.path
+        #print cur_path,self.path
         current = False 
         if self.path == '/': 
             current = cur_path == '/' 

@@ -39,7 +39,7 @@ $(document).ready(function(){
 				   .regexValidator({regExp:["num","letter"],dataType:"enum",onError:"只能包含数字或字母"});
 	$("#clt_name").formValidator({onCorrect:"&nbsp"})
 				  .inputValidator({min:1,onError:"称呼不能为空"});
-	$("#clt_tel").formValidator({onFocus:"例如:010-88888888或手机号码",onCorrect:"&nbsp"})
+	$("#clt_tel").formValidator({onFocus:"固话或手机号码",onCorrect:"&nbsp"})
 				 .inputValidator({min:1,onError:"联系方式不能为空"})
 				 .regexValidator({regExp:["tel","mobile"],dataType:"enum",onError:"手机或电话格式不正确"});
 	$("#clt_company").formValidator({onCorrect:"&nbsp"})

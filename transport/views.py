@@ -8,7 +8,7 @@ from django.core import serializers
 from django.db.models import Q
 
 from transport.forms import DriverForm,ClientForm
-from transport.models import client,driver,order,offer,location
+from transport.models import client,driver,order,offer,location,truck
 
 import simplejson as json
 from datetime import datetime
@@ -63,14 +63,56 @@ def info(request):
 	context = RequestContext(request)
 	context_dict = {}
 
-	return render_to_response('transport/individual-orderpublish.html',context_dict,context)
+	_id =request.session.get('user_id',False)
+	client_obj = client.objects.get(id__exact = _id)
+
+	if request.method == 'POST':
+		print request.POST
+
+		clt_name = request.POST.get('clt_name','')
+		clt_tel = request.POST.get('clt_tel','')
+		clt_company = request.POST.get('clt_company','')
+		clt_position = request.POST.get('clt_position','')
+		clt_industry = request.POST.get('clt_industry','')
+		#clt_from = request.POST.get('clt_from','')
+
+		client_obj.clt_name = clt_name
+		client_obj.clt_tel = clt_tel
+		client_obj.clt_company = clt_company
+		client_obj.clt_position = clt_position
+		client_obj.clt_industry = clt_industry
+
+		client_obj.save()
+
+		context_dict['error'] = "信息修改成功"
+
+	context_dict['client'] = client_obj
+
+
+	return render_to_response('transport/individual-info.html',context_dict,context)
 
 #修改密码
 def pwd(request):
 	context = RequestContext(request)
 	context_dict = {}
 
-	return render_to_response('transport/individual-orderpublish.html',context_dict,context)
+	if request.method == 'POST':
+		o_pwd = request.POST.get('o_pwd','')
+		new_pwd = request.POST.get('new_pwd','')
+
+		_id =request.session.get('user_id',False)
+		client_obj = client.objects.get(id__exact = _id)
+
+		if o_pwd != client_obj.clt_pwd:
+			context_dict['error'] = '原始密码输入错误'
+			return render_to_response('transport/individual-pwd.html',context_dict,context)
+		else:
+			client_obj.clt_pwd = new_pwd
+			client_obj.save()
+			context_dict['error'] = '密码修改成功，下次登录生效'
+			return render_to_response('transport/individual-pwd.html',context_dict,context)
+
+	return render_to_response('transport/individual-pwd.html',context_dict,context)
 
 def individual(request):
 	context = RequestContext(request)
@@ -99,15 +141,18 @@ def orderdetail(request,or_id):
 	order_obj = order.objects.get(or_id__exact = or_id)
 
 	location_objs = location.objects.filter(lo_order__exact = order_obj).order_by('lo_update')
+	#print location_objs.exists()
 
 	offer_obj = offer.objects.get(of_order__exact = order_obj,of_confirm__exact = 1)
 
 	address_objs = location.objects.filter(lo_order__exact = order_obj).order_by('-lo_update')
+	#print location_objs
 	if address_objs:
 		context_dict['address'] = address_objs[0]
 
 	context_dict['order'] = order_obj
-	context_dict['locations'] = location_objs
+	if location_objs:
+	 	context_dict['locations'] = location_objs
 	context_dict['offer_obj'] = offer_obj
 	print context_dict
 	return render_to_response('transport/individual-orderdetail.html',context_dict,context)
@@ -116,6 +161,9 @@ def orderdetail(request,or_id):
 def	orderpublish(request):
 	context = RequestContext(request)
 	context_dict = {}
+
+	truck_objs = truck.objects.all().order_by('tr_sort')
+	context_dict['trucks'] = truck_objs;
 
 	if request.method == 'POST':
 		print request.POST
