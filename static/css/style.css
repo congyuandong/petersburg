@@ -37,6 +37,13 @@ background-color: #ff6000;
 .btn:active, .btn.active{
 background-color: #ff1000;
 }
+.btn.disabled,
+.btn.disabled:active,
+.btn.disabled:hover,
+.btn.disabled:focus{
+  background-color: #ccc;
+}
+
 select{
   outline:none;
   display: none;
@@ -1080,7 +1087,93 @@ clear: both;
     color: #666;
     text-align: center;
 }
-
+/* pwd-forget.html */
+.content-forget{
+  background-color: #fff;
+}
+.content-forget .titlebar{
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.content-forget .pwd-forgot{
+  min-height: 300px;
+  height: auto;
+  margin-left: 30px;
+  margin-right: 30px; 
+}
+.pwd-forgot .pwd-sub-nav{
+  width: 940px;
+  height: 36px;
+  background: url(../images/pwd-sub-nav.png) no-repeat left;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  line-height: 36px;
+  color: #ff5000;
+}
+.pwd-forgot .pwd-sub-nav li{
+  float: left;
+  font-family: 'Microsoft YaHei';
+  font-size: 18px; 
+  text-align: center;
+}
+.pwd-forgot .pwd-sub-nav .pwd-sub-list1{
+  width: 319px;
+}
+.pwd-forgot .pwd-sub-nav .pwd-sub-list1.active{
+  background: url(../images/pwd-sub-list1.png) no-repeat;
+  color: #fff;
+}
+.pwd-forgot .pwd-sub-nav .pwd-sub-list2{
+  width: 318px;
+}
+.pwd-forgot .pwd-sub-nav .pwd-sub-list2.active{
+  background: url(../images/pwd-sub-list2.png) no-repeat;
+  margin-left: -12px;
+  padding-left: 12px;
+  color: #fff;
+}
+.pwd-forgot .pwd-sub-nav .pwd-sub-list3{
+  width: 303px;
+}
+.pwd-forgot .pwd-sub-nav .pwd-sub-list3.active{
+  background: url(../images/pwd-sub-list3.png) no-repeat;
+  margin-left: -12px;
+  padding-left: 12px;
+  color: #fff;
+}
+.pwd-forgot .pwd-step-detail{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin: auto;
+}
+.pwd-forgot .pwd-step-detail .item-row .key{
+  width: 35%;
+  font-size: 18px;
+  padding-top: 10px;
+}
+.pwd-forgot .pwd-step-detail .item-row .val .input-logmail{
+  width: 180px;
+  display: block;
+  padding: 0 20px;
+  font-size: 14px;
+}
+.pwd-forgot .pwd-step-detail .item-row .val .btn{
+  margin-bottom: 0;
+  width: 220px;
+}
+.pwd-forgot .pwd-step-detail .result-message{
+  width: 940px;
+  text-align: center;
+  display: block;
+}
+.pwd-forgot .pwd-step-detail .result-message p{
+  font-size: 20px;
+  font-weight: bold;
+}
+.pwd-forgot .pwd-step-detail .result-message .btn{
+  width: 120px;
+  margin-top: 30px;
+}
 /* reg.html */
 .content-reg{
   background-color: #fff;
