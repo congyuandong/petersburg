@@ -20,6 +20,15 @@
         </div>
       </div>
       <div class="main-order">
+        {% if download%}
+        <div class="order-box" >
+          <div class="order-title tips">
+            <div class="im">重要提示：</div>
+            <div class="ct">为了保障您的货品安全，请当面验证司机和车辆的各类证件并与司机签订货物运输合同。<br>
+            如果您没有准备合同，可以<a href="{% static 'dl/transport.docx'%}">点击下载</a>我们提供的运输合同范本。</div>
+          </div>
+        </div>
+        {%endif%}
         {% autopaginate orders 4 %}
         {% for order in orders%}
           <div class="order-box">

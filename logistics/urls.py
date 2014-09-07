@@ -8,6 +8,9 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', include('transport.urls')),
     url(r'^t/', include('transport.urls')),
+    url(r'^admin/chart/$', 'transport.admin_view.chart'),
+    url(r'^admin/location_new/(.+)$', 'transport.admin_view.location_new'),
+    url(r'^admin/location_his/(.+)$', 'transport.admin_view.location_his'),
     url(r'^admin/', include(admin.site.urls)),
 )
 

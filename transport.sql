@@ -9,7 +9,7 @@
  Target Server Version : 50163
  File Encoding         : utf-8
 
- Date: 08/28/2014 22:47:14 PM
+ Date: 09/07/2014 21:48:37 PM
 */
 
 SET NAMES utf8;
@@ -52,13 +52,13 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_37ef4eb4` (`content_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `auth_permission`
 -- ----------------------------
 BEGIN;
-INSERT INTO `auth_permission` VALUES ('1', 'Can add log entry', '1', 'add_logentry'), ('2', 'Can change log entry', '1', 'change_logentry'), ('3', 'Can delete log entry', '1', 'delete_logentry'), ('4', 'Can add permission', '2', 'add_permission'), ('5', 'Can change permission', '2', 'change_permission'), ('6', 'Can delete permission', '2', 'delete_permission'), ('7', 'Can add group', '3', 'add_group'), ('8', 'Can change group', '3', 'change_group'), ('9', 'Can delete group', '3', 'delete_group'), ('10', 'Can add user', '4', 'add_user'), ('11', 'Can change user', '4', 'change_user'), ('12', 'Can delete user', '4', 'delete_user'), ('13', 'Can add content type', '5', 'add_contenttype'), ('14', 'Can change content type', '5', 'change_contenttype'), ('15', 'Can delete content type', '5', 'delete_contenttype'), ('16', 'Can add session', '6', 'add_session'), ('17', 'Can change session', '6', 'change_session'), ('18', 'Can delete session', '6', 'delete_session'), ('19', 'Can add 发货企业', '7', 'add_client'), ('20', 'Can change 发货企业', '7', 'change_client'), ('21', 'Can delete 发货企业', '7', 'delete_client'), ('22', 'Can add 货车司机', '8', 'add_driver'), ('23', 'Can change 货车司机', '8', 'change_driver'), ('24', 'Can delete 货车司机', '8', 'delete_driver'), ('25', 'Can add 订单', '9', 'add_order'), ('26', 'Can change 订单', '9', 'change_order'), ('27', 'Can delete 订单', '9', 'delete_order'), ('28', 'Can add 订单报价', '10', 'add_offer'), ('29', 'Can change 订单报价', '10', 'change_offer'), ('30', 'Can delete 订单报价', '10', 'delete_offer'), ('31', 'Can add 位置信息', '11', 'add_location'), ('32', 'Can change 位置信息', '11', 'change_location'), ('33', 'Can delete 位置信息', '11', 'delete_location');
+INSERT INTO `auth_permission` VALUES ('1', 'Can add log entry', '1', 'add_logentry'), ('2', 'Can change log entry', '1', 'change_logentry'), ('3', 'Can delete log entry', '1', 'delete_logentry'), ('4', 'Can add permission', '2', 'add_permission'), ('5', 'Can change permission', '2', 'change_permission'), ('6', 'Can delete permission', '2', 'delete_permission'), ('7', 'Can add group', '3', 'add_group'), ('8', 'Can change group', '3', 'change_group'), ('9', 'Can delete group', '3', 'delete_group'), ('10', 'Can add user', '4', 'add_user'), ('11', 'Can change user', '4', 'change_user'), ('12', 'Can delete user', '4', 'delete_user'), ('13', 'Can add content type', '5', 'add_contenttype'), ('14', 'Can change content type', '5', 'change_contenttype'), ('15', 'Can delete content type', '5', 'delete_contenttype'), ('16', 'Can add session', '6', 'add_session'), ('17', 'Can change session', '6', 'change_session'), ('18', 'Can delete session', '6', 'delete_session'), ('19', 'Can add 发货企业', '7', 'add_client'), ('20', 'Can change 发货企业', '7', 'change_client'), ('21', 'Can delete 发货企业', '7', 'delete_client'), ('22', 'Can add 货车司机', '8', 'add_driver'), ('23', 'Can change 货车司机', '8', 'change_driver'), ('24', 'Can delete 货车司机', '8', 'delete_driver'), ('25', 'Can add 订单', '9', 'add_order'), ('26', 'Can change 订单', '9', 'change_order'), ('27', 'Can delete 订单', '9', 'delete_order'), ('28', 'Can add 订单报价', '10', 'add_offer'), ('29', 'Can change 订单报价', '10', 'change_offer'), ('30', 'Can delete 订单报价', '10', 'delete_offer'), ('31', 'Can add 位置信息', '11', 'add_location'), ('32', 'Can change 位置信息', '11', 'change_location'), ('33', 'Can delete 位置信息', '11', 'delete_location'), ('34', 'Can add 货车类型管理', '12', 'add_truck'), ('35', 'Can change 货车类型管理', '12', 'change_truck'), ('36', 'Can delete 货车类型管理', '12', 'delete_truck');
 COMMIT;
 
 -- ----------------------------
@@ -85,7 +85,7 @@ CREATE TABLE `auth_user` (
 --  Records of `auth_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `auth_user` VALUES ('1', 'pbkdf2_sha256$12000$lHrj0rnsY3Mv$iEj+E1/o2P44s1neeAeJ2GSZ3x3xit8DuD4E1B0afvA=', '2014-08-27 09:01:37', '1', 'congyuandong', '远东', '丛', 'congyuandong@gmail.com', '1', '1', '2014-08-15 13:15:08');
+INSERT INTO `auth_user` VALUES ('1', 'pbkdf2_sha256$12000$lHrj0rnsY3Mv$iEj+E1/o2P44s1neeAeJ2GSZ3x3xit8DuD4E1B0afvA=', '2014-09-04 17:29:58', '1', 'congyuandong', '远东', '丛', 'congyuandong@gmail.com', '1', '1', '2014-08-15 13:15:08');
 COMMIT;
 
 -- ----------------------------
@@ -132,13 +132,13 @@ CREATE TABLE `django_admin_log` (
   PRIMARY KEY (`id`),
   KEY `django_admin_log_6340c63c` (`user_id`),
   KEY `django_admin_log_37ef4eb4` (`content_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `django_admin_log`
 -- ----------------------------
 BEGIN;
-INSERT INTO `django_admin_log` VALUES ('1', '2014-08-15 13:17:04', '1', '4', '1', 'congyuandong', '2', '已修改 first_name 和 last_name 。'), ('2', '2014-08-16 14:20:56', '1', '8', '1', '丛远东', '1', ''), ('3', '2014-08-19 14:24:56', '1', '8', '6', '11', '3', ''), ('4', '2014-08-19 14:24:56', '1', '8', '5', '11', '3', ''), ('5', '2014-08-19 14:24:56', '1', '8', '4', '11', '3', ''), ('6', '2014-08-19 14:24:56', '1', '8', '3', '11', '3', ''), ('7', '2014-08-24 03:39:56', '1', '9', '1', '2008012345', '1', ''), ('8', '2014-08-24 05:43:07', '1', '7', '1', '1', '3', ''), ('9', '2014-08-24 05:55:46', '1', '9', '1', '11', '1', ''), ('10', '2014-08-24 06:36:48', '1', '9', '1', '12345678', '1', ''), ('11', '2014-08-24 13:00:44', '1', '10', '1', '12345678', '1', ''), ('12', '2014-08-26 07:37:20', '1', '8', '8', '刘启超', '2', '已修改 dr_name，dr_iden，dr_tel，dr_number，dr_hand，dr_type，dr_length，dr_weight 和 dr_pwd 。'), ('13', '2014-08-26 07:43:49', '1', '10', '6', '至诚迅达', '1', ''), ('14', '2014-08-26 07:44:05', '1', '10', '7', '至诚迅达', '1', ''), ('15', '2014-08-26 07:44:23', '1', '10', '8', '至诚迅达', '1', ''), ('16', '2014-08-26 08:50:43', '1', '10', '8', '至诚迅达', '2', '已修改 of_distance 。'), ('17', '2014-08-26 12:07:41', '1', '10', '6', '至诚迅达', '2', '已修改 of_confirm 。'), ('18', '2014-08-26 12:08:55', '1', '9', '1', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_status 。'), ('19', '2014-08-26 12:16:12', '1', '8', '7', '丛远东1', '2', '已修改 dr_name 。'), ('20', '2014-08-26 12:16:49', '1', '8', '2', '丛远东2', '2', '已修改 dr_name 和 dr_tel 。'), ('21', '2014-08-26 12:16:54', '1', '8', '8', '刘启超', '2', '已修改 dr_tel 。'), ('22', '2014-08-26 12:17:01', '1', '8', '1', '丛远东3', '2', '已修改 dr_name 和 dr_iden 。'), ('23', '2014-08-27 11:37:34', '1', '11', '2', 'location object', '2', '已修改 lo_update 。'), ('24', '2014-08-27 11:37:39', '1', '11', '1', 'location object', '2', '已修改 lo_update 。'), ('25', '2014-08-27 11:37:57', '1', '11', '1', 'location object', '2', '已修改 lo_update 。'), ('26', '2014-08-27 11:38:06', '1', '11', '2', 'location object', '2', '已修改 lo_update 。'), ('27', '2014-08-27 12:03:03', '1', '9', '2', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_status 。'), ('28', '2014-08-27 12:03:09', '1', '9', '1', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_status 。'), ('29', '2014-08-27 14:00:49', '1', '9', '5', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。'), ('30', '2014-08-27 14:01:00', '1', '9', '4', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。'), ('31', '2014-08-27 14:01:04', '1', '9', '3', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。'), ('32', '2014-08-27 14:01:10', '1', '9', '2', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。'), ('33', '2014-08-27 14:01:16', '1', '9', '1', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。');
+INSERT INTO `django_admin_log` VALUES ('1', '2014-08-15 13:17:04', '1', '4', '1', 'congyuandong', '2', '已修改 first_name 和 last_name 。'), ('2', '2014-08-16 14:20:56', '1', '8', '1', '丛远东', '1', ''), ('3', '2014-08-19 14:24:56', '1', '8', '6', '11', '3', ''), ('4', '2014-08-19 14:24:56', '1', '8', '5', '11', '3', ''), ('5', '2014-08-19 14:24:56', '1', '8', '4', '11', '3', ''), ('6', '2014-08-19 14:24:56', '1', '8', '3', '11', '3', ''), ('7', '2014-08-24 03:39:56', '1', '9', '1', '2008012345', '1', ''), ('8', '2014-08-24 05:43:07', '1', '7', '1', '1', '3', ''), ('9', '2014-08-24 05:55:46', '1', '9', '1', '11', '1', ''), ('10', '2014-08-24 06:36:48', '1', '9', '1', '12345678', '1', ''), ('11', '2014-08-24 13:00:44', '1', '10', '1', '12345678', '1', ''), ('12', '2014-08-26 07:37:20', '1', '8', '8', '刘启超', '2', '已修改 dr_name，dr_iden，dr_tel，dr_number，dr_hand，dr_type，dr_length，dr_weight 和 dr_pwd 。'), ('13', '2014-08-26 07:43:49', '1', '10', '6', '至诚迅达', '1', ''), ('14', '2014-08-26 07:44:05', '1', '10', '7', '至诚迅达', '1', ''), ('15', '2014-08-26 07:44:23', '1', '10', '8', '至诚迅达', '1', ''), ('16', '2014-08-26 08:50:43', '1', '10', '8', '至诚迅达', '2', '已修改 of_distance 。'), ('17', '2014-08-26 12:07:41', '1', '10', '6', '至诚迅达', '2', '已修改 of_confirm 。'), ('18', '2014-08-26 12:08:55', '1', '9', '1', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_status 。'), ('19', '2014-08-26 12:16:12', '1', '8', '7', '丛远东1', '2', '已修改 dr_name 。'), ('20', '2014-08-26 12:16:49', '1', '8', '2', '丛远东2', '2', '已修改 dr_name 和 dr_tel 。'), ('21', '2014-08-26 12:16:54', '1', '8', '8', '刘启超', '2', '已修改 dr_tel 。'), ('22', '2014-08-26 12:17:01', '1', '8', '1', '丛远东3', '2', '已修改 dr_name 和 dr_iden 。'), ('23', '2014-08-27 11:37:34', '1', '11', '2', 'location object', '2', '已修改 lo_update 。'), ('24', '2014-08-27 11:37:39', '1', '11', '1', 'location object', '2', '已修改 lo_update 。'), ('25', '2014-08-27 11:37:57', '1', '11', '1', 'location object', '2', '已修改 lo_update 。'), ('26', '2014-08-27 11:38:06', '1', '11', '2', 'location object', '2', '已修改 lo_update 。'), ('27', '2014-08-27 12:03:03', '1', '9', '2', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_status 。'), ('28', '2014-08-27 12:03:09', '1', '9', '1', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_status 。'), ('29', '2014-08-27 14:00:49', '1', '9', '5', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。'), ('30', '2014-08-27 14:01:00', '1', '9', '4', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。'), ('31', '2014-08-27 14:01:04', '1', '9', '3', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。'), ('32', '2014-08-27 14:01:10', '1', '9', '2', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。'), ('33', '2014-08-27 14:01:16', '1', '9', '1', '黑龙江私营工厂寻找货运物流', '2', '已修改 or_size 。'), ('34', '2014-09-02 13:53:54', '1', '7', '8', '夜雨闻铃', '3', ''), ('35', '2014-09-02 13:53:54', '1', '7', '7', '111111', '3', ''), ('36', '2014-09-02 15:16:47', '1', '7', '9', '夜雨闻铃', '3', ''), ('37', '2014-09-02 15:20:36', '1', '7', '10', '夜雨闻铃', '3', ''), ('38', '2014-09-02 15:53:42', '1', '7', '3', '11', '3', ''), ('39', '2014-09-04 17:33:36', '1', '12', '1', '挂车', '1', ''), ('40', '2014-09-04 17:33:43', '1', '12', '2', '平板车', '1', ''), ('41', '2014-09-04 17:33:58', '1', '12', '3', '厢式车', '1', ''), ('42', '2014-09-07 13:21:29', '1', '9', '5', '黑龙江私营工厂寻找货运物流1', '2', '已修改 or_title 。'), ('43', '2014-09-07 13:21:36', '1', '9', '4', '黑龙江私营工厂寻找货运物流2', '2', '已修改 or_title 。'), ('44', '2014-09-07 13:21:46', '1', '9', '3', '黑龙江私营工厂寻找货运物流3', '2', '已修改 or_title 。'), ('45', '2014-09-07 13:21:53', '1', '9', '2', '黑龙江私营工厂寻找货运物流4', '2', '已修改 or_title 。'), ('46', '2014-09-07 13:21:59', '1', '9', '1', '黑龙江私营工厂寻找货运物流5', '2', '已修改 or_title 。');
 COMMIT;
 
 -- ----------------------------
@@ -152,13 +152,13 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `django_content_type`
 -- ----------------------------
 BEGIN;
-INSERT INTO `django_content_type` VALUES ('1', 'log entry', 'admin', 'logentry'), ('2', 'permission', 'auth', 'permission'), ('3', 'group', 'auth', 'group'), ('4', 'user', 'auth', 'user'), ('5', 'content type', 'contenttypes', 'contenttype'), ('6', 'session', 'sessions', 'session'), ('7', '发货企业', 'transport', 'client'), ('8', '货车司机', 'transport', 'driver'), ('9', '订单', 'transport', 'order'), ('10', '订单报价', 'transport', 'offer'), ('11', '位置信息', 'transport', 'location');
+INSERT INTO `django_content_type` VALUES ('1', 'log entry', 'admin', 'logentry'), ('2', 'permission', 'auth', 'permission'), ('3', 'group', 'auth', 'group'), ('4', 'user', 'auth', 'user'), ('5', 'content type', 'contenttypes', 'contenttype'), ('6', 'session', 'sessions', 'session'), ('7', '发货企业', 'transport', 'client'), ('8', '货车司机', 'transport', 'driver'), ('9', '订单', 'transport', 'order'), ('10', '订单报价', 'transport', 'offer'), ('11', '位置信息', 'transport', 'location'), ('12', '货车类型管理', 'transport', 'truck');
 COMMIT;
 
 -- ----------------------------
@@ -177,7 +177,7 @@ CREATE TABLE `django_session` (
 --  Records of `django_session`
 -- ----------------------------
 BEGIN;
-INSERT INTO `django_session` VALUES ('oxic58ftltngepqns4pcz88pxmyxs6hk', 'M2Q3N2YzMzI4Mjg5YmVkYTFhZGE4YWJlODJmODhhMWU5ZmEwNzI1MDp7InVzZXJuYW1lIjoiMTEifQ==', '2014-09-06 12:29:59'), ('92uyviwvq1ksozbw6l4hedihtjc4s4ir', 'NTA0YjlmMjg2MzQ0MWM1MGE1MDVjNTU0YzY3Y2YxYmQzN2M5ZjY3Njp7InVzZXJuYW1lIjoiXHU0ZTFiXHU4ZmRjXHU0ZTFjIiwidXNlcl9pZCI6MiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQifQ==', '2014-09-07 05:50:55'), ('de6f1ehahtiauyllqn7rq5rpe3dyc5g8', 'MmNjNzRlYzNiMzcyYTBjMzVhODgxZGE0OTBkYjllYWQ2MTU3N2JiMjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=', '2014-08-30 07:10:36'), ('6n9cj8ekpe7gfnwzca4nj5oc4y2a4zik', 'MmNjNzRlYzNiMzcyYTBjMzVhODgxZGE0OTBkYjllYWQ2MTU3N2JiMjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=', '2014-09-07 05:36:40'), ('4iby6bv7x3ou7dv2i5dphnk8mbybzd1l', 'NTA0YjlmMjg2MzQ0MWM1MGE1MDVjNTU0YzY3Y2YxYmQzN2M5ZjY3Njp7InVzZXJuYW1lIjoiXHU0ZTFiXHU4ZmRjXHU0ZTFjIiwidXNlcl9pZCI6MiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQifQ==', '2014-09-11 11:58:49'), ('sooi2inkncgvqq62pifz8sqm9xq33jc4', 'ZWU3M2RiYmJhOWIxNzVjZDg3MGE4M2NmODcyOTcwN2I5MDUzNDI4Njp7InVzZXJuYW1lIjoiXHU0ZTFiXHU4ZmRjXHU0ZTFjIiwidXNlcl9pZCI6MiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoxfQ==', '2014-09-09 06:48:55');
+INSERT INTO `django_session` VALUES ('oxic58ftltngepqns4pcz88pxmyxs6hk', 'M2Q3N2YzMzI4Mjg5YmVkYTFhZGE4YWJlODJmODhhMWU5ZmEwNzI1MDp7InVzZXJuYW1lIjoiMTEifQ==', '2014-09-06 12:29:59'), ('t70yr1x4w3bdvxsgvay9cfbqy79eqyxb', 'M2UzOGU0NjZjMDg0ZjUwNWQ1MTBlYWNmNzEwZTdlNjU3N2M1OTY3Njp7InVzZXJuYW1lIjoiXHU0ZTFiXHU4ZmRjXHU0ZTFjIiwidXNlcl9pZCI6MTEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=', '2014-09-21 05:54:34'), ('de6f1ehahtiauyllqn7rq5rpe3dyc5g8', 'MmNjNzRlYzNiMzcyYTBjMzVhODgxZGE0OTBkYjllYWQ2MTU3N2JiMjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=', '2014-08-30 07:10:36'), ('6n9cj8ekpe7gfnwzca4nj5oc4y2a4zik', 'NTA0YjlmMjg2MzQ0MWM1MGE1MDVjNTU0YzY3Y2YxYmQzN2M5ZjY3Njp7InVzZXJuYW1lIjoiXHU0ZTFiXHU4ZmRjXHU0ZTFjIiwidXNlcl9pZCI6MiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQifQ==', '2014-09-17 11:41:46'), ('4iby6bv7x3ou7dv2i5dphnk8mbybzd1l', 'NTA0YjlmMjg2MzQ0MWM1MGE1MDVjNTU0YzY3Y2YxYmQzN2M5ZjY3Njp7InVzZXJuYW1lIjoiXHU0ZTFiXHU4ZmRjXHU0ZTFjIiwidXNlcl9pZCI6MiwiX2F1dGhfdXNlcl9pZCI6MSwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQifQ==', '2014-09-11 11:58:49'), ('sooi2inkncgvqq62pifz8sqm9xq33jc4', 'ZWU3M2RiYmJhOWIxNzVjZDg3MGE4M2NmODcyOTcwN2I5MDUzNDI4Njp7InVzZXJuYW1lIjoiXHU0ZTFiXHU4ZmRjXHU0ZTFjIiwidXNlcl9pZCI6MiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoxfQ==', '2014-09-09 06:48:55'), ('txkpo21v9ztpxuaz9wz81bilc7ny9ks3', 'M2Y3MjUyZTZmYWNkZjUwYTllMDhmMzE0NzFmMWM3YjY2ZWRjMWJlOTp7InVzZXJuYW1lIjoiXHU0ZTFiXHU4ZmRjXHU0ZTFjIiwidXNlcl9pZCI6Mn0=', '2014-09-16 10:46:03'), ('p87gvplltew7lgjl9srnf6p61dkahn87', 'NzkyMzg0OWFiZmVmMDY1ZDE1Zjg3YmYwYjBkNWZlNTE1YTYwMGZjYzp7fQ==', '2014-09-11 15:00:22'), ('8wvis2abuvr3fnukfcr2dg68sjuq6vna', 'ZWU3M2RiYmJhOWIxNzVjZDg3MGE4M2NmODcyOTcwN2I5MDUzNDI4Njp7InVzZXJuYW1lIjoiXHU0ZTFiXHU4ZmRjXHU0ZTFjIiwidXNlcl9pZCI6MiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoxfQ==', '2014-09-14 05:28:36'), ('012ahzbjzzm1nkt7lp08m5ctlr7wvwen', 'MmNjNzRlYzNiMzcyYTBjMzVhODgxZGE0OTBkYjllYWQ2MTU3N2JiMjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=', '2014-09-16 13:53:34');
 COMMIT;
 
 -- ----------------------------
@@ -194,14 +194,15 @@ CREATE TABLE `transport_client` (
   `clt_position` varchar(30) NOT NULL,
   `clt_industry` varchar(30) NOT NULL,
   `clt_from` varchar(30) NOT NULL,
+  `clt_conf_mail` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `transport_client`
 -- ----------------------------
 BEGIN;
-INSERT INTO `transport_client` VALUES ('2', 'congyuandong@sina.com', '1', '丛远东', '13136652521', '哈尔滨工程大学', '选择风格', '选择风格', '选择风格'), ('3', 'congyuandong@sina.com', '11', '11', '11', '11', '选择风格', '选择风格', '选择风格');
+INSERT INTO `transport_client` VALUES ('4', 'test@sina.com', '111111', '11', '13945181460', '1', '未选择', '未选择', '未选择', '0'), ('2', 'congyuandong@sina.com', '111111', '丛远东', '13136652522', '哈尔滨工程大学', '首席执行官', '化学品和塑料工业', '选择风格', '1'), ('5', 'congyuandong@163.com', '111111', '丛远东', '13945181460', '哈工程', '未选择', '未选择', '未选择', '0'), ('6', 'test@163.com', '111111', '丛远东', '13945181460', '哈工程', '所有者', '农业', '未选择', '0'), ('11', '303331934@qq.com', '123456', '丛远东', '13945181460', '哈工程', '董事/总经理', '快速消费品', '百度搜索引擎', '1');
 COMMIT;
 
 -- ----------------------------
@@ -296,16 +297,18 @@ CREATE TABLE `transport_order` (
   `or_board` int(11) NOT NULL,
   `or_number` int(11) NOT NULL,
   `or_weight` decimal(15,5) NOT NULL,
-  `or_size` varchar(200) NOT NULL,
+  `or_size_l` decimal(15,5) NOT NULL,
+  `or_size_w` decimal(15,5) NOT NULL,
+  `or_size_h` decimal(15,5) NOT NULL,
   `or_volume` decimal(15,5) NOT NULL,
   `or_truck` varchar(50) NOT NULL,
   `or_length` decimal(15,5) NOT NULL,
-  `or_isDanger` int(11) NOT NULL,
-  `or_isHeap` int(11) NOT NULL,
-  `or_isHand` int(11) NOT NULL,
-  `or_isAssist` int(11) NOT NULL,
-  `or_isInsurance` int(11) NOT NULL,
-  `or_request` varchar(500) NOT NULL,
+  `or_isDanger` varchar(50) NOT NULL,
+  `or_isHeap` varchar(50) NOT NULL,
+  `or_isHand` varchar(50) NOT NULL,
+  `or_isAssist` varchar(50) NOT NULL,
+  `or_isInsurance` varchar(50) NOT NULL,
+  `or_request` varchar(500) DEFAULT NULL,
   `or_status` int(11) NOT NULL,
   `or_longitude` decimal(15,8) NOT NULL,
   `or_latitude` decimal(15,8) NOT NULL,
@@ -313,13 +316,31 @@ CREATE TABLE `transport_order` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `or_id` (`or_id`),
   KEY `transport_order_00d498b4` (`or_client_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `transport_order`
 -- ----------------------------
 BEGIN;
-INSERT INTO `transport_order` VALUES ('1', '2', '2014082401', '2014-08-24 15:48:23', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流', '至诚迅达', '12.00000', '12', '1212', '12.00000', '长3米 宽2米 高2米', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '1', '126.69562600', '45.78603400', '48'), ('2', '2', '2014082402', '2014-08-24 15:48:25', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流', '至诚迅达', '12.00000', '12', '1212', '12.00000', '长3米 宽2米 高2米', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '0', '126.68549300', '45.77155200', '4'), ('3', '2', '2014082403', '2014-08-24 15:48:25', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流', '至诚迅达', '12.00000', '12', '1212', '12.00000', '长3米 宽2米 高2米', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '1', '126.68549300', '45.77155200', '3'), ('4', '2', '2014082405', '2014-08-24 15:48:25', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流', '至诚迅达', '12.00000', '12', '1212', '12.00000', '长3米 宽2米 高2米', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '0', '126.68067800', '45.78648700', '9'), ('5', '2', '2014082406', '2014-08-24 15:48:25', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流', '至诚迅达', '12.00000', '12', '1212', '12.00000', '长3米 宽2米 高2米', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '0', '126.68649900', '45.78492800', '22');
+INSERT INTO `transport_order` VALUES ('1', '2', '2014082401', '2014-08-24 15:48:23', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流5', '至诚迅达', '12.00000', '12', '1212', '12.00000', '0.00000', '0.00000', '0.00000', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '1', '126.69562600', '45.78603400', '48'), ('2', '2', '2014082402', '2014-08-24 15:48:25', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流4', '至诚迅达', '12.00000', '12', '1212', '12.00000', '0.00000', '0.00000', '0.00000', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '0', '126.68549300', '45.77155200', '4'), ('3', '2', '2014082403', '2014-08-24 15:48:25', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流3', '至诚迅达', '12.00000', '12', '1212', '12.00000', '0.00000', '0.00000', '0.00000', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '1', '126.68549300', '45.77155200', '3'), ('4', '2', '2014082405', '2014-08-24 15:48:25', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流2', '至诚迅达', '12.00000', '12', '1212', '12.00000', '0.00000', '0.00000', '0.00000', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '0', '126.68067800', '45.78648700', '9'), ('5', '2', '2014082406', '2014-08-24 15:48:25', '哈尔滨工程大学', '南京理工大学', '2014-08-24 06:34:22', '2014-08-24 06:34:24', '黑龙江私营工厂寻找货运物流1', '至诚迅达', '12.00000', '12', '1212', '12.00000', '0.00000', '0.00000', '0.00000', '12.00000', '12', '12.00000', '1', '1', '1', '1', '1', '这是说明', '0', '126.68649900', '45.78492800', '22'), ('6', '2', '140905100000', '2014-09-05 13:09:16', '黑龙江省哈尔滨市南岗区松鹤路', '长白山风景区', '2014-09-05 10:00:00', '2014-09-19 12:00:00', '工程大学15公寓需车', '石猴', '150000.00000', '4', '1', '5000.00000', '3.00000', '4.00000', '3.00000', '15.00000', '挂车', '12.00000', '否', '否', '否', '无', '否', '没有说明', '0', '126.68614800', '45.77712100', '0'), ('7', '2', '140905100001', '2014-09-05 13:14:09', '黑龙江省哈尔滨市南岗区松鹤路', '长白山风景区', '2014-09-05 10:00:00', '2014-09-19 12:00:00', '工程大学15公寓需车', '石猴', '150000.00000', '4', '1', '5000.00000', '3.00000', '4.00000', '3.00000', '15.00000', '挂车', '12.00000', '否', '否', '否', '无', '否', '没有说明', '0', '126.68614800', '45.77712100', '0');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `transport_truck`
+-- ----------------------------
+DROP TABLE IF EXISTS `transport_truck`;
+CREATE TABLE `transport_truck` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tr_type` varchar(100) NOT NULL,
+  `tr_sort` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `transport_truck`
+-- ----------------------------
+BEGIN;
+INSERT INTO `transport_truck` VALUES ('1', '挂车', '0'), ('2', '平板车', '1'), ('3', '厢式车', '2');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

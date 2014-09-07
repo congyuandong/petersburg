@@ -721,6 +721,29 @@ outline: none;
   padding-left: 3px;
   padding-right: 3px;
 }
+.order-box .order-title.tips {
+  height: 40px;
+  border-bottom: 0px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.order-box .order-title.tips .im{
+  color: #ff5000;
+  width: 9%;
+  line-height: 20px;
+}
+.order-box .order-title.tips .ct{
+  width: 87%;
+  padding-left: 2px;
+  padding-right: 14px;
+  line-height: 20px;
+}
+.order-box .order-title.tips .ct a{
+  color: #ff5000;
+}
+.order-box .order-title.tips .ct a:hover{
+  text-decoration: underline;
+}
 .order-box .order-row{
   overflow: hidden;
 }
@@ -1147,19 +1170,19 @@ clear: both;
   margin: auto;
 }
 .pwd-forgot .pwd-step-detail .item-row .key{
-  width: 35%;
+  width: 30%;
   font-size: 18px;
   padding-top: 10px;
 }
 .pwd-forgot .pwd-step-detail .item-row .val .input-logmail{
-  width: 180px;
+  width: 300px;
   display: block;
   padding: 0 20px;
   font-size: 14px;
 }
 .pwd-forgot .pwd-step-detail .item-row .val .btn{
   margin-bottom: 0;
-  width: 220px;
+  width: 342px;
 }
 .pwd-forgot .pwd-step-detail .result-message{
   width: 940px;
@@ -1171,7 +1194,7 @@ clear: both;
   font-weight: bold;
 }
 .pwd-forgot .pwd-step-detail .result-message .btn{
-  width: 120px;
+  width: 240px;
   margin-top: 30px;
 }
 /* reg.html */

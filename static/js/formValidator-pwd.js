@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$.formValidator.initConfig({formID:"client_form",theme:"Default",submitOnce:true,
+	$.formValidator.initConfig({formID:"pwd",theme:"Default",submitOnce:true,
 		onError:function(msg,obj,errorlist){
 			$("#errorlist").empty();
 			$.map(errorlist,function(msg){

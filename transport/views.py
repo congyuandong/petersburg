@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.db.models import Q
 
-from transport.forms import DriverForm,ClientForm
+from transport.forms import DriverForm,ClientForm,OrderForm
 from transport.models import client,driver,order,offer,location,truck
 
 import simplejson as json
@@ -30,6 +30,72 @@ def about(request):
 	context_dict = {}
 	return render_to_response('transport/about.html',context_dict,context)
 
+
+def f_pwd_1(request):
+	context = RequestContext(request)
+	context_dict = {}
+
+	if request.method == 'POST':
+		pwd_code = request.session.get('pwd_code',False)
+		get_code = request.POST.get('code','')
+		mail = request.session.get('pwd_mail',False)
+		if pwd_code == get_code :
+			context_dict['mail'] = mail
+			del request.session['pwd_code'] 
+			del request.session['pwd_mail'] 
+			return render_to_response('transport/pwd-forget2.html',context_dict,context)
+		else:
+			context_dict['error'] = '验证码输入错误'
+			if mail:
+				context_dict['mail'] = mail
+			return render_to_response('transport/pwd-forget1.html',context_dict,context)
+
+	return render_to_response('transport/pwd-forget1.html',context_dict,context)
+
+def f_pwd_2(request):
+	context = RequestContext(request)
+	context_dict = {}
+
+	if request.method == "POST":
+		print request.POST
+		clt_mail = request.POST.get('clt_mail','')
+		clt_pwd = request.POST.get('clt_pwd','')
+		client_obj = client.objects.get(clt_mail__exact = clt_mail)
+		client_obj.clt_pwd = clt_pwd
+		client_obj.save()
+		return render_to_response('transport/pwd-forget3.html',context_dict,context)
+
+	return render_to_response('transport/pwd-forget2.html',context_dict,context)
+
+def f_pwd_3(request):
+	context = RequestContext(request)
+	context_dict = {}
+	return render_to_response('transport/pwd-forget3.html',context_dict,context)
+
+def f_pwd_code(request):
+	context = RequestContext(request)
+	context_dict = {}
+
+	if request.method == 'GET':
+		mail = request.GET.get('mail','')
+		print mail
+		if not ProcessMail(mail):
+			context_dict['msg'] = 0
+			return HttpResponse(json.dumps(context_dict),content_type="application/json")
+		client_obj =client.objects.filter(clt_mail__exact = mail)
+		if not client_obj:
+			context_dict['msg'] = 1
+			return HttpResponse(json.dumps(context_dict),content_type="application/json")
+		else:
+			code = RandCode()
+			SendMailCode(code,mail)
+			request.session['pwd_code'] = code
+			request.session['pwd_mail'] = mail
+			context_dict['msg'] = 2
+			return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
 #个人中心
 def ind_select(request,status):
 	context = RequestContext(request)
@@ -41,9 +107,9 @@ def ind_select(request,status):
 	if not session:
 		return render_to_response('transport/login.html',context_dict,context)
 	if status != 'all':
-		order_objs = order.objects.filter(or_status__exact = status)
+		order_objs = order.objects.filter(or_status__exact = status).order_by('-or_update')
 	else:
-		order_objs = order.objects.all()
+		order_objs = order.objects.all().order_by('-or_update')
 
 	for order_obj in order_objs:
 		offer_objs_nums = offer.objects.filter(of_order__exact = order_obj).count()
@@ -56,6 +122,9 @@ def ind_select(request,status):
 	context_dict['offers'] = offer_objs
 
 	#print context_dict
+	#download = request.session.get('download',False)
+	if status == '1':
+		context_dict['download'] = True
 	return render_to_response('transport/individual.html',context_dict,context)
 
 #个人资料修改
@@ -166,9 +235,39 @@ def	orderpublish(request):
 	context_dict['trucks'] = truck_objs;
 
 	if request.method == 'POST':
-		print request.POST
+		orderData = request.POST
+
+		orderData.appendlist('or_status',0)
+		orderData.appendlist('or_view',0)
+		orderData.appendlist('or_update',datetime.now())
+		_id = request.session.get('user_id',False)
+		orderData.appendlist('or_client',_id)
+		orderData.appendlist('or_id',getOrderId())
+		print getOrderId()
+		#print datetime.now().strftime('%Y%m%d')[2:]
+		#print getOrderId()
+
+		orderForm = OrderForm(data=orderData)
+
+		if orderForm.is_valid():
+			orderForm.save()
+			print '订单发布成功'
+			return HttpResponseRedirect('/t/i/psall/')
+		else:
+			print orderForm.errors
 
 	return render_to_response('transport/individual-orderpublish.html',context_dict,context)
+
+#计算下一个订单编号
+def getOrderId():
+
+	first = datetime.now().strftime('%Y%m%d')[2:]
+	count = order.objects.filter(or_id__startswith = first).count()
+	last = '%d'%(100000+count)	
+	return first+last
+
+
+
 
 #展示报价列表
 def orderreceive(request,or_id,sort):
@@ -203,6 +302,7 @@ def offer_confirm(request,of_id):
 	offer_obj.of_order.save()
 	offer_obj.of_confirm = 1
 	offer_obj.save()
+	#request.session['download'] = True
 	return HttpResponseRedirect('/t/i/ps1/')
 	
 
@@ -609,3 +709,30 @@ def set_order_finish(request):
 	print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
+#订单柱状图
+def order_column(request):
+	response_data = []
+	order_objs = order.objects.all()
+	count_all = order_objs.count()
+	order_objs_0 = order_objs.filter(or_status__exact = 0).count()
+	order_objs_1 = order_objs.filter(or_status__exact = 1).count()
+	order_objs_2 = order_objs.filter(or_status__exact = 2).count()
+	order_objs_3 = order_objs.filter(or_status__exact = 3).count()
+	print count_all,order_objs_1,order_objs_2,order_objs_3
+	response_data = [['交易总数',count_all],['显示中',order_objs_0],['进行中',order_objs_1],['已完成',order_objs_2],['已关闭',order_objs_3]]
+	print response_data
+	return HttpResponse(json.dumps(response_data),content_type="application/json")
+
+#订单饼状图
+def order_pie(request):
+	response_data = []
+	order_objs = order.objects.all()
+	count_all = order_objs.count()
+	order_objs_0 = order_objs.filter(or_status__exact = 0).count()
+	order_objs_1 = order_objs.filter(or_status__exact = 1).count()
+	order_objs_2 = order_objs.filter(or_status__exact = 2).count()
+	order_objs_3 = order_objs.filter(or_status__exact = 3).count()
+	print count_all,order_objs_1,order_objs_2,order_objs_3
+	response_data = [['显示中',order_objs_0],['进行中',order_objs_1],['已完成',order_objs_2],['已关闭',order_objs_3]]
+	print response_data
+	return HttpResponse(json.dumps(response_data),content_type="application/json")

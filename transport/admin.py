@@ -41,14 +41,23 @@ class OrderAdmin(admin.ModelAdmin):
 			return '已完成'
 		elif obj.or_status == 3:
 			return '已关闭'
+	def get_location(self,obj):
+		if obj.or_status == 1:
+			return "<a href='/admin/location_new/"+str(obj.or_id)+"''>物流信息</a>"
+		elif obj.or_status == 2:
+			return "<a href='/admin/location_new/"+str(obj.or_id)+"''>物流信息</a>"
+		else:
+			return "暂无记录"
 
 	get_status.short_description = '订单状态'
 	get_status.allow_tags = True
+	get_location.short_description = '位置查看'
+	get_location.allow_tags = True
     #get_status.allow_tags = True
 
-	fields = ['or_client','or_id','get_status','or_update','or_title','or_start','or_end','or_startTime','or_endTime','or_name','or_price','or_board','or_number','or_weight','or_size_l','or_size_w','or_size_h','or_volume','or_truck','or_length','or_isDanger','or_isHeap','or_isHand','or_isAssist','or_isInsurance','or_request','or_longitude','or_latitude','or_view']
-	list_display = ['or_client','or_id','get_status','or_update','or_title','or_start','or_end','or_startTime','or_endTime','or_name','or_price','or_board','or_number','or_weight','or_size_l','or_size_w','or_size_h','or_volume','or_truck','or_length','or_isDanger','or_isHeap','or_isHand','or_isAssist','or_isInsurance','or_request','or_longitude','or_latitude','or_view']
-	search_fields = ['or_name']
+	#fields = ['or_title','or_client','or_id','get_status','or_update','or_start','or_end','or_startTime','or_endTime','or_name','or_price','or_board','or_number','or_weight','or_size_l','or_size_w','or_size_h','or_volume','or_truck','or_length','or_isDanger','or_isHeap','or_isHand','or_isAssist','or_isInsurance','or_request','or_longitude','or_latitude','or_view']
+	list_display = ['or_id','or_title','get_location','or_client','get_status','or_update','or_start','or_end','or_startTime','or_endTime','or_name','or_price','or_board','or_number','or_weight','or_size_l','or_size_w','or_size_h','or_volume','or_truck','or_length','or_isDanger','or_isHeap','or_isHand','or_isAssist','or_isInsurance','or_request','or_longitude','or_latitude','or_view']
+	search_fields = ['or_id','or_title']
 	list_filter = (OrderListFilter,)
 	
 class OfferAdmin(admin.ModelAdmin):
@@ -67,6 +76,6 @@ class TruckAdmin(admin.ModelAdmin):
 admin.site.register(client,ClientAdmin)
 admin.site.register(driver,DriverAdmin)
 admin.site.register(order,OrderAdmin)
-admin.site.register(offer,OfferAdmin)
-admin.site.register(location,LocationAdmin)
+#admin.site.register(offer,OfferAdmin)
+#admin.site.register(location,LocationAdmin)
 admin.site.register(truck,TruckAdmin)

@@ -80,8 +80,6 @@ $(document).ready(function(){
         tag_option.attr('class','selected');
       }
     }
-    //showbox.text(selects.eq(index).text());
-    //alert(selects.eq(index).attr("value"))
 
   }
 
