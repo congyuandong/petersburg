@@ -85,12 +85,19 @@ $(document).ready(function(){
     showbox=ul_list.prev();
     if(typeof(selects.eq(index).attr("default"))=='undefined')
       showbox.text(selected_option.text());
-    else
+    else{
       showbox.text(selects.eq(index).attr("default"));
+    }
+      
     //为每个option建立个li并赋值
     for(var n=0;n<options.length;n++){
       var tag_option=$('<li></li>'),//li相当于option
       txt_option=options.eq(n).text();
+      //当select有默认值的时候选定select
+      if(txt_option == showbox.text()){
+        options.eq(n).attr('selected','selected');
+      }
+
       tag_option.text(txt_option).css('cursor','pointer').appendTo(ul_list);
       //为被选中的元素添加class为selected
       if(n==selected_index){

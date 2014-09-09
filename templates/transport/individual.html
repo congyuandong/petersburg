@@ -57,7 +57,7 @@
             <div id="scantimes">浏览 {{order.or_view}} 次</div>
             {% if order.or_status == 0 %}
             <div class="operation">
-              <a href="">修改</a>
+              <a href="/t/i/edit/id{{order.or_id}}">修改</a>
               |
               <a href="javascript:closeOrder({{order.or_id}})">关闭</a>
             </div>

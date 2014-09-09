@@ -1,5 +1,5 @@
+var gotLocation = 0;
 $(document).ready(function(){
-		var gotLocation = 0;
 		$("#map_confirm").click(function(){
 			if(window.gotLocation == 1)
 				$("#myModal").modal("hide");

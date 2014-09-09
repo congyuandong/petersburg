@@ -106,10 +106,13 @@ def ind_select(request,status):
 	session = request.session.get('username',False)
 	if not session:
 		return render_to_response('transport/login.html',context_dict,context)
+
+	_id =request.session.get('user_id',False)
+
 	if status != 'all':
-		order_objs = order.objects.filter(or_status__exact = status).order_by('-or_update')
+		order_objs = order.objects.filter(or_status__exact = status,or_client__exact = _id).order_by('-or_update')
 	else:
-		order_objs = order.objects.all().order_by('-or_update')
+		order_objs = order.objects.filter(or_client__exact = _id).order_by('-or_update')
 
 	for order_obj in order_objs:
 		offer_objs_nums = offer.objects.filter(of_order__exact = order_obj).count()
@@ -225,6 +228,50 @@ def orderdetail(request,or_id):
 	context_dict['offer_obj'] = offer_obj
 	print context_dict
 	return render_to_response('transport/individual-orderdetail.html',context_dict,context)
+
+def orderedit(request,or_id):
+	context = RequestContext(request)
+	context_dict = {}
+	if request.method == 'POST':
+		print request.POST
+		order_obj = order.objects.get(or_id__exact = or_id)
+		order_obj.or_update = datetime.now()
+		order_obj.or_pushTime = datetime.now()
+		order_obj.or_title = request.POST.get('or_title','')
+		order_obj.or_start = request.POST.get('or_start','')
+		order_obj.or_longitude = request.POST.get('or_longitude','')
+		order_obj.or_latitude = request.POST.get('or_latitude','')
+		order_obj.or_end = request.POST.get('or_end','')
+		order_obj.or_push = request.POST.get('or_push','')
+		order_obj.or_startTime = request.POST.get('or_startTime','')
+		order_obj.or_endTime = request.POST.get('or_endTime','')
+		order_obj.or_name = request.POST.get('or_name','')
+		order_obj.or_price = request.POST.get('or_price','')
+		order_obj.or_board = request.POST.get('or_board','')
+		order_obj.or_number = request.POST.get('or_number','')
+		order_obj.or_weight = request.POST.get('or_weight','')
+		order_obj.or_size_l = request.POST.get('or_size_l','')
+		order_obj.or_size_w = request.POST.get('or_size_w','')
+		order_obj.or_size_h = request.POST.get('or_size_h','')
+		order_obj.or_volume = request.POST.get('or_volume','')
+		order_obj.or_length = request.POST.get('or_length','')
+		order_obj.or_truck = request.POST.get('or_truck','')
+		order_obj.or_isDanger = request.POST.get('or_isDanger','')
+		order_obj.or_isHeap = request.POST.get('or_isHeap','')
+		order_obj.or_isHand = request.POST.get('or_isHand','')
+		order_obj.or_isAssist = request.POST.get('or_isAssist','')
+		order_obj.or_isInsurance = request.POST.get('or_isInsurance','')
+		order_obj.or_request = request.POST.get('or_request','')
+		order_obj.save()
+		return HttpResponseRedirect('/t/i/psall')
+	else:
+		order_obj = order.objects.get(or_id__exact = or_id)
+		context_dict['order'] = order_obj
+		truck_objs = truck.objects.all().order_by('tr_sort')
+		context_dict['trucks'] = truck_objs;
+
+	print context_dict
+	return render_to_response('transport/individual-orderedit.html',context_dict,context)
 
 #关闭订单
 def orderclose(request,or_id):
@@ -430,7 +477,7 @@ def get_order(request):
 	longitude = request.GET.get('longitude','')
 	latitude = request.GET.get('latitude','')
 	print longitude,latitude
-	order_objs = order.objects.all()[:100]
+	order_objs = order.objects.filter(or_status__exact = 0)[:100]
 	print order_objs
 	for order_obj in order_objs:
 		context = {}
