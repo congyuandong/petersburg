@@ -454,6 +454,50 @@ button.close {
   position: relative;
   padding: 15px;
 }
+.modal-row{
+  display:block;
+  clear: both;
+  overflow: hidden;
+}
+
+.modal-row:before, 
+.modal-row:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.modal-body .modal-row .key{
+  width: 20%;
+  text-align: right;
+  padding-top: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #111;
+  float: left;
+}
+.modal-body .modal-row .tip{
+  padding-top: 6px;
+  line-height: 32px;
+}
+.modal-body .modal-row span{
+  font-size: 14px;
+  padding-left: 160px;
+  color: #000;
+}
+.modal-body .modal-row .val{
+  width: 52%;
+  margin-left: 20px;
+  float: left;
+}
+
+.modal-body p{
+  font-size: 16px;
+}
+
+.modal-body .modal-row .error{
+  width: 20%;
+  float: left;
+}
 .modal-footer {
   padding: 15px;
   text-align: right;
@@ -489,6 +533,10 @@ button.close {
     width: 300px;
   }
 }
+.modal-dialog.mini {
+    width: 480px;
+    margin: 30px auto;
+  }
 @media (min-width: 992px) {
   .modal-lg {
     width: 900px;
@@ -678,4 +726,28 @@ fieldset[disabled] .btbtn-primary.active {
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px;
+}
+.btbtn-danger {
+  background-image: -webkit-linear-gradient(top, #d9534f 0%, #c12e2a 100%);
+  background-image: -o-linear-gradient(top, #d9534f 0%, #c12e2a 100%);
+  background-image: linear-gradient(to bottom, #d9534f 0%, #c12e2a 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9534f', endColorstr='#ffc12e2a', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+  border-color: #b92c28;
+}
+.btbtn-danger:hover,
+.btbtn-danger:focus {
+  background-color: #c12e2a;
+  background-position: 0 -15px;
+}
+.btbtn-danger:active,
+.btbtn-danger.active {
+  background-color: #c12e2a;
+  border-color: #b92c28;
+}
+.btbtn-danger:disabled,
+.btbtn-danger[disabled] {
+  background-color: #c12e2a;
+  background-image: none;
 }

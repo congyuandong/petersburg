@@ -3,6 +3,25 @@
 {% load pagination_tags %}
 {% block title %}个人中心{% endblock %}
 {% block left_block %}
+    <div class="modal fade" id="closeOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog mini">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">关闭确认</h4>
+          </div>
+          <div class="modal-body">
+            <p>确定要关闭该需求吗？</p>
+            <p>关闭后所有的需求信息和相关报价信息将不再可用。</p>
+          </div>
+          <div class="modal-footer">
+             <input type="text" name="close_order_data" id="close_order_data" style="display:none">
+            <button type="button" class="btbtn btbtn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btbtn btbtn-danger" id="close_order_confirm">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="main-content left">
       <div class="order-head">
         <span>需求列表</span>
@@ -40,7 +59,7 @@
             <div class="operation">
               <a href="">修改</a>
               |
-              <a href="">删除</a>
+              <a href="javascript:closeOrder({{order.or_id}})">关闭</a>
             </div>
             {% endif %}
           </div>

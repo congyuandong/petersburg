@@ -11,16 +11,34 @@ $(document).ready(function(){
 		btn_disable();
 	}
 
-	// $('#span_refresh').click(function(){
-	// 	if(typeof($("#span_refresh").attr("disabled"))=="undefined"){
-	// 		$.cookie('load_timeout',refresh_time);
-	// 		$('#span_refresh').attr('disabled', 'disabled');
-	// 		btn_disable();
-	// 	}else{
-	// 		return false;
-	// 	}
-	// });
+	$("#span_push").click(function(){
+		$("#pushModal").modal({
+				show:true,
+				backdrop:true
+		});
+	});
+
+	$("#push_confirm").click(function(){
+		$("#pushModal").modal("hide");
+	});
 })
+
+function changePush(or_id,distance){
+	$.ajax({
+        url:'/t/around_rec/id'+or_id+'dis'+$("#or_push").val(),
+        method:'get',
+        dateType:'json',
+        success:function(data){
+            //alert(data.num);
+            $("#or_pushTip").removeClass('onError');
+            $("#or_pushTip").addClass('onCorrect');
+            $("#or_pushTip").text("");
+			$("#or_pushTip").append('大约有'+data.num+'辆车')
+        },
+        error:function(date){
+        }
+    });
+}
 
 function refresh(id){
 	if(typeof($("#span_refresh").attr("disabled"))=="undefined"){

@@ -1,5 +1,5 @@
 #coding:utf-8
-import random
+import random,math,os
 import string
 from django.core.mail import send_mail
 
@@ -23,3 +23,19 @@ def SendMailCode(code,mail_address):
 def RandCode():
 	return string.join(random.sample(['Z','Y','X','W','V','U','T','S','R','Q','P','O','N','M','L','K','J','I','H','G','F','E','D','C','B','A','1','2','3','4','5','6','7','8','9','0'], 6)).replace(' ','')
 
+#根据经度 纬度计算两点之间的距离
+def rad(d):
+	return d*3.1415927/180.0
+
+def GetDistance(lat1,lng1,lat2,lng2):
+    radlat1=rad(lat1)
+    radlat2=rad(lat2)
+    a=radlat1-radlat2
+    b=rad(lng1)-rad(lng2)
+    s=2*math.asin(math.sqrt(math.pow(math.sin(a/2),2)+math.cos(radlat1)*math.cos(radlat2)*math.pow(math.sin(b/2),2)))
+    earth_radius=6378.137
+    s=s*earth_radius
+    if s<0:
+        return -s
+    else:
+        return s

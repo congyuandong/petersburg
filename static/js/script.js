@@ -1,6 +1,21 @@
 // JavaScript Document
 $(document).ready(function(){
 
+  //确认关闭订单
+  $("#close_order_confirm").click(function(){
+    $.ajax({
+        url:'/t/i/close/id'+$("#close_order_data").val(),
+        method:'get',
+        dateType:'json',
+        success:function(data){
+            $("#closeOrder").modal("hide");
+            window.location.href="/t/i/psall"
+        },
+        error:function(date){
+        }
+    });
+  });
+
   //详细页面选项卡切换
   $(".tabmenu li").click(function(){
     $(".tabmenu li").removeClass("hover");
@@ -50,6 +65,8 @@ $(document).ready(function(){
         //options.eq(n).removeAttr('selected');
         if(value == options.eq(n).text()){
           options.eq(n).attr('selected','selected');
+          //这里调用change方法，触发onchange函数
+          options.eq(n).change();
         }
       }
     });
@@ -197,3 +214,15 @@ function createIcon(json){
                             )
   return icon;
 }
+
+
+//个人页面关闭页面
+function closeOrder(or_id){
+  $("#closeOrder").modal({
+        show:true,
+        backdrop:true
+  });
+  $("#close_order_data").val(or_id);
+  //alert($("#close_order_data").val())
+}
+

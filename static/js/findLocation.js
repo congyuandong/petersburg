@@ -11,7 +11,7 @@ $(document).ready(function(){
 			$("#myModal").modal({
 				show:true,
 				backdrop:true
-		});
+			});
 
 		var map = new BMap.Map("allmap");
 		//增加地图控件

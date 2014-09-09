@@ -59,6 +59,8 @@ class order(models.Model):
 	or_update = models.DateTimeField(verbose_name='更新时间')
 	or_start = models.CharField(max_length=500,verbose_name='装车地点')
 	or_end = models.CharField(max_length=500,verbose_name='卸车地点')
+	or_push = models.IntegerField(default = 0,verbose_name='推送半径')
+	or_pushTime = models.DateTimeField(verbose_name='推送距离更新时间')
 	or_startTime = models.DateTimeField(verbose_name='提货时间')
 	or_endTime = models.DateTimeField(verbose_name='计划到达时间')
 	or_title = models.CharField(max_length=200,verbose_name='标题')
@@ -128,6 +130,37 @@ class location(models.Model):
 	class Meta:
 		verbose_name = '位置信息'
 		verbose_name_plural = '位置信息'
+
+'''
+司机在线时的位置信息，一个司机最多只有一条数据
+'''
+class online(models.Model):
+	on_driver = models.ForeignKey(driver,verbose_name="司机")
+	on_longitude = models.DecimalField(max_digits=15,decimal_places=8,verbose_name='经度')
+	on_latitude = models.DecimalField(max_digits=15,decimal_places=8,verbose_name='纬度')
+	on_update = models.DateTimeField(verbose_name='更新时间')
+
+	def __unicode__(self):
+		return self.on_driver.dr_name
+
+	class Meta:
+		verbose_name = '司机在线位置'
+		verbose_name_plural = '司机在线位置'
+
+'''
+push记录表，一个订单给一个司机只push一次
+'''
+class push(models.Model):
+	pu_order = models.ForeignKey(order,verbose_name='订单')
+	pu_driver = models.ForeignKey(driver,verbose_name='司机')
+	pu_count = models.IntegerField(default=0,verbose_name='推送次数')
+
+	def __unicode__(self):
+		return self.pu_order.or_title
+
+	class Meta:
+		verbose_name = '推送记录'
+		verbose_name_plural = '推送记录'
 
 '''
 货车类型管理

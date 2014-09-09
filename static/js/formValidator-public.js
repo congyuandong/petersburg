@@ -27,6 +27,7 @@ $(document).ready(function(){
 	});
 	$("#or_end").formValidator({onCorrect:"&nbsp"})
 				.regexValidator({regExp:"notempty",dataType:"enum",onError:"卸车地点不能为空"}); 
+
 	$("#or_startTime").formValidator({onCorrect:"&nbsp"})
 					  .inputValidator({min:1,onError:"提货时间不能为空"});
 	$("#or_endTime").formValidator({onCorrect:"&nbsp"})
@@ -56,3 +57,29 @@ $(document).ready(function(){
 	$("#or_size_h").formValidator({onFocus:"单位：米",onCorrect:"&nbsp"})
 				  .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});			  	 
 })
+
+
+function changePush(distance){
+	if($("#or_start").val()==''){
+		$("#or_pushTip").removeClass('onCorrect');
+		$("#or_pushTip").addClass('onError');
+		$("#or_pushTip").text("");
+		$("#or_pushTip").append('请先选择装车地点')
+		return false;
+	}
+
+	$.ajax({
+        url:'/t/around/lat'+$("#or_latitude").val()+'lon'+$("#or_longitude").val()+'dis'+$("#or_push").val(),
+        method:'get',
+        dateType:'json',
+        success:function(data){
+            //alert(data.num);
+            $("#or_pushTip").removeClass('onError');
+            $("#or_pushTip").addClass('onCorrect');
+            $("#or_pushTip").text("");
+			$("#or_pushTip").append('大约有'+data.num+'辆车')
+        },
+        error:function(date){
+        }
+    });
+}

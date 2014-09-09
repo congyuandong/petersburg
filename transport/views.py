@@ -8,10 +8,10 @@ from django.core import serializers
 from django.db.models import Q
 
 from transport.forms import DriverForm,ClientForm,OrderForm
-from transport.models import client,driver,order,offer,location,truck
+from transport.models import client,driver,order,offer,location,truck,online,push
 
 import simplejson as json
-from datetime import datetime
+from datetime import datetime,timedelta
 from validator import *
 from tools import *
 
@@ -226,6 +226,14 @@ def orderdetail(request,or_id):
 	print context_dict
 	return render_to_response('transport/individual-orderdetail.html',context_dict,context)
 
+#关闭订单
+def orderclose(request,or_id):
+	print or_id
+	order_obj = order.objects.get(or_id__exact = or_id)
+	order_obj.or_status = 3
+	order_obj.save()
+	return HttpResponseRedirect('/t/i/psall')
+
 #订单发布
 def	orderpublish(request):
 	context = RequestContext(request)
@@ -240,6 +248,7 @@ def	orderpublish(request):
 		orderData.appendlist('or_status',0)
 		orderData.appendlist('or_view',0)
 		orderData.appendlist('or_update',datetime.now())
+		orderData.appendlist('or_pushTime',datetime.now())
 		_id = request.session.get('user_id',False)
 		orderData.appendlist('or_client',_id)
 		orderData.appendlist('or_id',getOrderId())
@@ -265,8 +274,6 @@ def getOrderId():
 	count = order.objects.filter(or_id__startswith = first).count()
 	last = '%d'%(100000+count)	
 	return first+last
-
-
 
 
 #展示报价列表
@@ -424,7 +431,7 @@ def get_order(request):
 	latitude = request.GET.get('latitude','')
 	print longitude,latitude
 	order_objs = order.objects.all()[:100]
-	#print order_objs
+	print order_objs
 	for order_obj in order_objs:
 		context = {}
 		context['or_id'] = order_obj.or_id
@@ -709,6 +716,88 @@ def set_order_finish(request):
 	print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
+#手机端获取推送数据
+def app_push(request):
+	context_dict = []
+
+	if request.method == 'POST':
+		dr_tel = request.POST.get('dr_tel','')
+		latitude = request.POST.get('latitude','')
+		longitude = request.POST.get('longitude','')
+		print dr_tel,latitude,longitude
+
+		driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
+		online_obj = online.objects.filter(on_driver__exact = driver_obj)
+
+		#保存司机的位置信息
+		if online_obj:
+			online_obj[0].on_longitude = longitude
+			online_obj[0].on_latitude = latitude
+			online_obj[0].on_update = datetime.now()
+			online_obj[0].save()
+			#context_dict['status']='1'
+		else:
+			online_new = online(on_driver = driver_obj,on_longitude = longitude,on_latitude = latitude,on_update = datetime.now())
+			online_new.save()
+			#context_dict['status']='1'
+
+		#向司机推送订单数据
+		order_objs = order.objects.all();
+
+		for order_obj in order_objs:
+			#最首先，推送的时间小于某个固定值
+			or_pushTime = order_obj.or_pushTime
+			or_pushTime = or_pushTime.replace(tzinfo=None)
+			print or_pushTime
+			print datetime.now()
+			diffDays = (datetime.now() - or_pushTime).days
+			diffSeconds = (datetime.now() - or_pushTime).seconds
+			print '时间差'+str(diffSeconds)
+			if  diffSeconds < 7200 and diffDays ==0:
+				#距离要小于推送距离
+				distance = GetDistance(float(latitude),float(longitude),float(order_obj.or_latitude),float(order_obj.or_longitude))
+				print distance,order_obj.or_push
+				if distance <= order_obj.or_push:
+					push_obj = push.objects.filter(pu_order__exact = order_obj,pu_driver__exact = driver_obj)
+					#其次，没有给该司机push过数据
+					if not push_obj:
+						push_new = push(pu_order = order_obj,pu_driver = driver_obj,pu_count = 1)
+						push_new.save()
+						context = {}
+						context['or_title'] = order_obj.or_title
+						context['or_id'] = order_obj.or_id
+						context_dict.append(context)
+					else:
+						print '已经给该司机推送过数据'
+				else:
+					print '该订单距离太远，不推送'
+			else:
+				print '推送时间已过期'
+	print context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
+#手机端获取卡车类型
+def truck_type(request):
+	response_data = []
+	truck_objs = truck.objects.all().order_by('tr_sort')
+	for truck_obj in truck_objs:
+		context = {}
+		context['type'] = truck_obj.tr_type
+		response_data.append(context)
+	print response_data
+	return HttpResponse(json.dumps(response_data),content_type="application/json")
+
+#APP端获取版本信息
+def app_update(request):
+	context_dict = {}
+	version = request.GET.get('version','')
+	if version == '1.2':
+		context_dict['status']='0'
+	else:
+		context_dict['status']='1'
+	print context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
 #订单柱状图
 def order_column(request):
 	response_data = []
@@ -734,5 +823,39 @@ def order_pie(request):
 	order_objs_3 = order_objs.filter(or_status__exact = 3).count()
 	print count_all,order_objs_1,order_objs_2,order_objs_3
 	response_data = [['显示中',order_objs_0],['进行中',order_objs_1],['已完成',order_objs_2],['已关闭',order_objs_3]]
+	print response_data
+	return HttpResponse(json.dumps(response_data),content_type="application/json")
+
+#获取范围内车辆的数量
+def around(request,latitude,longitude,distance):
+	response_data = {}
+	print latitude,longitude,distance
+	count = 0
+	online_objs = online.objects.filter(on_update__range=(datetime.now()-timedelta(seconds=7200),datetime.now()))
+	#print online_objs
+	for online_obj in online_objs:
+		dis = GetDistance(float(latitude),float(longitude),float(online_obj.on_latitude),float(online_obj.on_longitude))
+		if dis < float(distance):
+			count = count +1
+	response_data['num'] = count
+	print response_data
+	return HttpResponse(json.dumps(response_data),content_type="application/json")
+
+def around_rec(request,or_id,distance):
+	response_data = {}
+	print or_id,distance
+	count =0
+	order_obj = order.objects.get(or_id__exact = or_id)
+
+	online_objs = online.objects.filter(on_update__range=(datetime.now()-timedelta(seconds=7200),datetime.now()))
+	#print online_objs
+	for online_obj in online_objs:
+		dis = GetDistance(float(order_obj.or_latitude),float(order_obj.or_longitude),float(online_obj.on_latitude),float(online_obj.on_longitude))
+		if dis < float(distance):
+			count = count +1
+	response_data['num'] = count
+
+	order_obj.or_push = distance
+	order_obj.save()
 	print response_data
 	return HttpResponse(json.dumps(response_data),content_type="application/json")

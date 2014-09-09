@@ -698,6 +698,9 @@ outline: none;
   color: #999;
   margin-bottom: 16px;
 }
+.content-Inc .main-content .main-order .hint a{
+  margin-left: 10px
+}
 .order-box .order-title{
   height: 26px;
   background-color: #fafafa;
@@ -1223,7 +1226,7 @@ clear: both;
   padding-top: 34px;
 }
 .item-row{
-  padding-bottom: 18px;
+  margin-bottom: 18px;
   display:block;
   clear: both;
   overflow: hidden;
@@ -1235,7 +1238,7 @@ clear: both;
   content: "";
 }
 .item-row .key{
-  width: 30%;
+  width: 20%;
   text-align: right;
   padding-top: 12px;
   font-size: 14px;

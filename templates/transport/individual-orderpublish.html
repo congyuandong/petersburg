@@ -18,7 +18,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btbtn btbtn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btbtn btbtn-primary" id="map_confirm">确定</button>
+            <button type="button" class="btbtn btbtn-primary" id="push_confirm">确定</button>
           </div>
         </div>
       </div>
@@ -54,6 +54,27 @@
             <input type="text" class="input-pub" name="or_end" id="or_end">
           </div>
           <div class="error" id="or_endTip"></div>
+        </div>
+        <div class="item-row">
+          <div class="key">推送半径：</div>
+          <div class="val">
+            <select name="or_push" id="or_push" onchange="javascript:changePush(this.value)">
+              <option value="5" selected="selected">5km</option>
+              <option value="10">10km</option>
+              <option value="20">20km</option>
+              <option value="30">30km</option>
+              <option value="40">40km</option>
+              <option value="50">50km</option>
+              <option value="60">60km</option>
+              <option value="70">70km</option>
+              <option value="80">80km</option>
+              <option value="90">90km</option>
+              <option value="100">100km</option>
+            </select>
+          </div>
+          <div class="error">
+            <div id="or_pushTip"></div>
+          </div>
         </div>
         <div class="item-row">
           <div class="key">提货时间：</div>
