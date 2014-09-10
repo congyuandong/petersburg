@@ -1,6 +1,6 @@
 #coding:utf-8
 from django.contrib import admin
-from transport.models import client,driver,order,offer,location,truck
+from transport.models import client,driver,order,offer,location,truck,online
 
 # Register your models here.
 
@@ -73,9 +73,15 @@ class TruckAdmin(admin.ModelAdmin):
 	fields = ['tr_type','tr_sort']
 	list_display = ['tr_type','tr_sort']
 
+class OnlineAdmin(admin.ModelAdmin):
+	fields = ['on_driver','on_longitude','on_latitude','on_update']
+	list_display = ['on_driver','on_longitude','on_latitude','on_update']
+
 admin.site.register(client,ClientAdmin)
 admin.site.register(driver,DriverAdmin)
 admin.site.register(order,OrderAdmin)
-#admin.site.register(offer,OfferAdmin)
-#admin.site.register(location,LocationAdmin)
 admin.site.register(truck,TruckAdmin)
+
+admin.site.register(online,OnlineAdmin)
+admin.site.register(offer,OfferAdmin)
+admin.site.register(location,LocationAdmin)
