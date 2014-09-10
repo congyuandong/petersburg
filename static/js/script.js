@@ -176,10 +176,10 @@ function closeBg() {
 //详细页面地图加载函数
 function loadMap(){
   
-  lon = parseFloat($("#longitude").attr("value"));
-  lat = parseFloat($("#latitude").attr("value"));
-  loc = $("#location").attr("value");
-  updatedate = $("#updatedate").attr("value");
+  lon = parseFloat($("#longitude").val());
+  lat = parseFloat($("#latitude").val());
+  loc = $("#location").val();
+  updatedate = $("#updatedate").val();
   // 百度地图API功能
   var map = new BMap.Map("allmap");    // 创建Map实例
   

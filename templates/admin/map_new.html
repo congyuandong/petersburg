@@ -42,7 +42,7 @@
             <input type="text" id="longitude" value="{{address.lo_longitude}}"/>
             <input type="text" id="latitude" value="{{address.lo_latitude}}"/>
             <input type="text" id="location" value="{{address.lo_location}}"/>
-            <input type="text" id="updatedate" value="{{address.lo_update | date:"Y-m-d H:i:s"}}"/>
+            <input type="text" id="updatedate" value="{{address.lo_update | date:'Y-m-d H:i:s'}}"/>
           </div>
           {% else%}
             暂时没有位置信息
