@@ -1,4 +1,4 @@
-var refresh_time = 10;
+var refresh_time = 120;
 $(document).ready(function(){
 	var times = $.cookie('times');
 	if(times == null){

@@ -500,7 +500,7 @@ def	get_order_search(request):
 	latitude = request.GET.get('latitude','')
 	or_start = request.GET.get('or_start','')
 	or_end = request.GET.get('or_end','')
-	print longitude,latitude,or_start,or_end
+	#print longitude,latitude,or_start,or_end
 
 	order_objs = order.objects.filter(Q(or_start__icontains=or_start)|Q(or_end__icontains=or_end))
 	#print order_objs
@@ -722,7 +722,7 @@ def set_location(request):
 		longitude = request.POST.get('longitude','')
 		address = request.POST.get('address','')
 
-		print or_id,dr_tel,longitude,latitude,address
+		#print or_id,dr_tel,longitude,latitude,address
 		order_obj = order.objects.get(or_id__exact = or_id)
 		driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
 		if order_obj and driver_obj:
