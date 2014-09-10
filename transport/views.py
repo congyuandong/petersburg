@@ -794,7 +794,7 @@ def app_push(request):
 			#context_dict['status']='1'
 
 		#向司机推送订单数据
-		order_objs = order.objects.all();
+		order_objs = order.objects.filter(or_status__exact = 0);
 
 		for order_obj in order_objs:
 			#最首先，推送的时间小于某个固定值
@@ -805,7 +805,7 @@ def app_push(request):
 			diffDays = (datetime.now() - or_pushTime).days
 			diffSeconds = (datetime.now() - or_pushTime).seconds
 			#print '时间差'+str(diffSeconds)
-			if  diffSeconds < 7200 and diffDays ==0:
+			if  diffSeconds < 7200 and diffDays == 0:
 				#距离要小于推送距离
 				distance = GetDistance(float(latitude),float(longitude),float(order_obj.or_latitude),float(order_obj.or_longitude))
 				#print distance,order_obj.or_push

@@ -62,7 +62,9 @@ $(document).ready(function(){
 				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});
 	$("#or_size_h").formValidator({onFocus:"单位：米",onCorrect:"&nbsp"})
 				   .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});			  	 
+				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});	
+	$("#or_request").formValidator({onCorrect:"&nbsp"})
+				    .regexValidator({regExp:"notempty",dataType:"enum",onError:"要求说明不能为空"});			  	 
 })
 
 
