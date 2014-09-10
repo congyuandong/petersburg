@@ -679,12 +679,12 @@ def driver_update(request):
 @csrf_exempt
 def driver_offer(request):
 	context_dict = {}
-	if request.method == 'GET':
-		dr_tel = request.GET.get('dr_tel')
-		or_id = request.GET.get('or_id')
-		or_price = request.GET.get('or_price')
-		latitude = request.GET.get('latitude','')
-		longitude = request.GET.get('longitude','')
+	if request.method == 'POST':
+		dr_tel = request.POST.get('dr_tel')
+		or_id = request.POST.get('or_id')
+		or_price = request.POST.get('or_price')
+		latitude = request.POST.get('latitude','')
+		longitude = request.POST.get('longitude','')
 		#print dr_tel,or_id,or_price,latitude,longitude
 		#distance = 0
 
@@ -700,12 +700,12 @@ def driver_offer(request):
 				offer_obj = offer.objects.get(of_order__exact = order_obj, of_driver__exact = driver_obj)
 				offer_obj.of_price = or_price
 				offer_obj.of_update = datetime.now()
-				offer_obj.of_distance = distance
+				offer_obj.of_distance = str(distance)
 				offer_obj.save()
 				context_dict['status']='2'
 				#print '报价修改成功'
 			else:
-				offer_obj_new = offer(of_order = order_obj, of_driver = driver_obj,of_price = or_price,of_distance = distance,of_update = datetime.now(),of_confirm = 0)
+				offer_obj_new = offer(of_order = order_obj, of_driver = driver_obj,of_price = or_price,of_distance = str(distance),of_update = datetime.now(),of_confirm = 0)
 				offer_obj_new.save()
 				context_dict['status']='1'
 				#print '报价成功'
