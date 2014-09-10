@@ -57,7 +57,7 @@ $(document).ready(function(){
 			"location" : map//,
 			//"onSearchComplete":mySearch
 		});
-		ac.setInputValue("请输入装车地址并从下拉框选择准确位置");
+		//ac.setInputValue("请输入装车地址并从下拉框选择准确位置");
 		//function mySearch(result){
 		//	alert(result.getNumPois());
 		//}
