@@ -879,9 +879,10 @@ def around(request,latitude,longitude,distance):
 	print latitude,longitude,distance
 	count = 0
 	online_objs = online.objects.filter(on_update__range=(datetime.now()-timedelta(seconds=7200),datetime.now()))
-	#print online_objs
+	print online_objs
 	for online_obj in online_objs:
 		dis = GetDistance(float(latitude),float(longitude),float(online_obj.on_latitude),float(online_obj.on_longitude))
+		print dis
 		if dis < float(distance):
 			count = count +1
 	response_data['num'] = count
