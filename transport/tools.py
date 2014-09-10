@@ -35,6 +35,7 @@ def GetDistance(lat1,lng1,lat2,lng2):
     s=2*math.asin(math.sqrt(math.pow(math.sin(a/2),2)+math.cos(radlat1)*math.cos(radlat2)*math.pow(math.sin(b/2),2)))
     earth_radius=6378.137
     s=s*earth_radius
+    s = round(s,2)
     if s<0:
         return -s
     else:

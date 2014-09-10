@@ -32,11 +32,11 @@ $(document).ready(function(){
 				  }).defaultPassed();
 	$("#clt_pwd").formValidator({onFocus:"6至15位数字或字母",onCorrect:"&nbsp"})
 				 .inputValidator({min:6,max:15,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"密码长度不合法"})
-				 .regexValidator({regExp:["num","letter"],dataType:"enum",onError:"只能包含数字或字母"});
+				 .regexValidator({regExp:["username"],dataType:"enum",onError:"只能包含数字或字母"});
 	$("#clt_pwd_a").formValidator({onFocus:"6至15位数字或字母",onCorrect:"&nbsp"})
 				   .inputValidator({min:6,max:15,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"密码长度不合法"})
 				   .compareValidator({desID:"clt_pwd",operateor:"=",onError:"2次密码不一致,请确认"})
-				   .regexValidator({regExp:["num","letter"],dataType:"enum",onError:"只能包含数字或字母"});
+				   .regexValidator({regExp:["username"],dataType:"enum",onError:"只能包含数字或字母"});
 	$("#clt_name").formValidator({onCorrect:"&nbsp"})
 				  .inputValidator({min:1,onError:"称呼不能为空"});
 	$("#clt_tel").formValidator({onFocus:"固话或手机号码",onCorrect:"&nbsp"})
