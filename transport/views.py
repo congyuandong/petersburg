@@ -57,7 +57,7 @@ def f_pwd_2(request):
 	context_dict = {}
 
 	if request.method == "POST":
-		print request.POST
+		#print request.POST
 		clt_mail = request.POST.get('clt_mail','')
 		clt_pwd = request.POST.get('clt_pwd','')
 		client_obj = client.objects.get(clt_mail__exact = clt_mail)
@@ -78,7 +78,7 @@ def f_pwd_code(request):
 
 	if request.method == 'GET':
 		mail = request.GET.get('mail','')
-		print mail
+		#print mail
 		if not ProcessMail(mail):
 			context_dict['msg'] = 0
 			return HttpResponse(json.dumps(context_dict),content_type="application/json")
@@ -139,7 +139,7 @@ def info(request):
 	client_obj = client.objects.get(id__exact = _id)
 
 	if request.method == 'POST':
-		print request.POST
+		#print request.POST
 
 		clt_name = request.POST.get('clt_name','')
 		clt_tel = request.POST.get('clt_tel','')
@@ -209,7 +209,7 @@ def orderlist(request):
 def orderdetail(request,or_id):
 	context = RequestContext(request)
 	context_dict = {}
-	print or_id
+	#print or_id
 	order_obj = order.objects.get(or_id__exact = or_id)
 
 	location_objs = location.objects.filter(lo_order__exact = order_obj).order_by('lo_update')
@@ -226,14 +226,14 @@ def orderdetail(request,or_id):
 	if location_objs:
 	 	context_dict['locations'] = location_objs
 	context_dict['offer_obj'] = offer_obj
-	print context_dict
+	#print context_dict
 	return render_to_response('transport/individual-orderdetail.html',context_dict,context)
 
 def orderedit(request,or_id):
 	context = RequestContext(request)
 	context_dict = {}
 	if request.method == 'POST':
-		print request.POST
+		#print request.POST
 		order_obj = order.objects.get(or_id__exact = or_id)
 		order_obj.or_update = datetime.now()
 		order_obj.or_pushTime = datetime.now()
@@ -270,12 +270,12 @@ def orderedit(request,or_id):
 		truck_objs = truck.objects.all().order_by('tr_sort')
 		context_dict['trucks'] = truck_objs;
 
-	print context_dict
+	#print context_dict
 	return render_to_response('transport/individual-orderedit.html',context_dict,context)
 
 #关闭订单
 def orderclose(request,or_id):
-	print or_id
+	#print or_id
 	order_obj = order.objects.get(or_id__exact = or_id)
 	order_obj.or_status = 3
 	order_obj.save()
@@ -299,7 +299,7 @@ def	orderpublish(request):
 		_id = request.session.get('user_id',False)
 		orderData.appendlist('or_client',_id)
 		orderData.appendlist('or_id',getOrderId())
-		print getOrderId()
+		#print getOrderId()
 		#print datetime.now().strftime('%Y%m%d')[2:]
 		#print getOrderId()
 
@@ -307,7 +307,7 @@ def	orderpublish(request):
 
 		if orderForm.is_valid():
 			orderForm.save()
-			print '订单发布成功'
+			#print '订单发布成功'
 			return HttpResponseRedirect('/t/i/psall/')
 		else:
 			print orderForm.errors
@@ -327,7 +327,7 @@ def getOrderId():
 def orderreceive(request,or_id,sort):
 	context = RequestContext(request)
 	context_dict = {}
-	print	or_id,sort
+	#print	or_id,sort
 	order_obj = order.objects.get(or_id__exact = or_id)
 
 	if sort == '1':
@@ -343,14 +343,14 @@ def orderreceive(request,or_id,sort):
 	context_dict['offer_objs'] = offer_objs
 	context_dict['or_id'] = or_id
 	
-	#print context_dict
+	print context_dict
 	return render_to_response('transport/individual-orderreceive.html',context_dict,context)
 
 #确认报价
 def offer_confirm(request,of_id):
 	context = RequestContext(request)
 	context_dict = {}
-	print of_id
+	#print of_id
 	offer_obj = offer.objects.get(id__exact = of_id)
 	offer_obj.of_order.or_status = 1
 	offer_obj.of_order.save()
@@ -383,15 +383,15 @@ def login(request):
 			if client_obj[0].clt_conf_mail == 1:
 				request.session['username'] = client_obj[0].clt_name
 				request.session['user_id'] = client_obj[0].id
-				print '用户登录成功'
+				#print '用户登录成功'
 				return HttpResponseRedirect('/t/i/psall')
 			else:
-				print '用户邮箱未验证'
+				#print '用户邮箱未验证'
 				context_dict['error'] = '邮箱未验证'
 				context_dict['mail'] = client_obj[0].clt_mail
 				return render_to_response('transport/login.html',context_dict,context)
 		else:
-			print '用户登录失败'
+			#print '用户登录失败'
 			context_dict['error'] = '用户名或者密码错误'
 			return render_to_response('transport/login.html',context_dict,context)
 	return render_to_response('transport/login.html',context_dict,context)
@@ -412,13 +412,13 @@ def reg(request):
 	registered = False
 
 	if request.method == 'POST':
-		print request.POST
+		#print request.POST
 		mail = request.POST.get('clt_mail')
 
 		clientForm = ClientForm(data=request.POST)
 
 		if clientForm.is_valid():
-			print '注册成功'
+			#print '注册成功'
 			registered = True
 			clientForm.save()
 			#调用发送邮件接口，进行邮箱确认
@@ -446,7 +446,7 @@ def reg_validator(request):
 def conf_mail(request):
 	context = RequestContext(request)
 	context_dict = {}
-	print request.GET
+	#print request.GET
 	
 	mail = request.GET.get('mail','')
 	client_obj = client.objects.get(clt_mail__exact = mail)
@@ -476,9 +476,9 @@ def get_order(request):
 
 	longitude = request.GET.get('longitude','')
 	latitude = request.GET.get('latitude','')
-	print longitude,latitude
+	#print longitude,latitude
 	order_objs = order.objects.filter(or_status__exact = 0)[:100]
-	print order_objs
+	#print order_objs
 	for order_obj in order_objs:
 		context = {}
 		context['or_id'] = order_obj.or_id
@@ -489,7 +489,7 @@ def get_order(request):
 		context['or_end'] = order_obj.or_end
 		context_list.append(context)
 	#print context_list
-	print '司机获取范围内车辆坐标'
+	#print '司机获取范围内车辆坐标'
 	return HttpResponse(json.dumps(context_list),content_type="application/json")
 
 #司机通过查询获取固定范围内订单信息
@@ -514,7 +514,7 @@ def	get_order_search(request):
 		context['or_end'] = order_obj.or_end
 		context_list.append(context)
 	#print context_list
-	print '司机查询范围内信息'
+	#print '司机查询范围内信息'
 	return HttpResponse(json.dumps(context_list),content_type="application/json")
 
 #司机获取与他报价的订单信息
@@ -523,7 +523,7 @@ def get_order_offer(request):
 	dr_tel = request.GET.get('dr_tel','')
 	#driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
 	offer_objs = offer.objects.filter(of_driver__dr_tel__exact = dr_tel)
-	print offer_objs
+	#print offer_objs
 	for offer_obj in offer_objs:
 		order_obj = order.objects.get(or_id__exact = offer_obj.of_order.or_id)
 		context = {}
@@ -532,8 +532,9 @@ def get_order_offer(request):
 		context['or_start'] = order_obj.or_start
 		context['or_end'] = order_obj.or_end
 		context['or_status'] = order_obj.or_status
+		context['of_confirm'] = offer_obj.of_confirm
 		context_list.append(context)
-	print '司机获取报价过的订单'
+	#print '司机获取报价过的订单'
 	#print context_list
 	return HttpResponse(json.dumps(context_list),content_type="application/json")
 
@@ -559,11 +560,11 @@ def driver_reg(request):
 	context_dict = {}
 
 	if request.method == 'POST':
-		print request.POST
+		#print request.POST
 		driverForm = DriverForm(data=request.POST)
 
 		if driverForm.is_valid():
-			print '司机注册成功'
+			#print '司机注册成功'
 			driverForm.save()
 			context_dict['status']='1'
 		else:
@@ -582,12 +583,12 @@ def dreg(request):
 
 	if request.method == 'POST':
 
-		print request.POST
+		#print request.POST
 		driverForm = DriverForm(data=request.POST)
 
 
 		if driverForm.is_valid():
-			print '司机注册成功'
+			#print '司机注册成功'
 			driverForm.save()
 			registered = True
 		else:
@@ -613,13 +614,13 @@ def driver_login(request):
 		#print	telphone,password
 		driver_obj = driver.objects.filter(dr_tel__exact = telphone,dr_pwd__exact = password)
 		if driver_obj:
-			print	'司机登录成功'
+			#print	'司机登录成功'
 			context_dict['status']='1'
 			context_dict['data']=json.loads(serializers.serialize("json", driver_obj))[0]['fields']
 		else:
-			print	'司机登录失败'
+			#print	'司机登录失败'
 			context_dict['status']='0'
-	print context_dict
+	#print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 #货车司机修改密码
@@ -636,11 +637,11 @@ def driver_pwd(request):
 			driver_obj.dr_pwd = dr_pwd
 			driver_obj.save()
 			context_dict['status']='1'
-			print '司机密码修改成功'
+			#print '司机密码修改成功'
 		else:
 			context_dict['status']='0'
-			print '司机密码修改失败'
-	print context_dict
+			#print '司机密码修改失败'
+	#print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 #货车信息修改
@@ -666,12 +667,12 @@ def driver_update(request):
 			driver_obj.dr_weight = dr_weight
 			driver_obj.save()
 			context_dict['status']='1'
-			print '车辆信息修改成功'
+			#print '车辆信息修改成功'
 		else:
 			context_dict['status']='0'
-			print '车辆信息修改失败'
+			#print '车辆信息修改失败'
 
-	print context_dict
+	#print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 #货车司机报价
@@ -684,31 +685,35 @@ def driver_offer(request):
 		or_price = request.POST.get('or_price')
 		latitude = request.POST.get('latitude','')
 		longitude = request.POST.get('longitude','')
-		print dr_tel,or_id,or_price,latitude,longitude
-
-		distance = 0
+		#print dr_tel,or_id,or_price,latitude,longitude
+		#distance = 0
 
 		driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
 		order_obj = order.objects.get(or_id__exact = or_id)
+
+		distance = GetDistance(float(latitude),float(longitude),float(order_obj.or_latitude),float(order_obj.or_longitude))
+		#print	distance
+
 		if driver_obj and order_obj:
 			offer_obj = offer.objects.filter(of_order__exact = order_obj, of_driver__exact = driver_obj)
 			if offer_obj:
 				offer_obj = offer.objects.get(of_order__exact = order_obj, of_driver__exact = driver_obj)
 				offer_obj.of_price = or_price
 				offer_obj.of_update = datetime.now()
+				offer_obj.of_distance = float(distance)
 				offer_obj.save()
 				context_dict['status']='2'
-				print '报价修改成功'
+				#print '报价修改成功'
 			else:
-				offer_obj_new = offer(of_order = order_obj, of_driver = driver_obj,of_price = or_price,of_distance = distance,of_update = datetime.now(),of_confirm = 0)
+				offer_obj_new = offer(of_order = order_obj, of_driver = driver_obj,of_price = or_price,of_distance = float(distance),of_update = datetime.now(),of_confirm = 0)
 				offer_obj_new.save()
 				context_dict['status']='1'
-				print '报价成功'
+				#print '报价成功'
 		else:
 			context_dict['status']='0'
-			print '报价失败'
+			#print '报价失败'
 
-	print context_dict
+	#print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 #获取订单的位置信息
@@ -729,12 +734,12 @@ def set_location(request):
 			location_obj = location(lo_order = order_obj,lo_driver = driver_obj,lo_longitude=longitude,lo_latitude=latitude,lo_location=address,lo_update = datetime.now())
 			location_obj.save()
 			context_dict['status']='1'
-			print '插入位置信息成功'
+			#print '插入位置信息成功'
 		else:
 			context_dict['status']='0'
-			print '插入位置信息失败'
+			#print '插入位置信息失败'
 
-	print context_dict
+	#print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 #设置订单完成，订单进入完成状态
@@ -743,7 +748,7 @@ def set_order_finish(request):
 
 	if request.method == 'POST':
 		or_id = request.POST.get('or_id','')
-		print or_id
+		#print or_id
 		order_obj = order.objects.get(or_id__exact = or_id)
 
 		if order_obj:
@@ -751,16 +756,16 @@ def set_order_finish(request):
 				order_obj.or_status = 2
 				order_obj.save()
 				context_dict['status']='1'
-				print '设置订单完成成功'
+				#print '设置订单完成成功'
 			else:
 				context_dict['status']='2'
-				print '设置订单完成失败,订单不是进行状态'
+				#print '设置订单完成失败,订单不是进行状态'
 
 		else:
 			context_dict['status']='0'
-			print '设置订单完成失败,订单不存在'
+			#print '设置订单完成失败,订单不存在'
 
-	print context_dict
+	#print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 #手机端获取推送数据
@@ -771,7 +776,7 @@ def app_push(request):
 		dr_tel = request.POST.get('dr_tel','')
 		latitude = request.POST.get('latitude','')
 		longitude = request.POST.get('longitude','')
-		print dr_tel,latitude,longitude
+		#print dr_tel,latitude,longitude
 
 		driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
 		online_obj = online.objects.filter(on_driver__exact = driver_obj)
@@ -795,15 +800,15 @@ def app_push(request):
 			#最首先，推送的时间小于某个固定值
 			or_pushTime = order_obj.or_pushTime
 			or_pushTime = or_pushTime.replace(tzinfo=None)
-			print or_pushTime
-			print datetime.now()
+			#print or_pushTime
+			#print datetime.now()
 			diffDays = (datetime.now() - or_pushTime).days
 			diffSeconds = (datetime.now() - or_pushTime).seconds
-			print '时间差'+str(diffSeconds)
+			#print '时间差'+str(diffSeconds)
 			if  diffSeconds < 7200 and diffDays ==0:
 				#距离要小于推送距离
 				distance = GetDistance(float(latitude),float(longitude),float(order_obj.or_latitude),float(order_obj.or_longitude))
-				print distance,order_obj.or_push
+				#print distance,order_obj.or_push
 				if distance <= order_obj.or_push:
 					push_obj = push.objects.filter(pu_order__exact = order_obj,pu_driver__exact = driver_obj)
 					#其次，没有给该司机push过数据
@@ -820,7 +825,7 @@ def app_push(request):
 					print '该订单距离太远，不推送'
 			else:
 				print '推送时间已过期'
-	print context_dict
+	#print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 #手机端获取卡车类型
@@ -854,7 +859,7 @@ def order_column(request):
 	order_objs_1 = order_objs.filter(or_status__exact = 1).count()
 	order_objs_2 = order_objs.filter(or_status__exact = 2).count()
 	order_objs_3 = order_objs.filter(or_status__exact = 3).count()
-	print count_all,order_objs_1,order_objs_2,order_objs_3
+	#print count_all,order_objs_1,order_objs_2,order_objs_3
 	response_data = [['交易总数',count_all],['显示中',order_objs_0],['进行中',order_objs_1],['已完成',order_objs_2],['已关闭',order_objs_3]]
 	print response_data
 	return HttpResponse(json.dumps(response_data),content_type="application/json")
@@ -868,7 +873,7 @@ def order_pie(request):
 	order_objs_1 = order_objs.filter(or_status__exact = 1).count()
 	order_objs_2 = order_objs.filter(or_status__exact = 2).count()
 	order_objs_3 = order_objs.filter(or_status__exact = 3).count()
-	print count_all,order_objs_1,order_objs_2,order_objs_3
+	#print count_all,order_objs_1,order_objs_2,order_objs_3
 	response_data = [['显示中',order_objs_0],['进行中',order_objs_1],['已完成',order_objs_2],['已关闭',order_objs_3]]
 	print response_data
 	return HttpResponse(json.dumps(response_data),content_type="application/json")
@@ -876,22 +881,22 @@ def order_pie(request):
 #获取范围内车辆的数量
 def around(request,latitude,longitude,distance):
 	response_data = {}
-	print latitude,longitude,distance
+	#print latitude,longitude,distance
 	count = 0
 	online_objs = online.objects.filter(on_update__range=(datetime.now()-timedelta(seconds=7200),datetime.now()))
-	print online_objs
+	#print online_objs
 	for online_obj in online_objs:
 		dis = GetDistance(float(latitude),float(longitude),float(online_obj.on_latitude),float(online_obj.on_longitude))
-		print dis
+		#print dis
 		if dis < float(distance):
 			count = count +1
 	response_data['num'] = count
-	print response_data
+	#print response_data
 	return HttpResponse(json.dumps(response_data),content_type="application/json")
 
 def around_rec(request,or_id,distance):
 	response_data = {}
-	print or_id,distance
+	#print or_id,distance
 	count =0
 	order_obj = order.objects.get(or_id__exact = or_id)
 
@@ -905,5 +910,5 @@ def around_rec(request,or_id,distance):
 
 	order_obj.or_push = distance
 	order_obj.save()
-	print response_data
+	#print response_data
 	return HttpResponse(json.dumps(response_data),content_type="application/json")

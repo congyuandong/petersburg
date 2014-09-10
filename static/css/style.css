@@ -873,6 +873,8 @@ outline: none;
   border-right: 1px solid #dfdfdf;
   border-left: 1px solid #dfdfdf;
   border-bottom: 1px solid #dfdfdf;
+  height: 432px;
+  overflow-y: auto;
 }
 
 .content-Inc .main-content .sub-head{
@@ -890,6 +892,7 @@ outline: none;
   padding-top: 13px;
   padding-bottom: 15px;
 }
+
 .l-horizontal dt {
   float: left;
   width: 176px;

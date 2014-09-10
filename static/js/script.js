@@ -179,7 +179,7 @@ function loadMap(){
   lon = parseFloat($("#longitude").attr("value"));
   lat = parseFloat($("#latitude").attr("value"));
   loc = $("#location").attr("value");
-  update = $("#update").attr("value");
+  updatedate = $("#updatedate").attr("value");
   // 百度地图API功能
   var map = new BMap.Map("allmap");    // 创建Map实例
   
@@ -196,7 +196,7 @@ function loadMap(){
   var opts = {
     enableMessage:false    //设置允许信息窗发送短息
   }
-  var infoWindow = createInfoWindow(loc,update,opts);  // 创建信息窗口对象 
+  var infoWindow = createInfoWindow(loc,updatedate,opts);  // 创建信息窗口对象 
   map.openInfoWindow(infoWindow,center); //开启信息窗口
   marker.addEventListener("click", function(){          
     map.openInfoWindow(infoWindow,center); //开启信息窗口
@@ -205,8 +205,8 @@ function loadMap(){
 }
 
 //创建InfoWindow
-function createInfoWindow(loc,update,opts){
-  var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + loc + "'>" + loc + "</b><div class='iw_poi_content'>"+update+"(上次定位)</div>",opts);
+function createInfoWindow(loc,updatedate,opts){
+  var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + loc + "'>" + loc + "</b><div class='iw_poi_content'>"+updatedate+"(上次定位)</div>",opts);
   return iw;
 }
 
