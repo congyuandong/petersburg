@@ -693,25 +693,27 @@ def driver_offer(request):
 
 		distance = GetDistance(float(latitude),float(longitude),float(order_obj.or_latitude),float(order_obj.or_longitude))
 		#print	distance
-
-		if driver_obj and order_obj:
-			offer_obj = offer.objects.filter(of_order__exact = order_obj, of_driver__exact = driver_obj)
-			if offer_obj:
-				offer_obj = offer.objects.get(of_order__exact = order_obj, of_driver__exact = driver_obj)
-				offer_obj.of_price = or_price
-				offer_obj.of_update = datetime.now()
-				offer_obj.of_distance = str(distance)
-				offer_obj.save()
-				context_dict['status']='2'
-				#print '报价修改成功'
+		if order_obj.or_status == 0:
+			if driver_obj and order_obj:
+				offer_obj = offer.objects.filter(of_order__exact = order_obj, of_driver__exact = driver_obj)
+				if offer_obj:
+					offer_obj = offer.objects.get(of_order__exact = order_obj, of_driver__exact = driver_obj)
+					offer_obj.of_price = or_price
+					offer_obj.of_update = datetime.now()
+					offer_obj.of_distance = str(distance)
+					offer_obj.save()
+					context_dict['status']='2'
+					#print '报价修改成功'
+				else:
+					offer_obj_new = offer(of_order = order_obj, of_driver = driver_obj,of_price = or_price,of_distance = str(distance),of_update = datetime.now(),of_confirm = 0)
+					offer_obj_new.save()
+					context_dict['status']='1'
+					#print '报价成功'
 			else:
-				offer_obj_new = offer(of_order = order_obj, of_driver = driver_obj,of_price = or_price,of_distance = str(distance),of_update = datetime.now(),of_confirm = 0)
-				offer_obj_new.save()
-				context_dict['status']='1'
-				#print '报价成功'
+				context_dict['status']='0'
+				#print '报价失败'
 		else:
-			context_dict['status']='0'
-			#print '报价失败'
+			context_dict['status']='3'
 
 	#print context_dict
 	return HttpResponse(json.dumps(context_dict),content_type="application/json")
