@@ -845,7 +845,7 @@ def truck_type(request):
 def app_update(request):
 	context_dict = {}
 	version = request.GET.get('version','')
-	if version == '1.2':
+	if version == '1.3':
 		context_dict['status']='0'
 	else:
 		context_dict['status']='1'
