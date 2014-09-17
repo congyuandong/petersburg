@@ -38,6 +38,7 @@ class driver(models.Model):
 	dr_length = models.CharField(max_length=50,verbose_name='车辆长度')
 	dr_weight = models.CharField(max_length=50,verbose_name='最大载重')
 	dr_pwd = models.CharField(max_length=20,verbose_name='密码')
+	dr_score = models.IntegerField(default=0,verbose_name='积分',null=True)
 
 	def toJSON(self):
 		return json.dumps(dict([(attr, getattr(self, attr)) for attr in [f.name for f in self._meta.fields]]))
@@ -48,6 +49,7 @@ class driver(models.Model):
 	class Meta:
 		verbose_name = '货车司机'
 		verbose_name_plural = '货车司机'
+
 
 '''
 订单
@@ -94,6 +96,19 @@ class order(models.Model):
 	class Meta:
 		verbose_name = '订单管理'
 		verbose_name_plural = '订单管理'
+
+'''
+用户向司机推荐订单
+'''
+class commend(models.Model):
+	co_driver = models.ForeignKey(driver,verbose_name="司机")
+	co_order = models.ForeignKey(order,verbose_name="订单")
+	co_status = models.IntegerField(default=0,verbose_name='是否推送给司机')
+
+	class Meta:
+		verbose_name = '司机推荐'
+		verbose_name_plural = '司机推荐'
+
 
 '''
 订单报价

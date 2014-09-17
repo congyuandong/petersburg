@@ -2,6 +2,8 @@
 import random,math,os
 import string
 from django.core.mail import send_mail
+import simplejson as json
+from datetime import datetime
 
 FullPath = 'http://localhost:8080/t/conf_mail'
 
@@ -40,3 +42,13 @@ def GetDistance(lat1,lng1,lat2,lng2):
         return -s
     else:
         return s
+
+#解决json不能序列化时间的问题
+class CJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(obj, date):
+            return obj.strftime('%Y-%m-%d')
+        else:
+            return json.JSONEncoder.default(self, obj)

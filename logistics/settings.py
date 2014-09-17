@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'logistics.wsgi.application'
 DATABASES = {
     'default':{
         'ENGINE':'django.db.backends.mysql',
-        'NAME':'transport',
+        'NAME':'petersburg',
         'USER':'root',
         'PASSWORD':'123',
         'HOST':'127.0.0.1',
@@ -86,7 +86,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'zh-cn'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Shanghai'
 

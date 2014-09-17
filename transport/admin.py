@@ -27,8 +27,8 @@ class ClientAdmin(admin.ModelAdmin):
 	search_fields = ['clt_name']
 
 class DriverAdmin(admin.ModelAdmin):
-	fields = ['dr_name','dr_iden','dr_tel','dr_number','dr_hand','dr_type','dr_length','dr_weight','dr_pwd']
-	list_display = ['dr_name','dr_iden','dr_tel','dr_number','dr_hand','dr_type','dr_length','dr_weight','dr_pwd']
+	fields = ['dr_name','dr_score','dr_iden','dr_tel','dr_number','dr_hand','dr_type','dr_length','dr_weight','dr_pwd']
+	list_display = ['dr_name','dr_score','dr_iden','dr_tel','dr_number','dr_hand','dr_type','dr_length','dr_weight','dr_pwd']
 	search_fields = ['dr_name']
 
 class OrderAdmin(admin.ModelAdmin):

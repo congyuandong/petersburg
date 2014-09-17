@@ -18,29 +18,29 @@
     <div class="wrap">
       <div class="topbar">
         <span class="left">
-          欢迎来到至诚迅达网！[
+          Welcome！[
           {% if not request.session.username %}
-          <a href="/t/login/">登录</a>
+          <a href="/t/login/">LOG IN</a>
           |
-          <a href="/t/reg/">注册</a>
+          <a href="/t/reg/">SIGN UP</a>
           {% else %}
           <a href="/t/i/psall/" >{{request.session.username}}</a>
           |
-          <a href="/t/logout/" >注销</a>
+          <a href="/t/logout/" >SIGN OUT</a>
           {% endif %}
           ]
         </span>
-        <span class="right">客服热线 010-83790418</span>
+        <span class="right">TEL 010-83790418</span>
       </div>
       <div class="logo left">
         <img src="{% static 'images/logo.png'%}"></div>
       {% load mainTags %} 
       <ul class="navbar right">
-        {% navtagitem /t/index "首页" %} 
-        {% navtagitem /t/download "下载" %} 
-        {% navtagitem /t/i/psall/ "个人中心" %} 
-        {% navtagitem /t/about "关于我们" %} 
-        {% navtagitem /t/question "常见问题" %}  
+        {% navtagitem /t/index "HOME" %} 
+        {% navtagitem /t/download "DOWNLOAD" %} 
+        {% navtagitem /t/i/psall/ "ACCOUNT" %} 
+        {% navtagitem /t/about "ABOUT US" %} 
+        {% navtagitem /t/question "FEEDBACK" %}  
       </ul>
     </div>
   </div>
@@ -49,18 +49,18 @@
 
   <div class="footer">
     <p class="link">
-      <a href="/t/question/">常见问题</a>
+      <a href="/t/question/">Help Center</a>
       |
-      <a href="/t/download/">下载中心</a>
+      <a href="/t/download/">Download</a>
       |
-      <a href="mailto:master@thunder56.com">联系我们</a>
+      <a href="mailto:master@thunder56.com">Contact</a>
       |
-      <a href="/t/about/">关于我们</a>
+      <a href="/t/about/">About us</a>
     </p>
     <p>
-      Copyright © 2014 北京至诚迅达物流有限公司 All Rights Reserved.  京ICP备14016441号
+      Copyright © 2014 Harbin Engineering University
     </p>
-    <p>地址：北京市大兴区西芦物流园9号 Email：<a href='javascript:;'>master@thunder56.com</a></p>
+    <p>Address：Nantong Avenue in Nangang District of Harbin Email：<a href='javascript:;'>master@thunder56.com</a></p>
   </div>
   
   <script type="text/javascript" src="{% static 'js/formValidator-4.1.1.js'%}"></script>

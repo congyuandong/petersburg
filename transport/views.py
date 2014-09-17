@@ -8,7 +8,7 @@ from django.core import serializers
 from django.db.models import Q
 
 from transport.forms import DriverForm,ClientForm,OrderForm
-from transport.models import client,driver,order,offer,location,truck,online,push
+from transport.models import client,driver,order,offer,location,truck,online,push,commend
 
 import simplejson as json
 from datetime import datetime,timedelta
@@ -130,6 +130,36 @@ def ind_select(request,status):
 		context_dict['download'] = True
 	return render_to_response('transport/individual.html',context_dict,context)
 
+#手机端客户获取订单
+def app_clt_order(request):
+	context = RequestContext(request)
+	context_dict = {}
+	#context_offer_objs = []
+	context_order_objs = []
+
+	if request.method == 'GET':
+		clt_mail = request.GET.get('clt_mail','')
+		client_obj = client.objects.get(clt_mail__exact = clt_mail)
+		#print client_obj
+		order_objs = order.objects.filter(or_client__exact = client_obj.id).order_by('-or_update')
+		#print order_objs
+		for order_obj in order_objs:
+			offer_objs_nums = offer.objects.filter(of_order__exact = order_obj).count()
+			offer_obj = {}
+			offer_obj['or_id'] = order_obj.or_id
+			offer_obj['offer_nums'] = offer_objs_nums
+			offer_obj['or_title'] = order_obj.or_title
+			offer_obj['or_start'] = order_obj.or_start
+			offer_obj['or_end'] = order_obj.or_end
+			offer_obj['or_status'] = order_obj.or_status
+			context_order_objs.append(offer_obj)
+
+		print context_order_objs
+		#context_dict['orders'] = context_order_objs
+
+	print context_order_objs
+	return HttpResponse(json.dumps(context_order_objs),content_type="application/json")
+
 #个人资料修改
 def info(request):
 	context = RequestContext(request)
@@ -229,6 +259,137 @@ def orderdetail(request,or_id):
 	#print context_dict
 	return render_to_response('transport/individual-orderdetail.html',context_dict,context)
 
+#手机发货端获取订单详情
+def app_clt_order_detail(request):
+	context = RequestContext(request)
+	context_dict = {}
+
+	if request.method == 'GET':
+		or_id = request.GET.get('or_id','')
+		order_obj = order.objects.get(or_id__exact = or_id)
+		if order_obj:
+			context_dict['or_title'] = order_obj.or_title 
+			context_dict['or_request'] = order_obj.or_request 
+			context_dict['or_start'] = order_obj.or_start 
+			context_dict['or_end'] = order_obj.or_end 
+			context_dict['or_startTime'] = order_obj.or_startTime 
+			context_dict['or_endTime'] = order_obj.or_endTime 
+			context_dict['or_name'] = order_obj.or_name 
+			context_dict['or_board'] = order_obj.or_board 
+			context_dict['or_number'] = order_obj.or_number 
+			context_dict['or_weight'] = order_obj.or_weight 
+			context_dict['status'] = 1
+		else:
+			context_dict['status'] = 0
+	return HttpResponse(json.dumps(context_dict,cls=CJsonEncoder),content_type="application/json")
+
+#手机发货端获取报价详情
+def app_clt_offer_detail(request):
+	context = RequestContext(request)
+	context_dict = {}
+
+	if request.method == 'GET':
+		of_id = request.GET.get('of_id','')
+		offer_obj = offer.objects.get(id = of_id)
+		if offer_obj:
+			context_dict['status'] = 1
+			context_dict['dr_tel'] = offer_obj.of_driver.dr_tel
+			context_dict['dr_name'] = offer_obj.of_driver.dr_name
+			context_dict['dr_iden'] = offer_obj.of_driver.dr_iden
+			context_dict['dr_number'] = offer_obj.of_driver.dr_number
+			context_dict['dr_hand'] = offer_obj.of_driver.dr_hand
+			context_dict['dr_type'] = offer_obj.of_driver.dr_type
+			context_dict['dr_length'] = offer_obj.of_driver.dr_length
+			context_dict['dr_weight'] = offer_obj.of_driver.dr_weight
+			context_dict['of_distance'] = offer_obj.of_distance
+		else:
+			context_dict['status'] = 0
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
+#手机发货端获取地理信息
+def app_clt_location_detail(request):
+	context = RequestContext(request)
+	context_dict = {}
+	if request.method == 'GET':
+		or_id = request.GET.get('or_id','')
+		order_obj = order.objects.get(or_id__exact = or_id)
+		if order_obj:
+			location_objs = location.objects.filter(lo_order__exact = order_obj).order_by('lo_update')
+			location_data = []
+			if location_objs:
+		 		for location_obj in location_objs:
+		 			location_per_data = {}
+		 			location_per_data['lo_update'] =  location_obj.lo_update
+		 			location_per_data['lo_location'] =  location_obj.lo_location
+		 			location_data.append(location_per_data)
+		 		#print location_data
+		 		context_dict['locations'] = location_data
+		 	else:
+		 		context_dict['locations'] = 'null'
+			address_objs = location.objects.filter(lo_order__exact = order_obj).order_by('-lo_update')
+			address_data = {}
+			if address_objs:
+				address_data['lo_longitude'] = address_objs[0].lo_longitude
+				address_data['lo_latitude'] = address_objs[0].lo_latitude
+				address_data['lo_location'] = address_objs[0].lo_location
+				address_data['lo_update'] = address_objs[0].lo_update
+				context_dict['address'] = address_data
+			else:
+				context_dict['address'] = 'null'
+			
+		else:
+			context_dict['status'] = 0
+	return HttpResponse(json.dumps(context_dict,cls=CJsonEncoder),content_type="application/json")
+
+#手机发货端获取司机推荐信息
+def clt_commend(request):
+	context = RequestContext(request)
+	context_dict = []
+
+	driver_objs = driver.objects.order_by('-dr_score')
+	for driver_obj in driver_objs:
+		driver_data = {}
+		driver_data['dr_name'] = driver_obj.dr_name
+		driver_data['dr_iden'] = driver_obj.dr_iden
+		driver_data['dr_tel'] = driver_obj.dr_tel
+		driver_data['dr_number'] = driver_obj.dr_number
+		driver_data['dr_hand'] = driver_obj.dr_hand
+		driver_data['dr_type'] = driver_obj.dr_type
+		driver_data['dr_length'] = driver_obj.dr_length
+		driver_data['dr_weight'] = driver_obj.dr_weight
+		driver_data['dr_score'] = driver_obj.dr_score
+		context_dict.append(driver_data)
+
+	#context_dict['dirvers'] = context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
+#发货端向司机推荐订单
+def clt_commend_order(request):
+	context = RequestContext(request)
+	context_dict = {}
+
+	if request.method == 'POST':
+		or_id = request.POST.get('or_id','')
+		dr_tel = request.POST.get('dr_tel','')
+		print or_id,dr_tel
+		order_obj = order.objects.get(or_id__exact = or_id)
+		driver_obj = driver.objects.get(dr_tel__exact = dr_tel)
+		if order_obj and driver_obj:
+			commend_obj = commend.objects.filter(co_driver = driver_obj,co_order=order_obj)
+			if commend_obj:
+				commend_obj[0].co_status = 0;
+				commend_obj[0].save()
+				context_dict['status'] = 2
+			else:
+				context_dict['status'] = 1
+				commend_new = commend(co_driver = driver_obj,co_order=order_obj,co_status=0)
+				commend_new.save()
+		else:
+			context_dict['status'] = 0
+
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
+#编辑订单
 def orderedit(request,or_id):
 	context = RequestContext(request)
 	context_dict = {}
@@ -314,6 +475,34 @@ def	orderpublish(request):
 
 	return render_to_response('transport/individual-orderpublish.html',context_dict,context)
 
+#手机端发布订单
+def app_orderpublish(request):
+	context = RequestContext(request)
+	context_dict = {}
+
+	if request.method == 'POST':
+		orderData = request.POST.copy()
+		#print orderData
+		orderData.appendlist('or_status',0)
+		orderData.appendlist('or_view',0)
+		orderData.appendlist('or_update',datetime.now())
+		orderData.appendlist('or_pushTime',datetime.now())
+		#_id = request.session.get('user_id',False)
+		client_obj = client.objects.get(clt_mail__exact = request.POST.get('clt_mail',''))
+		orderData.appendlist('or_client',client_obj.id)
+		orderData.appendlist('or_id',getOrderId())
+		#print orderData
+		orderForm = OrderForm(data=orderData)
+
+		if orderForm.is_valid():
+			orderForm.save()
+			context_dict['status'] = 1
+		else:
+			context_dict['status'] = 0
+			context_dict['error'] = orderForm.errors
+	print context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
 #计算下一个订单编号
 def getOrderId():
 
@@ -346,6 +535,29 @@ def orderreceive(request,or_id,sort):
 	print context_dict
 	return render_to_response('transport/individual-orderreceive.html',context_dict,context)
 
+#手机端报价列表
+def app_clt_receive(request):
+	context = RequestContext(request)
+	context_dict = []
+
+	if request.method == 'GET':
+		or_id = request.GET.get('or_id','')
+		order_obj = order.objects.get(or_id__exact = or_id)
+		offer_objs = offer.objects.filter(of_order__exact = order_obj)
+
+		for offer_obj in offer_objs:
+			offer_data = {}
+			offer_data['dr_name'] =  offer_obj.of_driver.dr_name
+			offer_data['or_id'] = or_id
+			offer_data['dr_iden'] = offer_obj.of_driver.dr_iden
+			offer_data['dr_tel'] = offer_obj.of_driver.dr_tel
+			offer_data['dr_type'] = offer_obj.of_driver.dr_type
+			offer_data['of_price'] = offer_obj.of_price
+			offer_data['of_id'] = offer_obj.id
+			context_dict.append(offer_data)
+		print context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
+
 #确认报价
 def offer_confirm(request,of_id):
 	context = RequestContext(request)
@@ -358,7 +570,22 @@ def offer_confirm(request,of_id):
 	offer_obj.save()
 	#request.session['download'] = True
 	return HttpResponseRedirect('/t/i/ps1/')
-	
+
+def app_offer_confirm(request):
+	context = RequestContext(request)
+	context_dict = {}
+	if request.method == 'POST':
+		of_id = request.POST.get('of_id','')
+		offer_obj = offer.objects.get(id__exact = of_id)
+		if offer_obj:
+			offer_obj.of_order.or_status = 1
+			offer_obj.of_order.save()
+			offer_obj.of_confirm = 1
+			offer_obj.save()
+			context_dict['status'] = 1
+		else:
+			context_dict['status'] = 0
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 def question(request):
 	context = ''
@@ -396,6 +623,24 @@ def login(request):
 			return render_to_response('transport/login.html',context_dict,context)
 	return render_to_response('transport/login.html',context_dict,context)
 
+
+#手机端客户登录
+def app_clt_login(request):
+	context = RequestContext(request)
+	context_dict = {}
+	if request.method == 'POST':
+		mail = request.POST.get('clt_mail')
+		password = request.POST.get('clt_pwd')
+		print request.POST
+		client_obj = client.objects.filter(clt_mail__exact = mail,clt_pwd__exact = password)
+		if client_obj:
+			context_dict['status'] = 1
+			context_dict['data']=json.loads(serializers.serialize("json", client_obj))[0]['fields']
+		else:
+			context_dict['status'] = 0
+	print context_dict
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")	
+
 #再次发送验证邮箱
 def send_mail(request):
 	context = RequestContext(request)
@@ -430,6 +675,26 @@ def reg(request):
 		
 	context_dict['registered'] = registered
 	return render_to_response('transport/reg.html',context_dict,context)
+
+#手机端客户注册
+def app_clt_reg(request):
+	context = RequestContext(request)
+	context_dict = {}
+
+	if request.method == 'POST':
+		clientData = request.POST
+		print clientData
+
+		clientForm = ClientForm(data=clientData)
+
+		if clientForm.is_valid():
+			clientForm.save()
+			context_dict['status'] = 1
+		else:
+			context_dict['status'] = 0
+			context_dict['error'] = clientForm.errors
+
+	return HttpResponse(json.dumps(context_dict),content_type="application/json")
 
 #注册校验
 def reg_validator(request):
