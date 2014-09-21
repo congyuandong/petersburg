@@ -599,10 +599,10 @@ def login(request):
 		mail = request.POST.get('name')
 		password = request.POST.get('pwd')
 		if not mail or not password:
-			context_dict['error'] = '用户名或者密码不能为空'
+			context_dict['error'] = "can't be blank"
 			return render_to_response('transport/login.html',context_dict,context)
 		if ProcessMail(mail) == False:
-			context_dict['error'] = '邮箱格式不正确'
+			context_dict['error'] = 'Email is invalid'
 			return render_to_response('transport/login.html',context_dict,context)
 
 		client_obj = client.objects.filter(clt_mail__exact = mail,clt_pwd__exact = password)
@@ -614,12 +614,12 @@ def login(request):
 				return HttpResponseRedirect('/t/i/psall')
 			else:
 				#print '用户邮箱未验证'
-				context_dict['error'] = '邮箱未验证'
+				context_dict['error'] = 'Email is invalid'
 				context_dict['mail'] = client_obj[0].clt_mail
 				return render_to_response('transport/login.html',context_dict,context)
 		else:
 			#print '用户登录失败'
-			context_dict['error'] = '用户名或者密码错误'
+			context_dict['error'] = 'PWD or username is incorrect'
 			return render_to_response('transport/login.html',context_dict,context)
 	return render_to_response('transport/login.html',context_dict,context)
 

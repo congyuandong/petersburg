@@ -29,42 +29,42 @@ $(document).ready(function(){
 				.regexValidator({regExp:"notempty",dataType:"enum",onError:"卸车地点不能为空"}); 
 
 	$("#or_startTime").formValidator({onCorrect:"&nbsp"})
-					  .inputValidator({min:1,onError:"提货时间不能为空"});
+					  .inputValidator({min:1,onError:"can't be blank"});
 	$("#or_endTime").formValidator({onCorrect:"&nbsp"})
-					.inputValidator({min:1,onError:"到达时间不能为空"});
+					.inputValidator({min:1,onError:"can't be blank"});
 	$("#or_name").formValidator({onCorrect:"&nbsp"})
-				 .regexValidator({regExp:"notempty",dataType:"enum",onError:"货品名称不能为空"});		
-	$("#or_price").formValidator({onFocus:"单位：元",onCorrect:"&nbsp"})
-				  .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				  .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});	
-	$("#or_board").formValidator({onFocus:"例如：4",onCorrect:"&nbsp"})
-				  .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				  .regexValidator({regExp:"num1",dataType:"enum",onError:"请输入正确的数值"});	
-	$("#or_number").formValidator({onFocus:"单位：个",onCorrect:"&nbsp"})
-				   .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				   .regexValidator({regExp:"num1",dataType:"enum",onError:"请输入正确的数值"});
-	$("#or_weight").formValidator({onFocus:"单位：千克",onCorrect:"&nbsp"})
-				   .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});
-	$("#or_volume").formValidator({onFocus:"单位：方",onCorrect:"&nbsp"})
-	               .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});
-	$("#or_length").formValidator({onFocus:"单位：米",onCorrect:"&nbsp"})
-	               .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});
-	$("#or_truck").formValidator({onFocus:"请选择货车类型",onCorrect:"&nbsp"})
-				  .inputValidator({min:1,onError: "货车类型必须选择"}).defaultPassed();	
-	$("#or_size_l").formValidator({onFocus:"单位：米",onCorrect:"&nbsp"})
-	               .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});
-	$("#or_size_w").formValidator({onFocus:"单位：米",onCorrect:"&nbsp"})
-	               .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});
-	$("#or_size_h").formValidator({onFocus:"单位：米",onCorrect:"&nbsp"})
-				   .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"两边不能有空符号"},onError:"数据过长"})
-				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"请输入正确的数值"});	
+				 .regexValidator({regExp:"notempty",dataType:"enum",onError:"can't be blank"});		
+	$("#or_price").formValidator({onFocus:"RMB",onCorrect:"&nbsp"})
+				  .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"Out of range"})
+				  .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"Incorrect"});	
+	$("#or_board").formValidator({onFocus:"LIKE：4",onCorrect:"&nbsp"})
+				  .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"Out of range"})
+				  .regexValidator({regExp:"num1",dataType:"enum",onError:"Incorrect"});	
+	$("#or_number").formValidator({onFocus:"",onCorrect:"&nbsp"})
+				   .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"Out of range"})
+				   .regexValidator({regExp:"num1",dataType:"enum",onError:"Incorrect"});
+	$("#or_weight").formValidator({onFocus:"KG",onCorrect:"&nbsp"})
+				   .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"Out of range"})
+				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"Incorrect"});
+	$("#or_volume").formValidator({onFocus:"M*3",onCorrect:"&nbsp"})
+	               .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"Out of range"})
+				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"Incorrect"});
+	$("#or_length").formValidator({onFocus:"M",onCorrect:"&nbsp"})
+	               .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"Out of range"})
+				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"Incorrect"});
+	$("#or_truck").formValidator({onFocus:"Pick a type",onCorrect:"&nbsp"})
+				  .inputValidator({min:1,onError: "can't be blank"}).defaultPassed();	
+	$("#or_size_l").formValidator({onFocus:"M",onCorrect:"&nbsp"})
+	               .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"Out of range"})
+				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"Incorrect"});
+	$("#or_size_w").formValidator({onFocus:"M",onCorrect:"&nbsp"})
+	               .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"Out of range"})
+				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"Incorrect"});
+	$("#or_size_h").formValidator({onFocus:"M",onCorrect:"&nbsp"})
+				   .inputValidator({min:1,max:10,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"Out of range"})
+				   .regexValidator({regExp:["decmal4","num1"],dataType:"enum",onError:"Incorrect"});	
 	$("#or_request").formValidator({onCorrect:"&nbsp"})
-				    .regexValidator({regExp:"notempty",dataType:"enum",onError:"要求说明不能为空"});			  	 
+				    .regexValidator({regExp:"notempty",dataType:"enum",onError:"can't be blank"});			  	 
 })
 
 

@@ -30,19 +30,19 @@ $(document).ready(function(){
 					onError: "该邮箱已被注册",
 					onWait: "正在校验邮箱，请稍候..."
 				  }).defaultPassed();
-	$("#clt_pwd").formValidator({onFocus:"6至15位数字或字母",onCorrect:"&nbsp"})
-				 .inputValidator({min:6,max:15,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"密码长度不合法"})
-				 .regexValidator({regExp:["username"],dataType:"enum",onError:"只能包含数字或字母"});
-	$("#clt_pwd_a").formValidator({onFocus:"6至15位数字或字母",onCorrect:"&nbsp"})
-				   .inputValidator({min:6,max:15,empty:{leftEmpty:false,rightEmpty:false,emptyError:"密码两边不能有空符号"},onError:"密码长度不合法"})
-				   .compareValidator({desID:"clt_pwd",operateor:"=",onError:"2次密码不一致,请确认"})
-				   .regexValidator({regExp:["username"],dataType:"enum",onError:"只能包含数字或字母"});
+	$("#clt_pwd").formValidator({onFocus:"6 to 15",onCorrect:"&nbsp"})
+				 .inputValidator({min:6,max:15,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"more than 15"})
+				 .regexValidator({regExp:["username"],dataType:"enum",onError:"only numbers and letters"});
+	$("#clt_pwd_a").formValidator({onFocus:"6 to 15",onCorrect:"&nbsp"})
+				   .inputValidator({min:6,max:15,empty:{leftEmpty:false,rightEmpty:false,emptyError:"can't be blank"},onError:"more than 15"})
+				   .compareValidator({desID:"clt_pwd",operateor:"=",onError:"doesn't match"})
+				   .regexValidator({regExp:["username"],dataType:"enum",onError:"only numbers and letters"});
 	$("#clt_name").formValidator({onCorrect:"&nbsp"})
-				  .inputValidator({min:1,onError:"称呼不能为空"});
-	$("#clt_tel").formValidator({onFocus:"固话或手机号码",onCorrect:"&nbsp"})
-				 .inputValidator({min:1,onError:"联系方式不能为空"})
-				 .regexValidator({regExp:["tel","mobile"],dataType:"enum",onError:"手机或电话格式不正确"});
+				  .inputValidator({min:1,onError:"can't be blank"});
+	$("#clt_tel").formValidator({onFocus:"Incorrect",onCorrect:"&nbsp"})
+				 .inputValidator({min:1,onError:"can't be blank"})
+				 .regexValidator({regExp:["tel","mobile"],dataType:"enum",onError:"Incorrect"});
 	$("#clt_company").formValidator({onCorrect:"&nbsp"})
-					 .inputValidator({min:1,onError:"公司名称不能为空"});
-	$("#confirm").inputValidator({min:1,onError:"公司名称不能为空"});		 
+					 .inputValidator({min:1,onError:"can't be blank"});
+	$("#confirm").inputValidator({min:1,onError:"can't be blank"});		 
 })

@@ -4,7 +4,7 @@
   padding:0; 
   margin:0; 
   font-size:12px; 
-  font-family:SimSun ,'Microsoft YaHei'; 
+  font-family:arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; 
   text-decoration:none; 
   border:none; 
   list-style:none;
@@ -376,6 +376,7 @@ outline: none;
 }
 .content-download .download{
   margin-top: 160px;
+  width: 280px;
 }
 /*.download .title{
   margin-top: 0px;
@@ -400,11 +401,15 @@ outline: none;
   color: 
 }*/
 .download .download-btn{
-  margin-top: 200px;
+  margin-top: 20px;
   width: 273px;
   height: 65px;
   outline: none;
   background: url(../images/download.png) no-repeat;
+}
+.download .download-btn.ios{
+  margin-top: 200px;
+  background: url(../images/download_ios.png) no-repeat;
 }
 .grayline{
   height: 20px;
